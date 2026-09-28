@@ -50,6 +50,11 @@ a {
   justify-content: center;
 }
 
+.footerLayoutContainer {
+  display: flex;
+  justify-content: center;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
