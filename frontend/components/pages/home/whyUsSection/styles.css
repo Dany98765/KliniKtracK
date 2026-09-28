@@ -32,7 +32,7 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    gap: 50px;
+    gap: 30px;
 }
 
 .permissionBasedCardContainer {
@@ -51,7 +51,9 @@
     height: 250px;
 }
 
-.imgContainer1, .imgContainer2, .imgContainer3 {
+.imgContainer1,
+.imgContainer2,
+.imgContainer3 {
     background-color: white;
     border-radius: 5px;
     border: none;
@@ -79,13 +81,23 @@
     width: 70%;
 }
 
-.chronologicallyOrderedCardContainer{
+.chronologicallyOrderedCardContainer {
     margin-top: 30px;
     background-color: var(--secondary-bg);
     padding: 24px 32px;
     border-radius: 10px;
     height: 250px;
-    width: 100%;
+    width: calc(100% + 30px);
+}
+
+.permissionBasedCardContainer, .endToEndSolutionContainer, .chronologicallyOrderedCardContainer {
+    transition: all 0.3s ease;
+    box-shadow: none;
+}
+
+.permissionBasedCardContainer:hover, .endToEndSolutionContainer:hover, .chronologicallyOrderedCardContainer:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
 }
 
 @media (max-width: 1000px) {
@@ -113,6 +125,10 @@
     .permissionBasedDesc {
         font-size: 15px;
     }
+
+    .chronologicallyOrderedCardContainer {
+        width: calc(100% + 20px);
+    }
 }
 
 @media (max-width: 625px) {
@@ -120,7 +136,8 @@
         flex-direction: column;
     }
 
-    .endToEndSolutionContainer, .permissionAndEndToEndContainer {
+    .endToEndSolutionContainer,
+    .permissionAndEndToEndContainer {
         flex: 0 0 100%;
         direction: ltr;
         width: 100%;
@@ -129,6 +146,7 @@
     .chronologicallyOrderedCardContainer {
         padding: 24px 32px;
         height: auto;
+        width: 100%;
     }
 
     .whyUsSectionContainer {
@@ -139,11 +157,14 @@
 }
 
 @media (max-width: 600px) {
-    .permissionBasedTitle, .endToEndTitle {
+
+    .permissionBasedTitle,
+    .endToEndTitle {
         font-size: 20px;
     }
 
-    .permissionBasedCardContainer, .endToEndSolutionContainer {
+    .permissionBasedCardContainer,
+    .endToEndSolutionContainer {
         height: 250px;
     }
 }
