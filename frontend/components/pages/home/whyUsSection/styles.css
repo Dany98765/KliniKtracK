@@ -1,0 +1,149 @@
+.whyUsSectionContainer {
+    margin-top: 150px;
+    margin-right: 100px;
+    margin-left: 50px;
+    margin-bottom: 30px;
+}
+
+.whyUsTagContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.whyUsCircle {
+    width: 10px;
+    height: 10px;
+    background-color: var(--blue);
+    border-radius: 100%;
+}
+
+.whyUsTagTitle {
+    font-weight: 600;
+}
+
+.featureCardsContainer {
+    margin-top: 60px;
+}
+
+.permissionAndEndToEndContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    gap: 50px;
+}
+
+.permissionBasedCardContainer {
+    flex: 0 0 60%;
+    background-color: #23BAE720;
+    padding: 24px 32px;
+    border-radius: 10px;
+    height: 250px;
+}
+
+.endToEndSolutionContainer {
+    flex: 0 0 40%;
+    background-color: #A411D920;
+    padding: 24px 32px;
+    border-radius: 10px;
+    height: 250px;
+}
+
+.imgContainer1, .imgContainer2, .imgContainer3 {
+    background-color: white;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+.permissionBasedTitle,
+.endToEndTitle {
+    font-weight: 900;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.endToEndTitle {
+    width: 70%;
+}
+
+.permissionBasedDesc {
+    color: #D1D1D1;
+    width: 70%;
+}
+
+.chronologicallyOrderedCardContainer{
+    margin-top: 30px;
+    background-color: var(--secondary-bg);
+    padding: 24px 32px;
+    border-radius: 10px;
+    height: 250px;
+    width: 100%;
+}
+
+@media (max-width: 1000px) {
+    .endToEndTitle {
+        width: 100%;
+    }
+
+    .permissionBasedDesc {
+        width: 100%;
+    }
+
+    .whyUsSectionContainer {
+        margin-right: 70px;
+    }
+
+    .permissionAndEndToEndContainer {
+        gap: 20px;
+    }
+
+    .permissionBasedTitle,
+    .endToEndTitle {
+        font-size: 24px;
+    }
+
+    .permissionBasedDesc {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 625px) {
+    .permissionAndEndToEndContainer {
+        flex-direction: column;
+    }
+
+    .endToEndSolutionContainer, .permissionAndEndToEndContainer {
+        flex: 0 0 100%;
+        direction: ltr;
+        width: 100%;
+    }
+
+    .chronologicallyOrderedCardContainer {
+        padding: 24px 32px;
+        height: auto;
+    }
+
+    .whyUsSectionContainer {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .permissionBasedTitle, .endToEndTitle {
+        font-size: 20px;
+    }
+
+    .permissionBasedCardContainer, .endToEndSolutionContainer {
+        height: 250px;
+    }
+}
