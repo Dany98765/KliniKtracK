@@ -1,0 +1,71 @@
+.heroSectionContainer {
+    margin-top: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.heroSectionTitle {
+    margin-top: 30px;
+    font-weight: 900;
+    font-size: 40px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+}
+
+.preciselyTxt {
+    color: var(--blue);
+    margin-right: 10px;
+}
+
+.medicalHistoryTxt {
+    color: var(--purple);
+}
+
+.heroSectionDesc {
+    margin-top: 20px;
+    color: #A5A1B8;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+}
+
+.heroSectionButtons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.signupButton {
+    background-color: var(--purple);
+    padding: 12px 40px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.signupButton:hover {
+    background-color: #A411D970;
+    cursor: pointer;
+}
+
+.viewAllFeaturesButton {
+    background: none;
+    padding: 12px 40px;
+    color: white;
+    border: 2px solid var(--blue);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.viewAllFeaturesButton:hover {
+    background-color: var(--blue);
+    cursor: pointer;
+}
