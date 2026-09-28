@@ -2,6 +2,25 @@
     margin-top: 100px;
     margin-left: 50px;
     margin-right: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.circle {
+  width: 400px;              /* size of circle */
+  height: 400px;
+  background-color: rgba(0, 0, 255, 0.2); /* soft blue */
+  border-radius: 50%;
+  position: absolute;
+  margin-right: 1000;
+  left: 100px;              /* half outside the page */
+  bottom: 0;                 /* anchored to bottom of left section */
+  z-index: -1;               /* pushes it behind content */
+  filter: blur(100px);
 }
 
 .heroSectionTitle {
