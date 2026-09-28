@@ -1,0 +1,53 @@
+.navbarContainer {
+    padding: 10px 30px;
+    background-color: white;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    width: 50%;
+}
+
+.logoImg {
+    width: 30px;
+    height: 30px;
+}
+
+.logoContainer:hover {
+    cursor: pointer;
+}
+
+.getStartedButton {
+    background-color: var(--purple);
+    border-radius: 5px;
+    padding: 8px 24px;
+    border: none;
+    font-weight: 600;
+    color: white;
+}
+
+.getStartedButton:hover {
+    background-color: #A411D970;
+    cursor: pointer;
+}
+
+.logoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+}
+
+.upperCaseK {
+    color: var(--blue)
+}
+
+.logoNameTxt {
+    color: black;
+    font-size: 20px;
+    font-weight: 800;
+}
