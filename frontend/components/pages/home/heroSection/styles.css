@@ -11,16 +11,16 @@
 }
 
 .circle {
-  width: 400px;              /* size of circle */
-  height: 400px;
-  background-color: rgba(0, 0, 255, 0.2); /* soft blue */
-  border-radius: 50%;
-  position: absolute;
-  margin-right: 1000;
-  left: 100px;              /* half outside the page */
-  bottom: 0;                 /* anchored to bottom of left section */
-  z-index: -1;               /* pushes it behind content */
-  filter: blur(100px);
+    width: 400px;
+    height: 400px;
+    background-color: rgba(0, 0, 255, 0.2);
+    border-radius: 50%;
+    position: absolute;
+    margin-right: 1000;
+    left: 100px;
+    bottom: 0;
+    z-index: -1;
+    filter: blur(100px);
 }
 
 .heroSectionTitle {
@@ -87,4 +87,110 @@
 .viewAllFeaturesButton:hover {
     background-color: var(--blue);
     cursor: pointer;
+}
+
+@media (max-width: 1350px) {
+    .heroSectionDesc {
+        width: 70%;
+        -webkit-line-clamp: 4;
+        line-clamp: 4;
+    }
+}
+
+@media (max-width: 1150px) {
+    .heroSectionContainer {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .heroSectionTitle {
+        text-align: center;
+    }
+
+    .heroSectionDesc {
+        text-align: center;
+        width: 100%;
+    }
+
+    .heroSectionButtons {
+        justify-content: center;
+    }
+
+    .doctorImg {
+        margin-top: 30px;
+    }
+
+    .circle {
+        margin-right: 1000;
+        left: 35%;
+        top: 150px;
+        width: 300px;
+    }
+}
+
+@media (max-width: 800px) {
+    .heroSectionTitle {
+        font-size: 35px;
+    }
+
+    .heroSectionDesc {
+        .myText {
+            display: block;
+            overflow: visible;
+            -webkit-line-clamp: unset;
+            line-clamp: unset;
+            -webkit-box-orient: unset;
+        }
+    }
+
+    .circle {
+        width: 200px;
+    }
+}
+
+
+@media (max-width: 575px) {
+    .heroSectionTitle {
+        font-size: 30px;
+    }
+
+    .heroSectionDesc {
+        font-size: 12px;
+    }
+
+    .circle {
+        width: 150px;
+        filter: blur(50px);
+    }
+}
+
+@media (max-width: 500px) {
+    .heroSectionTitle {
+        display: block;
+        overflow: visible;
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+        -webkit-box-orient: unset;
+        font-size: 25px;
+    }
+
+    .heroSectionDesc {
+        font-size: 10px;
+    }
+
+    .heroSectionContainer {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+}
+
+@media (max-width: 420px) {
+    .signupButton {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+
+    .viewAllFeaturesButton {
+        padding: 8px 20px;
+    }
 }

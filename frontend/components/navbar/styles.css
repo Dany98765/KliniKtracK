@@ -51,3 +51,33 @@
     font-size: 20px;
     font-weight: 800;
 }
+
+@media (max-width: 800px) {
+    .navbarContainer {
+        width: 85%;
+    }
+}
+
+@media (max-width: 420px) {
+    .navbarContainer {
+        padding: 10px;
+    }
+
+    .logoContainer {
+        gap: 5px;
+    }
+    
+    .logoImg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .logoNameTxt {
+        font-size: 18px;
+    }
+
+    .getStartedButton {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}

@@ -15,3 +15,9 @@
 .tagTitle {
     font-weight: 600;
 }
+
+@media (max-width: 1150px) {
+    .tagContainer {
+        justify-content: center;
+    }
+}

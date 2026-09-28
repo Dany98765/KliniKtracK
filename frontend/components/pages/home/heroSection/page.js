@@ -5,7 +5,7 @@ import Image from "next/image"
 export default function HeroSection() {
     return (
         <div className="heroSectionContainer">
-            <div>
+            <div className="leftSectionContainer">
                 <div className="circle"></div>
                 <Tag title="Fully-Fledged Solution" />
                 <h1 className="heroSectionTitle">
@@ -29,6 +29,8 @@ export default function HeroSection() {
                     width={500}
                     height={500}
                     alt="Doctor"
+                    loading="eager"
+                    className="doctorImg"
                 />
             </div>
         </div>
