@@ -22,8 +22,9 @@ export default function Footer() {
                     <span className="upperCaseK">K</span>
                 </p>
             </div>
-            <div className="footerDescAndCopyrightContainer">
                 <p className="footerDesc">Mission-based aiming to aid patients deliver precise information to doctors to save the lives of <span className="millionLivesTxt">1,000,000+</span></p>
+            <div className="copyrightContainer">
+                <span />
                 <p className="copyrightTxt">@copyright - 2026</p>
             </div>
         </div>

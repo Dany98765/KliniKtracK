@@ -1,0 +1,94 @@
+.signupUICardContainer {
+    background-color: #111827;
+    border-radius: 20px;
+    border: 1px solid var(--secondary-bg);
+    width: 50%;
+    padding: 30px;
+}
+
+.signupTagContainer {
+    background-color: #FFFFFF05;
+    border-radius: 100px;
+    border: 1px solid #FFFFFF07;
+    padding: 10px 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.circle {
+    background-color: var(--blue);
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+}
+
+.tagDesc {
+    color: white;
+    font-size: 14px;
+}
+
+.signupUICardTitle {
+    font-size: 30px;
+    margin-top: 30px;
+}
+
+.titleAndFeatureCardsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    gap: 50px;
+}
+
+.featureCardsContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+}
+
+.verificationCardContainer, .privacyCardContainer {
+    padding: 15px;
+    width: 150px;
+    height: 120px;
+    border-radius: #FFFFFF07;
+    background-color: #FFFFFF05;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.verificationCardTagName, .privacyCardTagName {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.verificationCardTagName {
+    color: var(--blue);
+}
+
+.privacyCardTagName {
+    color: var(--purple);
+}
+
+.verificationCardTitle, .privacyCardTitle {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.verificationCardDesc, .privacyCardDesc {
+    color: #FFFFFF70;
+    font-size: 10px;
+}
+
+.signupCardUIDesc {
+    color: #FFFFFF70;
+    margin-top: 12px;
+    font-size: 14px;
+}
+

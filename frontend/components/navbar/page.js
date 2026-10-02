@@ -18,7 +18,7 @@ export default function Navbar() {
                     className="logoImg"
                     loading="eager"
                 />
-                <p className="logoNameTxt">
+                <p className="logoName">
                     <span className="upperCaseK">K</span>
                     lini
                     <span className="upperCaseK">K</span>
@@ -26,7 +26,7 @@ export default function Navbar() {
                     <span className="upperCaseK">K</span>
                 </p>
             </div>
-            <button className="getStartedButton">
+            <button className="getStartedButton" onClick={() => router.push(ROUTES.SIGNUP)}>
                 Get Started
             </button>
         </div>
