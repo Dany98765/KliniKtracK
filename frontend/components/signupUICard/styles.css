@@ -51,7 +51,8 @@
     gap: 30px;
 }
 
-.verificationCardContainer, .privacyCardContainer {
+.verificationCardContainer,
+.privacyCardContainer {
     padding: 15px;
     width: 150px;
     height: 120px;
@@ -63,7 +64,8 @@
     gap: 10px;
 }
 
-.verificationCardTagName, .privacyCardTagName {
+.verificationCardTagName,
+.privacyCardTagName {
     font-size: 12px;
     font-weight: 700;
 }
@@ -76,12 +78,14 @@
     color: var(--purple);
 }
 
-.verificationCardTitle, .privacyCardTitle {
+.verificationCardTitle,
+.privacyCardTitle {
     font-size: 22px;
     font-weight: 900;
 }
 
-.verificationCardDesc, .privacyCardDesc {
+.verificationCardDesc,
+.privacyCardDesc {
     color: #FFFFFF70;
     font-size: 10px;
 }
@@ -92,3 +96,22 @@
     font-size: 14px;
 }
 
+.doctorImgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.doctor {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+@media (max-width: 1400px) {
+    .titleAndFeatureCardsContainer {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}

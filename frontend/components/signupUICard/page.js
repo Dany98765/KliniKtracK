@@ -25,6 +25,12 @@ export default function SignupUICard() {
                     </div>
                 </div>
             </div>
+            <div className="doctorImgContainer">
+                <img 
+                    src="/doctor.png"
+                    className="doctor"
+                />
+            </div>
         </div>
     )
 }
