@@ -39,6 +39,8 @@ export default function SignupForm() {
                 confirmPasswordErr: ""
             }))
             // Fn for creating user -> backend
+
+            
         } else {
             setValidationErr((prev) => ({
                 ...prev,
