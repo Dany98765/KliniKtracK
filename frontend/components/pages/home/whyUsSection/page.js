@@ -8,7 +8,7 @@ export default function WhyUsSection() {
                 <span className="whyUsCircle" />
                 <p className="whyUsTagTitle">Why us?</p>
             </div>
-            <div className="featureCardsContainer">
+            <div className="whyUsFeatureCardsContainer">
                 <div className="permissionAndEndToEndContainer">
                     <div className="permissionBasedCardContainer">
                         <div className="imgContainer1">

@@ -2,7 +2,7 @@
     padding: 40px 32px;
     border-radius: 20px;
     background-color: #E7EBF3;
-    width: 40%;
+    width: 45%;
     color: black
 }
 
@@ -12,7 +12,7 @@
 }
 
 .signupFormTagContainer {
-    background-color: #FFFFFF;
+    background-color: white;
     border-radius: 100px;
     border: 1px solid #FFFFFF07;
     padding: 10px 28px;
@@ -24,7 +24,7 @@
     margin-top: 20px;
 }
 
-.circle {
+.signupFormCircle {
     background-color: var(--blue);
     border-radius: 100%;
     width: 10px;
@@ -34,4 +34,90 @@
 .signupFormTagDesc {
     font-size: 14px;
     color: #6B7280;
+}
+
+.roleToChooseContainer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.patientButton,
+.doctorButton {
+    border-radius: 15px;
+    padding: 16px 40px;
+    color: black;
+    font-weight: 600;
+    background-color: white;
+    border: none;
+}
+
+.patientButton:hover, .doctorButton:hover {
+    cursor: pointer;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08),
+        0 2px 2px rgba(0, 0, 0, 0.08),
+        0 4px 4px rgba(0, 0, 0, 0.08),
+        0 8px 8px rgba(0, 0, 0, 0.08),
+        0 16px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid black;
+}
+
+.signupFormFieldsContainer {
+    background-color: white;
+    padding: 32px 40px;
+    margin-top: 50px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.signupNowButton {
+    margin-top: 20px;
+    width: 100%;
+    background-color: var(--blue);
+    border: none;
+    padding: 16px 24px;
+    border-radius: 15px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.signupNowButton:hover {
+    cursor: pointer;
+    background-color: #23BAE790;
+    box-shadow: 0 1px 1px #23BAE715,
+        0 2px 2px #23BAE715,
+        0 4px 4px #23BAE715,
+        0 8px 8px #23BAE715,
+        0 16px 16px #23BAE715;
+}
+
+.altToSignupTxt {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.altToSignupTxt:hover {
+    cursor: help;
+}
+
+.signinNavigatorTxt {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.signinNavigatorTxt:hover {
+    cursor: pointer;
+}
+
+.errPopup {
+    width: 100%;
 }

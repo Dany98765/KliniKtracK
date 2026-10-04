@@ -7,7 +7,10 @@ export default function HeroSection() {
         <div className="heroSectionContainer">
             <div className="leftSectionContainer">
                 <div className="circle"></div>
-                <Tag title="Fully-Fledged Solution" />
+                <div className="tagContainer">
+                    <span className="heroSectionCircle" />
+                    <p className="tagTitle">Full-Fledged Solution</p>
+                </div>
                 <h1 className="heroSectionTitle">
                     The One Solution to <br />
                     <span className="preciselyTxt">Precisely</span>

@@ -1,16 +1,16 @@
-.tagContainer {
+/* .tagContainer {
     display: flex;
     justify-content: flex-start;
     gap: 20px;
     align-items: center;
 }
 
-.circle {
+ .circle {
     width: 10px;
     height: 10px;
     background-color: var(--blue);
     border-radius: 100%;
-}
+} 
 
 .tagTitle {
     font-weight: 600;
@@ -20,4 +20,4 @@
     .tagContainer {
         justify-content: center;
     }
-}
+} */

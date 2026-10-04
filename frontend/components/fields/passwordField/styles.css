@@ -1,0 +1,20 @@
+.passwordFieldContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.passwordTxt {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.passwordInputField {
+    border: 1px solid #23BAE720;
+    background-color: #F7F8FC;
+    padding: 16px 24px;
+    border-radius: 15px;
+    width: 70vh;
+}

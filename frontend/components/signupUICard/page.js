@@ -4,7 +4,7 @@ export default function SignupUICard() {
     return (
         <div className="signupUICardContainer">
             <div className="signupTagContainer">
-                <span className="circle" />
+                <span className="signupUICircle" />
                 <p className="tagDesc">Signup Onboarding Page</p>
             </div>
             <div className="titleAndFeatureCardsContainer">
