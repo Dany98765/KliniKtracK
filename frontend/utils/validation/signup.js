@@ -1,3 +1,12 @@
+export function validateRole({ role }) {
+    if (!role) {
+        return {
+            msg: "No role chosen!"
+        };
+    }
+    return { msg: null };
+}
+
 export function validateName({ name }) {
     name = name.trim()
     if (!name) {

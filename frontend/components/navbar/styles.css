@@ -52,6 +52,15 @@
     font-weight: 800;
 }
 
+.logoutButton {
+    background-color: #a11010;
+    border-radius: 5px;
+    padding: 8px 24px;
+    border: none;
+    font-weight: 600;
+    color: white;
+}
+
 @media (max-width: 800px) {
     .navbarContainer {
         width: 85%;
