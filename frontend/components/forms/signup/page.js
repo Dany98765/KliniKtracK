@@ -22,6 +22,7 @@ export default function SignupForm() {
     })
     // separate state initiation to store msg result form validation functions
     const [validationErr, setValidationErr] = useState({
+        roleErr: "",
         nameErr: "",
         emailErr: "",
         passwordErr: "",
@@ -36,6 +37,7 @@ export default function SignupForm() {
         let emailValidationResult = validateEmail({ email })
         let passwordValidationResult = validatePassword({ password })
         let confirmPasswordValidationResult = validatePasswordConfirmation({ password, confirmPassword })
+        console.log(roleValidationResult, nameValidationResult, emailValidationResult, passwordValidationResult, confirmPasswordValidationResult)
         // checking if user's input bypasses validation criteria
         if (!roleValidationResult.msg && !nameValidationResult.msg && !emailValidationResult.msg && !passwordValidationResult.msg && !confirmPasswordValidationResult.msg) {
             console.log("SUCCESS VALIDATION!")
@@ -59,6 +61,7 @@ export default function SignupForm() {
             // user's input does not satisfy validation criteria
             setValidationErr((prev) => ({
                 ...prev,
+                roleErr: roleValidationResult.msg,
                 nameErr: nameValidationResult.msg,
                 emailErr: emailValidationResult.msg,
                 passwordErr: passwordValidationResult.msg,
@@ -68,6 +71,7 @@ export default function SignupForm() {
     }
     // possible msg popups to display
     let errorMsgToDisplay =
+        validationErr.roleErr ||
         validationErr.nameErr ||
         validationErr.emailErr ||
         validationErr.passwordErr ||
@@ -84,13 +88,13 @@ export default function SignupForm() {
                 <button className="patientButton" onClick={() => setSignupFormFields((prev) => ({
                     ...prev,
                     role: "Patient"
-                }))} style={{ backgroundColor: role == 'Patient' && "#23BAE7" }}>
+                }))} style={{ backgroundColor: signupFormFields.role == 'Patient' && "#23BAE7" }}>
                     Patient
                 </button>
                 <button className="doctorButton" onClick={() => setSignupFormFields((prev) => ({
                     ...prev,
                     role: "Doctor"
-                }))} style={{ backgroundColor: role == 'Doctor' && "#23BAE7" }}>
+                }))} style={{ backgroundColor: signupFormFields.role == 'Doctor' && "#23BAE7" }}>
                     Doctor
                 </button>
             </div>

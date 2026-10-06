@@ -86,6 +86,71 @@ a.secondary {
   border-color: var(--button-secondary-border);
 }
 
+.custom-card {
+  background-color: #d62727;
+}
+
+/* Timeline */
+
+.timeline {
+  height: 400px;
+  width: 100%;
+  margin-top: 40px;
+}
+
+/* Timeline item */
+.timeline :global(.vis-item) {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Our custom card */
+.timeline :global(.custom-card) {
+  min-width: 180px;
+  padding: 12px 16px;
+  border-radius: 10px;
+
+  color: white;
+
+  box-shadow: 0 4px 12px rgba(196, 36, 36, 0.15);
+
+  font-family: Arial, sans-serif;
+}
+
+/* High priority */
+.timeline :global(.custom-card.high) {
+  background: #130c60;
+  border-left: 5px solid #cf1322;
+}
+
+/* Low priority */
+.timeline :global(.custom-card.low) {
+  background: #0800e4;
+  border-left: 5px solid #237804;
+}
+
+/* Title */
+.timeline :global(.custom-card-title) {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Assignee */
+.timeline :global(.custom-card-assignee) {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+/* Progress */
+.timeline :global(.custom-card-progress) {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   a.primary:hover {

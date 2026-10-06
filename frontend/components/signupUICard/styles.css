@@ -115,3 +115,33 @@
         align-items: flex-start;
     }
 }
+
+@media (max-width: 850px) {
+    .signupUICardContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 500px) {
+    .verificationCardContainer,
+    .privacyCardContainer {
+        width: 120px;
+        height: 100px;
+        gap: 5px
+    }
+
+    .verificationCardTitle,
+    .privacyCardTitle {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 435px) {
+    .featureCardsContainer {
+        gap: 10px;
+    }
+
+    .signupUICardContainer {
+        padding: 10px;
+    }
+}

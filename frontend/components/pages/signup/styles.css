@@ -7,3 +7,22 @@
     margin-right: 50px;
     margin-top: 50px;
 }
+
+@media (max-width: 1200px) {
+    .signupPageContainer {
+        margin-left: 30PX;
+        margin-right: 30px;
+    }
+}
+
+@media (max-width: 850px) {
+    .signupPageContainer {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 850px) {
+    .signupPageContainer {
+        gap: 30px;
+    }
+}

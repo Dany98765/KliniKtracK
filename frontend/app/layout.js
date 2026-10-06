@@ -2,7 +2,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar/page";
 import Footer from "@/components/footer/page";
-import { SessionProvider } from "next-auth/react";
+import Providers from "./sessionProviders";
+// import 'vis-timeline/styles/vis-timeline-graph2d.css';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <SessionProvider>
+        <Providers>
           <div className="navbarLayoutContainer">
             <Navbar />
           </div>
@@ -31,7 +33,7 @@ export default function RootLayout({ children }) {
           <div className="footerLayoutContainer">
             <Footer />
           </div>
-        </SessionProvider>
+        </Providers>
       </body>
     </html>
   );

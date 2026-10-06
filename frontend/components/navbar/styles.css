@@ -61,6 +61,11 @@
     color: white;
 }
 
+.logoutButton:hover {
+    background-color: #e33e3e;
+    cursor: pointer;
+}
+
 @media (max-width: 800px) {
     .navbarContainer {
         width: 85%;

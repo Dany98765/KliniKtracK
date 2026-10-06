@@ -3,7 +3,8 @@
     border-radius: 20px;
     background-color: #E7EBF3;
     width: 45%;
-    color: black
+    color: black;
+    margin-right: 10px;
 }
 
 .signupFormDesc {
@@ -120,4 +121,23 @@
 
 .errPopup {
     width: 100%;
+}
+
+@media (max-width: 850px) {
+    .signupFormContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 450px) {
+    .signupFormFieldsContainer {
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 415px) {
+    .signupFormContainer {
+        padding-left: 15px;
+        padding-right: 20px;
+    }
 }

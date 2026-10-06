@@ -1,4 +1,3 @@
-import Tag from "@/components/tag/page"
 import "./styles.css"
 import Image from "next/image"
 

@@ -17,7 +17,6 @@ export default function Navbar() {
     }, []);
     if (!mounted) return null;
 
-    console.log(status)
     return (
         <div className="navbarContainer">
             <div className="logoContainer" onClick={() => router.push(ROUTES.HOME)}>

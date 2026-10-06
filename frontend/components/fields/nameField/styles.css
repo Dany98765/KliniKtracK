@@ -16,5 +16,47 @@
     background-color: #F7F8FC;
     padding: 16px 24px;
     border-radius: 15px;
-    width: 70vh;
+    width: 500px;
+}
+
+@media (max-width: 1350px) {
+    .fullNameInputField {
+        width: 50vh;
+    }
+}
+
+@media (max-width: 1200px) {
+    .fullNameInputField {
+        width: 40vh;
+    }
+}
+
+@media (max-width: 1000px) {
+    .fullNameInputField {
+        width: 30vh;
+    }
+}
+
+@media (max-width: 850px) {
+    .fullNameInputField {
+        width: 60vh;
+    }
+}
+
+@media (max-width: 685px) {
+    .fullNameInputField {
+        width: 50vh;
+    }
+}
+
+@media (max-width: 685px) {
+    .fullNameInputField {
+        width: 40vh;
+    }
+}
+
+@media (max-width: 525px) {
+    .fullNameInputField {
+        width: 30vh;
+    }
 }
