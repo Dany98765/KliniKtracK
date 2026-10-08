@@ -2,7 +2,7 @@
 
 import "./styles.css"
 
-export default function EmailField({ emailField, setSignupFormFields }) {
+export default function EmailField({ emailField, setAuthFormFields }) {
     return (
         <div className="emailFieldContainer">
             <p className="emailTxt">Email</p>
@@ -12,7 +12,7 @@ export default function EmailField({ emailField, setSignupFormFields }) {
                 placeholder="Enter your email address..."
                 value={emailField}
                 onChange={(e) => {
-                    setSignupFormFields((prev) => ({
+                    setAuthFormFields((prev) => ({
                         ...prev,
                         email: e.target.value
                     }))

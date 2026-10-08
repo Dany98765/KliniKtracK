@@ -1,0 +1,90 @@
+.signinFormContainer {
+    padding: 40px 32px;
+    border-radius: 20px;
+    background-color: #E7EBF3;
+    width: 45%;
+    color: black;
+    margin-right: 10px;
+}
+
+.signinFormDesc {
+    color: #666666;
+    margin-top: 10px;
+}
+
+.signinFormFieldsContainer {
+    background-color: white;
+    padding: 32px 40px;
+    margin-top: 50px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+    flex-direction: column;
+    width: 100%;
+}
+
+.signinNowButton {
+    margin-top: 20px;
+    width: 100%;
+    background-color: var(--blue);
+    border: none;
+    padding: 16px 24px;
+    border-radius: 15px;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.signinNowButton:hover {
+    cursor: pointer;
+    background-color: #23BAE790;
+    box-shadow: 0 1px 1px #23BAE715,
+        0 2px 2px #23BAE715,
+        0 4px 4px #23BAE715,
+        0 8px 8px #23BAE715,
+        0 16px 16px #23BAE715;
+}
+
+.altToSigninTxt {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.altToSigninTxt:hover {
+    cursor: help;
+}
+
+.signupNavigatorTxt {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.signupNavigatorTxt:hover {
+    cursor: pointer;
+}
+
+.errPopup {
+    width: 100%;
+}
+
+@media (max-width: 850px) {
+    .signinFormContainer {
+        width: 90%;
+    }
+}
+
+@media (max-width: 450px) {
+    .signinFormFieldsContainer {
+        padding-left: 15px;
+    }
+}
+
+@media (max-width: 415px) {
+    .signinFormContainer {
+        padding-left: 15px;
+        padding-right: 20px;
+    }
+}

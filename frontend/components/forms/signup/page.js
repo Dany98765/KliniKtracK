@@ -106,27 +106,27 @@ export default function SignupForm() {
                 }
                 <NameField
                     nameField={signupFormFields.name}
-                    setSignupFormFields={setSignupFormFields}
+                    setAuthFormFields={setSignupFormFields}
                 />
                 <EmailField
                     emailField={signupFormFields.email}
-                    setSignupFormFields={setSignupFormFields}
+                    setAuthFormFields={setSignupFormFields}
                 />
                 <PasswordField
                     passwordField={signupFormFields.password}
-                    setSignupFormFields={setSignupFormFields}
+                    setAuthFormFields={setSignupFormFields}
                     isConfirmPasswordField={false}
                 />
                 <PasswordField
                     passwordField={signupFormFields.confirmPassword}
-                    setSignupFormFields={setSignupFormFields}
+                    setAuthFormFields={setSignupFormFields}
                     isConfirmPasswordField={true}
                 />
             </div>
             <button className="signupNowButton" onClick={signupNow}>
                 Signup Now →
             </button>
-            <p className="altToSignupTxt">Already have an account? <span className="signinNavigatorTxt">Signin</span></p>
+            <p className="altToSignupTxt">Already have an account? <span className="signinNavigatorTxt" onClick={() => router.push(ROUTES.SIGNIN)}>Signin</span></p>
         </div>
     )
 }

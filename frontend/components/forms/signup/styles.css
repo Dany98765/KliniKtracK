@@ -141,3 +141,9 @@
         padding-right: 20px;
     }
 }
+
+@media (max-width: 390px) {
+    .doctorButton, .patientButton {
+        padding: 16px 30px;
+    }
+}

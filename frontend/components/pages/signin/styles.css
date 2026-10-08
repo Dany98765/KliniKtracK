@@ -1,0 +1,28 @@
+.signinPageContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 50px;
+}
+
+@media (max-width: 1200px) {
+    .signinPageContainer {
+        margin-left: 30PX;
+        margin-right: 30px;
+    }
+}
+
+@media (max-width: 850px) {
+    .signinPageContainer {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 850px) {
+    .signinPageContainer {
+        gap: 30px;
+    }
+}

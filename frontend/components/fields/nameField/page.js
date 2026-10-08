@@ -2,7 +2,7 @@
 
 import "./styles.css"
 
-export default function NameField({ nameField, setSignupFormFields }) {
+export default function NameField({ nameField, setAuthFormFields }) {
     return (
         <div className="nameFieldContainer">
             <p className="fullNameTxt">Full Name</p>
@@ -12,7 +12,7 @@ export default function NameField({ nameField, setSignupFormFields }) {
                 placeholder="Enter your full name..."
                 value={nameField}
                 onChange={(e) => {
-                    setSignupFormFields((prev) => ({
+                    setAuthFormFields((prev) => ({
                         ...prev,
                         name: e.target.value
                     }))

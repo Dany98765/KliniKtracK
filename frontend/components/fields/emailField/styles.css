@@ -16,25 +16,24 @@
     background-color: #F7F8FC;
     padding: 16px 24px;
     border-radius: 15px;
-    width: 60vh;
+    width: 50vh;
 }
 
-@media (max-width: 1350px) {
+@media (max-width: 1400px) {
     .emailInputField {
-        width: 50vh;
+        width: 400px;
     }
 }
 
-
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
     .emailInputField {
         width: 40vh;
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
     .emailInputField {
-        width: 30vh;
+        width: 25vh;
     }
 }
 
@@ -44,19 +43,19 @@
     }
 }
 
-@media (max-width: 685px) {
+@media (max-width: 805px) {
     .emailInputField {
         width: 50vh;
     }
 }
 
-@media (max-width: 685px) {
+@media (max-width: 700px) {
     .emailInputField {
         width: 40vh;
     }
 }
 
-@media (max-width: 525px) {
+@media (max-width: 580px) {
     .emailInputField {
         width: 30vh;
     }

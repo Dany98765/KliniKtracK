@@ -2,7 +2,7 @@
 
 import "./styles.css"
 
-export default function PasswordField({ passwordField, setSignupFormFields, isConfirmPasswordField }) {
+export default function PasswordField({ passwordField, setAuthFormFields, isConfirmPasswordField }) {
     let fieldToTriggerChange = isConfirmPasswordField ? "confirmPassword" : "password"
     return (
         <div className="passwordFieldContainer">
@@ -13,7 +13,7 @@ export default function PasswordField({ passwordField, setSignupFormFields, isCo
                 placeholder={isConfirmPasswordField ? "Confirm your password..." : "Enter a strong password..."}
                 value={passwordField}
                 onChange={(e) => {
-                    setSignupFormFields((prev) => ({
+                    setAuthFormFields((prev) => ({
                         ...prev,
                         [fieldToTriggerChange]: e.target.value
                     }))
