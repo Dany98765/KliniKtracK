@@ -1,0 +1,187 @@
+.detailedActionCardContainer {
+    position: fixed;
+    z-index: 2;
+    background-color: var(--secondary-bg);
+    width: 70%;
+    aspect-ratio: 3 / 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 15px;
+    border: 2px solid var(--purple)
+}
+
+.headerInfoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.imgAndTitleContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 50px;
+}
+
+.surgicalOperationCardIndicatorContainer {
+    background-color: var(--purple);
+    width: 70px;
+    height: 70px;
+    aspect-ratio: 1 / 1;
+    border: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.actionTitleTxt {
+    font-weight: 900;
+}
+
+.actionTypeContainer {
+    background-color: #A411D920;
+    border-radius: 100px;
+    border: none;
+    padding: 10px 50px 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.actionTypeCircle {
+    background-color: var(--purple);
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+    aspect-ratio: 1 / 1;
+}
+
+.actionTypeTagDesc {
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.actionDesc {
+    margin-left: 120px;
+    margin-top: 10px;
+    color: #A5A1B8;
+}
+
+.optionDoctorAndDateCardsContainer {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-left: 100px;
+    gap: 50px;
+}
+
+.doctorAssocWithActionCardContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: center;
+    background-color: #A411D920;
+    padding: 16px 24px;
+    border-radius: 100px;
+}
+
+.doctorImgAndNameContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+}
+
+.doctorImgContainer {
+    width: 50px;
+    height: 50px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 100px;
+}
+
+.doctorNameTxt {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.viewDrProfileButton {
+    background-color: var(--purple);
+    border-radius: 10px;
+    padding: 16px 40px;
+    color: white;
+    font-weight: 600;
+    border: none
+}
+
+.viewDrProfileButton:hover {
+    background-color: #A411D950;
+    cursor: pointer;
+}
+
+.actionDateContainer {
+    background-color: #A411D920;
+    border-radius: 100px;
+    border: none;
+    padding: 10px 50px 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.actionTypeTagDesc {
+    color: white;
+}
+
+.actionDateTxt {
+    color: var(--purple)
+}
+
+@media (max-width: 1350px) {
+    .doctorAssocWithActionCardContainer {
+        padding: 8px 16px;
+    }
+
+    .viewDrProfileButton {
+        padding: 8px 16px;
+    }
+
+    .doctorImgContainer {
+        width: 30px;
+        height: 30px;
+    }
+
+    .doctorImg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .doctorNameTxt {
+        font-size: 16px;
+    }
+
+    .actionDateContainer {
+        padding: 5px 25px 5px 10px;
+    }
+
+    .actionDateTxt {
+        font-size: 14px;
+    }
+}

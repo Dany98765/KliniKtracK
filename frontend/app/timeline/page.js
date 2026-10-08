@@ -1,14 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import TimelinePage from "@/components/pages/timeline/page";
 
-const Timeline = dynamic(
-  () => import("@/components/pages/timeline/page"),
-  {
-    ssr: false,
-  }
-);
-
-export default function Page() {
-  return <Timeline />;
+export default function Timeline() {
+  return (
+    <div>
+      <TimelinePage />
+    </div>
+  );
 }

@@ -11,11 +11,11 @@ import { useEffect, useState } from "react"
 export default function Navbar() {
     const router = useRouter()
     const { data: _, status } = useSession()
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => {
-        setMounted(true)
-    }, []);
-    if (!mounted) return null;
+    // const [mounted, setMounted] = useState(false);
+    // useEffect(() => {
+    //     setMounted(true)
+    // }, []);
+    // if (!mounted) return null;
 
     return (
         <div className="navbarContainer">

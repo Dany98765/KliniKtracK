@@ -1,0 +1,81 @@
+.timelinePageHeroSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.timelinePageHeroSection {
+    margin-top: 150px;
+}
+
+.timelineHeroSectionTitle {
+    font-weight: 900;
+    font-size: 44px;
+}
+
+.remarkableTimelinePageTitlePhrase {
+    color: var(--blue);
+}
+
+.usTxt {
+    color: var(--purple)
+}
+
+.circle {
+    width: 400px;
+    height: 400px;
+    background-color: rgba(0, 0, 255, 0.2);
+    border-radius: 50%;
+    position: absolute;
+    margin-bottom: 300px;
+    z-index: -1;
+    filter: blur(100px);
+}
+
+.timelineHeroSectionDesc {
+    margin-top: 15px;
+    width: 60%;
+    color: #B8BAC7;
+}
+
+.addActionOrConditionButtonsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.addActionButton, .addConditionButton {
+    padding: 16px 32px;
+    color: white;
+    font-weight: 700;
+    background-color: var(--background);
+    border-radius: 10px;
+}
+
+.addActionButton {
+    border: 3px solid var(--blue)
+}
+
+.addActionButton:hover {
+    background-color: var(--blue);
+    cursor: pointer;
+}
+
+.addConditionButton {
+    border: 3px solid var(--purple)
+}
+
+.addConditionButton:hover {
+    background-color: var(--purple);
+    cursor: pointer;
+}
+
+.kk {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 500px;
+}
