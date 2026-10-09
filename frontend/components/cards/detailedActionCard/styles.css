@@ -9,7 +9,7 @@
     transform: translate(-50%, -50%);
     padding: 20px;
     border-radius: 15px;
-    border: 2px solid var(--purple)
+    border: 2px solid var(--purple);
 }
 
 .headerInfoContainer {
@@ -32,7 +32,6 @@
     width: 70px;
     height: 70px;
     aspect-ratio: 1 / 1;
-    border: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,6 +52,8 @@
     justify-content: flex-start;
     align-items: center;
     gap: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .actionTypeCircle {
@@ -81,7 +82,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    margin-left: 100px;
+    margin-left: 120px;
     gap: 50px;
 }
 
@@ -126,7 +127,7 @@
     padding: 16px 40px;
     color: white;
     font-weight: 600;
-    border: none
+    border: none;
 }
 
 .viewDrProfileButton:hover {
@@ -146,12 +147,8 @@
     gap: 20px;
 }
 
-.actionTypeTagDesc {
-    color: white;
-}
-
 .actionDateTxt {
-    color: var(--purple)
+    color: var(--purple);
 }
 
 @media (max-width: 1350px) {
@@ -183,5 +180,66 @@
 
     .actionDateTxt {
         font-size: 14px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .optionDoctorAndDateCardsContainer {
+        flex-direction: column;
+        gap: 10px;
+        margin-left: 90px;
+    }
+
+    .actionTitleTxt {
+        font-size: 25px;
+    }
+
+    .actionTypeContainer {
+        padding: 5px 25px 5px 10px;
+    }
+
+    .actionTypeTagDesc {
+        font-size: 12px;
+    }
+
+    .imgAndTitleContainer {
+        gap: 20px;
+    }
+
+    .actionDesc {
+        margin-left: 90px;
+        margin-top: 0px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 800px) {
+    /* .titleAndTagContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .actionTitleTxt {
+        font-size: 22px;
+    }
+
+    .actionTypeContainer {
+        margin-top: 0;
+        padding: 5px 20px;
+    } */
+    .optionDoctorAndDateCardsContainer {
+        margin-left: 0px;
+    }
+
+    .actionDesc {
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 450px) {
+    .actionTitleTxt {
+        font-size: 20px;
     }
 }

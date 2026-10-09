@@ -47,7 +47,8 @@
     margin-top: 30px;
 }
 
-.addActionButton, .addConditionButton {
+.addActionButton,
+.addConditionButton {
     padding: 16px 32px;
     color: white;
     font-weight: 700;
@@ -78,4 +79,29 @@
     justify-content: center;
     align-items: center;
     margin-left: 500px;
+}
+
+@media (max-width: 650px) {
+    .timelineHeroSectionTitle {
+        font-size: 36px;
+    }
+
+    .timelineHeroSectionDesc {
+        width: 90%;
+    }
+}
+
+@media (max-width: 400px) {
+    .timelineHeroSectionTitle {
+        font-size: 30px;
+    }
+
+    .timelineHeroSectionDesc {
+        font-size: 14px;
+        width: 95%;
+    }
+
+    .addActionButton, .addConditionButton {
+        padding: 16px 24px;
+    }
 }
