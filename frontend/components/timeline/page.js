@@ -9,30 +9,41 @@ import DetailedActionCard from "../cards/detailedActionCard/page";
 
 const initialTasks = [
   {
-    id: "1",
-    text: "Research",
-    start: new Date(2026, 9, 1),
+    id: "0",
+    title: "Joint Replacement",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus laoreet dui at vestibulum. Curabitur in nisi mattis, porttitor ante eget, luctus leo. Ut et libero commodo, pulvinar augue vitae, cursus eros. Fusce hendrerit condimentum mollis. Sed tempor velit at elit porttitor viverra. Donec cursus pretium quam, mollis consequat justo hendrerit id. ",
+    type: "Action",
+    subType: "Surgical Operation",
+    doctor: "Mina Fayez",
+    start: new Date(2026, 8, 17),
+    date: "10-07-2018 → 11-07-2018",
     duration: 1,
     color: "#DDDDDD",
-    type: "summary",
+  },
+
+  {
+    id: "1",
+    title: "Cortisone Tablets",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus laoreet dui at vestibulum. Curabitur in nisi mattis, porttitor ante eget, luctus leo. Ut et libero commodo, pulvinar augue vitae, cursus eros. Fusce hendrerit condimentum mollis. Sed tempor velit at elit porttitor viverra. Donec cursus pretium quam, mollis consequat justo hendrerit id. ",
+    type: "Action",
+    subType: "Medicine",
+    start: new Date(2026, 8, 5),
+    date: "10-07-2018 → 11-07-2018",
+    duration: 10,
+    color: "#23BAE7",
   },
 
   {
     id: "2",
-    text: "Design",
-    start: new Date(2026, 9, 3),
-    duration: 5,
-    color: "#23BAE7",
-    type: "task",
-  },
-
-  {
-    id: "3",
-    text: "Project Overview",
-    start: new Date(2026, 9, 5),
-    duration: 6,
+    title: "Avascular Necrosis",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus laoreet dui at vestibulum. Curabitur in nisi mattis, porttitor ante eget, luctus leo. Ut et libero commodo, pulvinar augue vitae, cursus eros. Fusce hendrerit condimentum mollis. Sed tempor velit at elit porttitor viverra. Donec cursus pretium quam, mollis consequat justo hendrerit id. ",
+    type: "Condition",
+    subType: "Joint Disorder",
+    tags: ['joint pain', 'stifness', 'difficulty walking'],
+    start: new Date(2026, 8, 1),
+    date: "10-07-2018 → 11-07-2018",
+    duration: 15,
     color: "#A411D9",
-    type: "task",
   },
 ];
 
@@ -52,7 +63,8 @@ const scales = [
 export default function TimelineComponent() {
   const [tasks, setTasks] = useState(initialTasks);
   const [showCard, setShowCard] = useState({
-    type: "action", // action - condition
+    id: "",
+    type: "Action", // action - condition
     isShowing: false
   })
   function changeTaskColor(id, color) {
@@ -71,7 +83,10 @@ export default function TimelineComponent() {
   function taskTemplate(props) {
     return (
       <SummarisedTimelineCard
-        data={props.data}
+        id={props.data.id}
+        color={props.data.color}
+        title={props.data.title}
+        type={props.data.type}
         setShowCard={setShowCard}
         onColorChange={changeTaskColor}
       />
@@ -79,21 +94,37 @@ export default function TimelineComponent() {
   }
   const links = [
     {
-      source: "2",
-      target: "3",
-      type: "s2s" // "e2s" | "s2s" | "e2e" | "s2e",
+      source: "1",
+      target: "2",
+      type: "s2e" // "e2s" | "s2s" | "e2e" | "s2e",
+    },
+    {
+      source: "3",
+      target: "2",
+      type: "e2e" // "e2s" | "s2s" | "e2e" | "s2e",
     }
   ]
   return (
-    <div className="timeline" >
+    <div className="timeline">
       {showCard.isShowing && (
-        <div className="detailedActionCard">
-          <DetailedActionCard />
-        </div>
+        showCard.type === "Action" ? (
+          <div className="detailedActionCard">
+            <DetailedActionCard 
+              title={initialTasks[showCard.id].title}
+              desc={initialTasks[showCard.id].desc}
+              subType={initialTasks[showCard.id].subType}
+              date={initialTasks[showCard.id].date}
+              doctor={initialTasks[showCard.id].doctor || null}
+              // doctor ID
+            />
+          </div>
+        ) : (
+          <p>Hello</p>
+        )
       )}
       <div className="willowContainer">
         <Willow>
-          <div className="ganttContainer">
+          <div className="ganttContainer" style={{ height: `${initialTasks.length}00px` }}>
             <Gantt
               tasks={tasks}
               links={links}

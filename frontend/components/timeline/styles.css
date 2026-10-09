@@ -1,7 +1,6 @@
 .ganttContainer {
   width: 100%;
   --wx-background: #191919; 
-  height: 500px;
   border-radius: 20px;
 }
 

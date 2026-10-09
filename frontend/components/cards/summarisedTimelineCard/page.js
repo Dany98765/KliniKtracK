@@ -1,23 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import "./styles.css"
-import DetailedActionCard from "../detailedActionCard/page";
 
-export default function SummarisedTimelineCard({ data, setShowCard }) {
-  const color = data.color || "#434345";
-
+export default function SummarisedTimelineCard({ id, color, title, type, setShowCard }) {
+  let colour = color || "#434345";
   return (
     <div
       className="card"
       style={{
-        backgroundColor: color,
+        backgroundColor: colour,
         boxShadow:
-          `0 6px 20px ${color}35`,
+          `0 6px 20px ${colour}35`,
       }}
       onClick={() => setShowCard((prev) => ({
         ...prev,
-        type: "action",
+        id,
+        type,
         isShowing: true
       }))}
     >
@@ -27,7 +25,7 @@ export default function SummarisedTimelineCard({ data, setShowCard }) {
           <div className="titleWrapper">
             <span className="dot" />
             <span className="title">
-              {data.text}
+              {title}
             </span>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import Image from "next/image"
 import "./styles.css"
 import { Pixelify_Sans } from 'next/font/google';
+import DropdownMenuDots from "@/components/dopDownMenuDots/page";
 
 const pixelifySans = Pixelify_Sans({
     subsets: ['latin'],
@@ -8,7 +9,7 @@ const pixelifySans = Pixelify_Sans({
     variable: '--font-pixelify', // Optional: CSS variable name
 });
 
-export default function DetailedActionCard() {
+export default function DetailedActionCard({ title, desc, subType, date, doctor }) {
     return (
         <div className="detailedActionCardContainer">
             <div className="headerInfoContainer">
@@ -23,33 +24,37 @@ export default function DetailedActionCard() {
                         />
                     </div>
                     <div className="titleAndTagContainer">
-                        <h1 className="actionTitleTxt">Joint Replacement</h1>
+                        <h1 className="actionTitleTxt">{title}</h1>
                         <div className="actionTypeContainer">
                             <span className="actionTypeCircle" />
-                            <p className="actionTypeTagDesc">Surgical Operation</p>
+                            <p className="actionTypeTagDesc">{subType}</p>
                         </div>
                     </div>
                 </div>
+                <DropdownMenuDots />
             </div>
-            <p className="actionDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus laoreet dui at vestibulum. Curabitur in nisi mattis, porttitor ante eget, luctus leo. Ut et libero commodo, pulvinar augue vitae, cursus eros. Fusce hendrerit condimentum mollis. Sed tempor velit at elit porttitor viverra. Donec cursus pretium quam, mollis consequat justo hendrerit id. </p>
+            <p className="actionDesc">{desc}</p>
             <div className="optionDoctorAndDateCardsContainer">
-                <div className="doctorAssocWithActionCardContainer">
-                    <div className="doctorImgAndNameContainer">
-                        <div className="doctorImgContainer">
-                            <Image
-                                src="/doctor-icon.png"
-                                width={30}
-                                height={30}
-                                className="doctorImg"
-                                alt="Doctor"
-                            />
+                {doctor && (
+                    <div className="doctorAssocWithActionCardContainer">
+                        <div className="doctorImgAndNameContainer">
+                            <div className="doctorImgContainer">
+                                <Image
+                                    src="/doctor-icon.png"
+                                    width={30}
+                                    height={30}
+                                    className="doctorImg"
+                                    alt="Doctor"
+                                />
+                            </div>
+                            <p className="doctorNameTxt">{doctor}</p>
                         </div>
-                        <p className="doctorNameTxt">Dr. Mina Fawzy</p>
+                        <button className="viewDrProfileButton">
+                            View Profile
+                        </button>
                     </div>
-                    <button className="viewDrProfileButton">
-                        View Profile
-                    </button>
-                </div>
+                )
+                }
                 <div className="actionDateContainer">
                     <Image
                         src="/schedule.png"
@@ -58,7 +63,7 @@ export default function DetailedActionCard() {
                         height={20}
                         className="scheduleImg"
                     />
-                    <p className={`${pixelifySans.className} actionDateTxt`}>10-07-2018 → 11-07-2018</p>
+                    <p className={`${pixelifySans.className} actionDateTxt`}>{date}</p>
                 </div>
             </div>
         </div>
