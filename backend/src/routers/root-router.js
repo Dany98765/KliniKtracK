@@ -1,0 +1,8 @@
+import express from "express";
+import * as rootController from "../controllers/root-controller.js";
+
+let router = express.Router();
+
+router.post("/signup", rootController.createNewUser);
+
+export default router;
