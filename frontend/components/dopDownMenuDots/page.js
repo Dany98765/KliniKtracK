@@ -45,7 +45,7 @@ export default function DropdownMenuDots({ type, setShowCard }) {
           Edit
         </MenuItem>
         <MenuItem onClick={handleClose} component="a" href="#">
-          {`View Assoc ${type}s`}
+          {`View Assoc ${type == 'Action' ? 'Conditions' : 'Actions'}`}
         </MenuItem>
       </Menu>
     </div>

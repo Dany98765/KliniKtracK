@@ -1,0 +1,28 @@
+.assocConditionsContainer {
+    background-color: var(--purple);
+    border-radius: 20px;
+    padding: 30px;
+    margin-left: 120px;
+}
+
+.assocConditionsHeaderTitlesContainer {
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: 700;
+}
+
+.assocConditionsBodyContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.assocConditionsBodyContainer {
+    margin-top: 20px;
+}
+
+.causedConditionsContainer, .solvedConditionsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+}
