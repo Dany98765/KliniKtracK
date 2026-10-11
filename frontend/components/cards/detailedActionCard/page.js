@@ -6,24 +6,30 @@ import DropdownMenuDots from "@/components/dopDownMenuDots/page";
 const pixelifySans = Pixelify_Sans({
     subsets: ['latin'],
     display: 'swap',
-    variable: '--font-pixelify', // Optional: CSS variable name
+    variable: '--font-pixelify', 
 });
 
-export default function DetailedActionCard({ title, desc, subType, date, doctor }) {
+export default function DetailedActionCard({ title, desc, subType, date, doctor, duration, setShowCard }) {
+    let startDateObj = new Date(date);
+    startDateObj.setDate(startDateObj.getDate() + duration - 1);
+    let endDate = startDateObj.toLocaleDateString()
+    let headerImg = subType == 'Surgical Operation' ? 'surgical-operation' : (
+        subType == 'Tablet' ? 'tablet-img' : 'dna'
+    )
     return (
         <div className="detailedActionCardContainer">
-            <div className="headerInfoContainer">
-                <div className="imgAndTitleContainer">
+            <div className="actionHeaderInfoContainer">
+                <div className="actionImgAndTitleContainer">
                     <div className="surgicalOperationCardIndicatorContainer">
                         <Image
-                            src="/surgical-operation.png"
+                            src={`/${headerImg}.png`}
                             width={45}
                             height={45}
                             alt="Surgical Operation"
                             className="surgicalOperationImg"
                         />
                     </div>
-                    <div className="titleAndTagContainer">
+                    <div className="actionTitleAndTagContainer">
                         <h1 className="actionTitleTxt">{title}</h1>
                         <div className="actionTypeContainer">
                             <span className="actionTypeCircle" />
@@ -31,10 +37,10 @@ export default function DetailedActionCard({ title, desc, subType, date, doctor 
                         </div>
                     </div>
                 </div>
-                <DropdownMenuDots />
+                <DropdownMenuDots type="Action" setShowCard={setShowCard} />
             </div>
             <p className="actionDesc">{desc}</p>
-            <div className="optionDoctorAndDateCardsContainer">
+            <div className="actionOptionalDoctorAndDateCardsContainer">
                 {doctor && (
                     <div className="doctorAssocWithActionCardContainer">
                         <div className="doctorImgAndNameContainer">
@@ -63,7 +69,7 @@ export default function DetailedActionCard({ title, desc, subType, date, doctor 
                         height={20}
                         className="scheduleImg"
                     />
-                    <p className={`${pixelifySans.className} actionDateTxt`}>{date}</p>
+                    <p className={`${pixelifySans.className} actionDateTxt`}>{duration > 1 ? `${date} → ${endDate}` : `${date}`}</p>
                 </div>
             </div>
         </div>

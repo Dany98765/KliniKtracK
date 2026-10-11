@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { IconButton, Menu, MenuItem, Link } from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-export default function DropdownMenuDots() {
+export default function DropdownMenuDots({ type, setShowCard }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -11,6 +11,15 @@ export default function DropdownMenuDots() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  function closeActionOrConditionCard() {
+    handleClose()
+    setShowCard({
+      id: "",
+      type: "", // action - condition
+      isShowing: false
+    })
+  }
   return (
     <div>
       <IconButton
@@ -19,7 +28,7 @@ export default function DropdownMenuDots() {
         aria-expanded={open ? 'true' : undefined}
         aria-haspopup="true"
         onClick={handleClick}
-        sx={{ color: "#A411D9" }}
+        sx={{ color: `${type == 'Action' ? '#A411D9' : '#23BAE7'}` }}
       >
         <MoreVertIcon />
       </IconButton>
@@ -29,11 +38,14 @@ export default function DropdownMenuDots() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} component="a" href="/profile">
+        <MenuItem onClick={closeActionOrConditionCard} component="a">
+          Close
+        </MenuItem>
+        <MenuItem onClick={handleClose} component="a" href="#">
           Edit
         </MenuItem>
-        <MenuItem onClick={handleClose} component="a" href="/profile">
-          View Assoc Actions/Conditions
+        <MenuItem onClick={handleClose} component="a" href="#">
+          {`View Assoc ${type}s`}
         </MenuItem>
       </Menu>
     </div>
