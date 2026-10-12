@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Gantt, Willow } from "@svar-ui/react-gantt";
 import "@svar-ui/react-gantt/all.css";
 import "./styles.css"
 import SummarisedTimelineCard from "@/components/cards/summarisedTimelineCard/page";
 import DetailedActionCard from "../cards/detailedActionCard/page";
 import DetailedConditionCard from "../cards/detailedConditionCard/page";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function colorIndicator(type, subType = "") {
   if (type == 'Action') {
@@ -91,6 +92,11 @@ const scales = [
 
 export default function TimelineComponent() {
   const [tasks, setTasks] = useState(initialTasks);
+  let searchParams = useSearchParams();
+  let revealAssocTable = searchParams?.get("revealAssocTable") || "false"
+  const params = new URLSearchParams(searchParams.toString());
+  const router = useRouter()
+  const pathname = usePathname();
   const [showCard, setShowCard] = useState({
     id: "",
     type: "Action", // action - condition
@@ -133,6 +139,16 @@ export default function TimelineComponent() {
       type: "e2e" // "e2s" | "s2s" | "e2e" | "s2e",
     }
   ]
+  useEffect(() => {
+    const newParams = new URLSearchParams(window.location.search);
+    if (!newParams.has("revealAssocTable")) return;
+    newParams.delete("revealAssocTable");
+    const query = newParams.toString();
+    const newUrl = query
+      ? `${window.location.pathname}?${query}`
+      : window.location.pathname;
+    router.replace(newUrl);
+  }, []);
   return (
     <div className="timeline">
       {showCard.isShowing && (
@@ -146,6 +162,7 @@ export default function TimelineComponent() {
               duration={initialTasks[showCard.id].duration}
               doctor={initialTasks[showCard.id].doctor || null}
               setShowCard={setShowCard}
+              revealAssocTable={revealAssocTable}
             // doctor ID
             />
           </div>
