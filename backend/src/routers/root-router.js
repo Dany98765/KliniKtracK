@@ -4,5 +4,6 @@ import * as rootController from "../controllers/root-controller.js";
 let router = express.Router();
 
 router.post("/signup", rootController.createNewUser);
+router.post("/login", rootController.authorizeLogin);
 
 export default router;

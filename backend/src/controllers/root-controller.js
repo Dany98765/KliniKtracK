@@ -13,5 +13,35 @@ export async function createNewUser(req, res){
         return res.sendStatus(201);
     }
 }
+
+export async function authorizeLogin(req, res){
+    let {email, password} = req.body;
+    if(!(email && password)){
+        let missingArray = findMissingFields([[email, "email"], [password, "password"]]);
+        return res.status(400).send("Missing fields are required for login: " + JSON.stringify(missingArray));
+    }else{
+        let storedPassword;
+        let foundPassword = await userRepo.getUserPassword(email);
+        switch(foundPassword){
+            case "multiple users have this email": 
+                console.log(JSON.stringify({"error source": "/backend/src/controllers/root-controller.js, authorizeLogin", "error cause": "getting user password", "error message/details": "multiple accounts have been found registered with this email"}));
+                return res.status(502).send("A data configuration problem has occured with this user's account, Unable to login");
+                break;
+            case "no user has this email": 
+                return res.status(401).send("No user is signed up with this email");
+                break;
+            case "no password found": 
+                console.log(JSON.stringify({"error source": "/backend/src/controllers/root-controller.js, authorizeLogin", "error cause": "getting user password", "error message/details": "A user has been found registered with this email without a password"}));
+                return res.status(502).send("A data configuration problem has occured with this user's account, Unable to login");
+                break;
+            default: 
+                storedPassword = foundPassword;
+                break;
+        };
+        if(await bcrypt.compare(password, storedPassword)){
+            return res.sendStatus(200);
+        }else{
+            return res.status(401).send("Incorrect password for user, Unable to login");
+        }
     }
 }
