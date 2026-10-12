@@ -36,6 +36,8 @@ const initialTasks = [
     date: "10-07-2018 → 11-07-2018",
     duration: 1,
     color: colorIndicator("Action", "Surgical Operation"),
+    caused: ['Aesthemetic Necrosis', 'Gastrointestinal'],
+    solved: ['Joint Disorder']
   },
 
   {
@@ -48,6 +50,8 @@ const initialTasks = [
     date: "10-07-2018 → 11-07-2018",
     duration: 10,
     color: colorIndicator("Action", "Tablet"),
+    caused: ['Chronic Conditions2', 'Mental Health Conditions2'],
+    solved: ['Cardiac Issues2']
   },
 
   {
@@ -73,7 +77,9 @@ const initialTasks = [
     start: new Date(2026, 8, 15),
     date: "10-07-2018 → 11-07-2018",
     duration: 15,
-    color: colorIndicator("Action", "Genetic")
+    color: colorIndicator("Action", "Genetic"),
+    caused: ['Chronic Conditions', 'Mental Health Conditions'],
+    solved: ['Cardiac Issues']
   },
 ];
 
@@ -163,6 +169,8 @@ export default function TimelineComponent() {
               doctor={initialTasks[showCard.id].doctor || null}
               setShowCard={setShowCard}
               revealAssocTable={revealAssocTable}
+              caused={initialTasks[showCard.id].caused}
+              solved={initialTasks[showCard.id].solved}
             // doctor ID
             />
           </div>

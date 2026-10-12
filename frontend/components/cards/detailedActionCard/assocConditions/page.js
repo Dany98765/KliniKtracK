@@ -1,6 +1,6 @@
 import "./styles.css"
 
-export default function AssocConditions() {
+export default function AssocConditions({ caused, solved }) {
     return (
         <div className="assocConditionsContainer">
             <div className="assocConditionsHeaderTitlesContainer">
@@ -11,14 +11,14 @@ export default function AssocConditions() {
             <hr />
             <div className="assocConditionsBodyContainer">
                 <ul className="causedConditionsContainer">
-                    <li>Aesthemetic Necrosis</li>
-                    <li>Aesthemetic Necrosis</li>
-                    <li>Aesthemetic Necrosis</li>
+                    {caused.map((cause, i) => (
+                        <li key={i}>{cause}</li>
+                    ))}
                 </ul>
                 <ul className="solvedConditionsContainer">
-                    <li>Aesthemetic Necrosis</li>
-                    <li>Aesthemetic Necrosis</li>
-                    <li>Aesthemetic Necrosis</li>
+                    {solved.map((solve, i) => (
+                        <li key={i}>{solve}</li>
+                    ))}
                 </ul>
             </div>
         </div>
