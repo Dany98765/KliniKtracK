@@ -5,7 +5,7 @@ let userRepo = {
         try{
             await db.query("INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4)", [name, email, password, role]);
         }catch(err){
-            throw {"error source": "/backend/src/repos/userRepo.js, createNewUser", "error message": err};
+            throw {"error source": "/backend/src/repos/userRepo.js, createNewUser", "error cause": "creating new user", "error message": err.message, "error details": err};
         }
     }
 }

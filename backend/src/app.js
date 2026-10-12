@@ -8,7 +8,8 @@ app.use(express.json());
 app.use("/", rootRouter);
 
 app.use((err, req, res, next) => {
-    res.send(500);
+    console.log(err);
+    res.status(500).send("Server error while " + err["error cause"]);
 })
 
 export default app;
