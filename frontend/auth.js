@@ -42,7 +42,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return {
           id: 384879289498093895897937n,
           email: credentials.email,
-          name: credentials.name
+          name: credentials.name,
+          role: credentials.role
         };
       },
     }),
@@ -53,6 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
+        token.role = user.role
       }
       return token;
     },

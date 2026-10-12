@@ -6,6 +6,22 @@ import "@svar-ui/react-gantt/all.css";
 import "./styles.css"
 import SummarisedTimelineCard from "@/components/cards/summarisedTimelineCard/page";
 import DetailedActionCard from "../cards/detailedActionCard/page";
+import DetailedConditionCard from "../cards/detailedConditionCard/page";
+
+function colorIndicator(type, subType = "") {
+  if (type == 'Action') {
+    switch (subType) {
+      case "Surgical Operation":
+        return "#A411D9"
+      case "Tablet":
+        return "#23BAE7"
+      case "Genetic":
+        return "#DDDDDD"
+    }
+  } else {
+    return "#FFFFFF"
+  }
+}
 
 const initialTasks = [
   {
@@ -18,7 +34,7 @@ const initialTasks = [
     start: new Date(2026, 8, 17),
     date: "10-07-2018 → 11-07-2018",
     duration: 1,
-    color: "#DDDDDD",
+    color: colorIndicator("Action", "Surgical Operation"),
   },
 
   {
@@ -26,11 +42,11 @@ const initialTasks = [
     title: "Cortisone Tablets",
     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus laoreet dui at vestibulum. Curabitur in nisi mattis, porttitor ante eget, luctus leo. Ut et libero commodo, pulvinar augue vitae, cursus eros. Fusce hendrerit condimentum mollis. Sed tempor velit at elit porttitor viverra. Donec cursus pretium quam, mollis consequat justo hendrerit id. ",
     type: "Action",
-    subType: "Medicine",
-    start: new Date(2026, 8, 5),
+    subType: "Tablet",
+    start: new Date(2026, 8, 1),
     date: "10-07-2018 → 11-07-2018",
     duration: 10,
-    color: "#23BAE7",
+    color: colorIndicator("Action", "Tablet"),
   },
 
   {
@@ -43,7 +59,20 @@ const initialTasks = [
     start: new Date(2026, 8, 1),
     date: "10-07-2018 → 11-07-2018",
     duration: 15,
-    color: "#A411D9",
+    color: colorIndicator("Condition"),
+  },
+
+  {
+    id: "3",
+    title: "Diabetes Type 2",
+    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi luctus laoreet dui at vestibulum. Curabitur in nisi mattis, porttitor ante eget, luctus leo. Ut et libero commodo, pulvinar augue vitae, cursus eros. Fusce hendrerit condimentum mollis. Sed tempor velit at elit porttitor viverra. Donec cursus pretium quam, mollis consequat justo hendrerit id. ",
+    type: "Action",
+    subType: "Genetic",
+    tags: ['high blood pressure', 'diabetic coma'],
+    start: new Date(2026, 8, 15),
+    date: "10-07-2018 → 11-07-2018",
+    duration: 15,
+    color: colorIndicator("Action", "Genetic")
   },
 ];
 
@@ -109,17 +138,28 @@ export default function TimelineComponent() {
       {showCard.isShowing && (
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
-            <DetailedActionCard 
+            <DetailedActionCard
               title={initialTasks[showCard.id].title}
               desc={initialTasks[showCard.id].desc}
               subType={initialTasks[showCard.id].subType}
-              date={initialTasks[showCard.id].date}
+              date={initialTasks[showCard.id].start.toLocaleDateString()}
+              duration={initialTasks[showCard.id].duration}
               doctor={initialTasks[showCard.id].doctor || null}
-              // doctor ID
+              setShowCard={setShowCard}
+            // doctor ID
             />
           </div>
         ) : (
-          <p>Hello</p>
+          <DetailedConditionCard
+            title={initialTasks[showCard.id].title}
+            desc={initialTasks[showCard.id].desc}
+            subType={initialTasks[showCard.id].subType}
+            date={initialTasks[showCard.id].start.toLocaleDateString()}
+            duration={initialTasks[showCard.id].duration}
+            tags={initialTasks[showCard.id].tags}
+            setShowCard={setShowCard}
+          // doctor ID
+          />
         )
       )}
       <div className="willowContainer">

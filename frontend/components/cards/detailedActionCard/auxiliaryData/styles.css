@@ -1,0 +1,126 @@
+.actionOptionalDoctorAndDateCardsContainer {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-left: 120px;
+    gap: 50px;
+}
+
+.doctorAssocWithActionCardContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    align-items: center;
+    background-color: #A411D920;
+    padding: 16px 24px;
+    border-radius: 100px;
+}
+
+.doctorImgAndNameContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+}
+
+.doctorImgContainer {
+    width: 50px;
+    height: 50px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 100px;
+}
+
+.doctorNameTxt {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.viewDrProfileButton {
+    background-color: var(--purple);
+    border-radius: 10px;
+    padding: 16px 40px;
+    color: white;
+    font-weight: 600;
+    border: none;
+}
+
+.viewDrProfileButton:hover {
+    background-color: #A411D950;
+    cursor: pointer;
+}
+
+.actionDateContainer {
+    background-color: #A411D920;
+    border-radius: 100px;
+    border: none;
+    padding: 10px 50px 10px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.actionDateTxt {
+    color: var(--purple);
+}
+
+@media (max-width: 1350px) {
+    .doctorAssocWithActionCardContainer {
+        padding: 8px 16px;
+    }
+
+    .viewDrProfileButton {
+        padding: 8px 16px;
+    }
+
+    .doctorImgContainer {
+        width: 30px;
+        height: 30px;
+    }
+
+    .doctorImg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .doctorNameTxt {
+        font-size: 16px;
+    }
+
+    .actionDateContainer {
+        padding: 5px 25px 5px 10px;
+    }
+
+    .actionDateTxt {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .actionOptionalDoctorAndDateCardsContainer {
+        flex-direction: column;
+        gap: 10px;
+        margin-left: 120px;
+    }
+}
+
+@media (max-width: 800px) {
+    .actionOptionalDoctorAndDateCardsContainer {
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 500px) {
+    .actionDesc {
+        margin-left: 0px;
+    }
+}
