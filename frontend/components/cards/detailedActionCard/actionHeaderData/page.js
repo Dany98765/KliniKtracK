@@ -3,7 +3,7 @@ import "./styles.css"
 import DropdownMenuDots from "@/components/dopDownMenuDots/page";
 import Image from "next/image";
 
-export default function HeaderData({ title, subType, setShowCard }) {
+export default function ActionHeaderData({ title, subType, setShowCard }) {
     let headerImg = subType == 'Surgical Operation' ? 'surgical-operation' : (
         subType == 'Tablet' ? 'tablet-img' : 'dna'
     )

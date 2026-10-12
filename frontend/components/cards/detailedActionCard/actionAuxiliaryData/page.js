@@ -9,7 +9,7 @@ const pixelifySans = Pixelify_Sans({
     variable: '--font-pixelify', 
 });
 
-export default function AuxiliaryData({ doctor, date, endDate, duration }) {
+export default function ActionAuxiliaryData({ doctor, date, endDate, duration }) {
     return (
         <div className="actionOptionalDoctorAndDateCardsContainer">
             {doctor && (

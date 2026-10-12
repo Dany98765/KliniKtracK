@@ -12,150 +12,20 @@
     border: 2px solid var(--blue);
 }
 
-.conditionHeaderInfoContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 20px;
-    margin-left: 50px;
-}
-
-.conditionTitleContainer {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 50px;
-}
-
-.conditionTitleTxt {
-    font-weight: 900;
-}
-
-.conditionTypeContainer {
-    background-color: #23BAE720;
-    border-radius: 100px;
-    border: none;
-    padding: 10px 50px 10px 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-}
-
-.conditionTypeCircle {
-    background-color: var(--blue);
-    border-radius: 100%;
-    width: 10px;
-    height: 10px;
-    aspect-ratio: 1 / 1;
-}
-
-.conditionTypeTagDesc {
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-}
-
 .conditionDesc {
     margin-left: 50px;
     margin-top: 10px;
     color: #A5A1B8;
 }
 
-.conditionTagsAndDateCardsContainer {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-left: 50px;
-    gap: 50px;
-}
-
-.conditionDateContainer {
-    background-color: #23BAE720;
-    border-radius: 100px;
-    border: none;
-    padding: 10px 50px 10px 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-}
-
-.conditionDateTxt {
-    color: var(--blue);
-}
-
-.conditionTagsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 15px;
-    align-items: center;
-}
-
-.singleTag {
-    color: white;
-    background-color: #23BAE720;
-    padding: 15px;
-    border-radius: 100px;
-    text-align: center;
-}
-
-@media (max-width: 1350px) {
-    .conditionDateContainer {
-        padding: 5px 25px 5px 10px;
-    }
-
-    .conditionDateTxt {
-        font-size: 14px;
-    }
-}
-
 @media (max-width: 1000px) {
-    .conditionTagsAndDateCardsContainer {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 20px;
-        margin-left: 50px;
-        margin-bottom: 30px;
-    }
-
-    .conditionTitleTxt {
-        font-size: 25px;
-    }
-
     .conditionDesc {
         font-size: 14px;
     }
 }
 
 @media (max-width: 800px) {
-    .conditionHeaderInfoContainer {
-        margin-left: 0px;
-    }
-
-    .conditionTagsAndDateCardsContainer {
-        margin-left: 0px;
-    }
-
     .conditionDesc {
         margin-left: 0px;
-    }
-
-    .conditionTagsContainer {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .singleTag {
-        padding: 10px;
     }
 }
