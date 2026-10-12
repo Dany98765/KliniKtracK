@@ -3,6 +3,10 @@ import bcrypt from "bcrypt";
 
 export async function createNewUser(req, res){
     let {name, email, password, role} = req.body;
-    await userRepo.createNewUser(name, email, await bcrypt.hash(password, 12), role);
-    res.sendStatus(201);
+    if(!(name && email && password && role)){
+        res.sendStatus(400);
+    }else{
+        await userRepo.createNewUser(name, email, await bcrypt.hash(password, 12), role);
+        res.sendStatus(201);
+    }
 }
