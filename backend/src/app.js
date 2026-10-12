@@ -9,7 +9,7 @@ app.use("/", rootRouter);
 
 app.use((err, req, res, next) => {
     console.log(err);
-    res.status(500).send("Server error while " + err["error cause"]);
+    return res.status(500).send("Server error while " + err["error cause"]);
 })
 
 export default app;
