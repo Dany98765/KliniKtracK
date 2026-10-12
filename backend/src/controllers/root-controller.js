@@ -1,7 +1,7 @@
 import userRepo from "../repos/userRepo.js";
 
-export function createNewUser(req, res){
-    let {name, email, password} = req.body;
-    userRepo.createNewUser(name, email, password);
+export async function createNewUser(req, res){
+    let {name, email, password, role} = req.body;
+    userRepo.createNewUser(name, email, password, role);
     res.sendStatus(200);
 }
