@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import "./styles.css"
 import dynamic from "next/dynamic";
 import Loader from "@/components/loader/page";
+import AddActionOrConditionButtons from "./addActionOrConditionButtons/page";
 
 const TimelineComponent = dynamic(
     () => import("@/components/timeline/page"),
@@ -15,14 +16,7 @@ export default function TimelinePage() {
                 <h1 className="timelineHeroSectionTitle">Unlock the Potential <br /> <span className="remarkableTimelinePageTitlePhrase">Hidden With <span className="usTxt">Us</span></span></h1>
                 <div className="circle"></div>
                 <p className="timelineHeroSectionDesc">Using our platform, you can add down here all of your medical history and track all symptoms, surgical operations done and genetical diseases with an elegant timeline!</p>
-                <div className="addActionOrConditionButtonsContainer">
-                    <button className="addActionButton">
-                        Add Action +
-                    </button>
-                    <button className="addConditionButton">
-                        Add Condition +
-                    </button>
-                </div>
+                <AddActionOrConditionButtons />
             </div>
             <Suspense fallback={<div className="kk">
                 <Loader />

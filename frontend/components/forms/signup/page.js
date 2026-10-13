@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import "./styles.css"
-import NameField from "@/components/fields/nameField/page"
-import EmailField from "@/components/fields/emailField/page"
-import PasswordField from "@/components/fields/passwordField/page"
+import NameField from "@/components/fields/auth/nameField/page"
+import EmailField from "@/components/fields/auth/emailField/page"
+import PasswordField from "@/components/fields/auth/passwordField/page"
 import { validateEmail, validateName, validatePassword, validatePasswordConfirmation, validateRole } from "@/utils/validation/signup"
 import { Alert } from "@mui/material"
 import { signIn } from "next-auth/react"

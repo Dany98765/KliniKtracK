@@ -25,7 +25,7 @@ export default function AuthUICard({ page }) {
                     </div>
                 </div>
             </div>
-            <div className="doctorImgContainer">
+            <div className="authDoctorImgContainer">
                 <img 
                     src="/doctor.png"
                     className="doctor"

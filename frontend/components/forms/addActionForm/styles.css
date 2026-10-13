@@ -1,0 +1,23 @@
+.addActionFormContainer{
+    background-color: var(--secondary-bg);
+    border-radius: 20px;
+    padding: 30px;
+    border: none;
+    width: 90%;
+    height: auto;
+    padding: 48px;
+}
+
+.splittedFieldTypesContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.addActionInputFieldsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+}

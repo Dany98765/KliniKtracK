@@ -2,5 +2,7 @@ export const ROUTES = {
     HOME: "/",
     SIGNUP: "/signup",
     SIGNIN: "/signin",
-    TIMELINE: "/timeline"
+    TIMELINE: "/timeline",
+    ADD_ACTION: "/addAction",
+    ADD_CONDITION: "/addCondition"
 }
