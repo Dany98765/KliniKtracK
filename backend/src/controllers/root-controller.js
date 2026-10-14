@@ -6,6 +6,9 @@ import validateRole from "../utils/validateRole.js";
 
 export async function createNewUser(req, res){
     let {name, email, password, role} = req.body;
+    if(email && userRepo.isEmailRegistered(email)){
+        return res.status(409).send("Email already in use");
+    }
     if(!(name && email && password && role)){
         let missingArray = findMissingFields([[name, "name"], [email, "email"], [password, "password"], [role, "role"]]);
         return res.status(400).send("Missing fields are required for signup: " + JSON.stringify(missingArray));

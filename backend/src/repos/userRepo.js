@@ -28,6 +28,22 @@ let userRepo = {
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, getUserPassword", "error cause": "getting user password", "error message": err.message, "error details": err};
         }
+    }, 
+
+    async isEmailRegistered(email){
+        try{
+            let results = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+            let rows = results.rows;
+            if(rows.length == 0){
+                return false;
+            }else if(rows.length == 1){
+                return true;
+            }else{
+                console.log(JSON.stringify({"error source": "/backend/src/repos/userRepo.js, isEmailRegistered", "error cause": "checking ig email is registered", "error message/details": "multiple accounts have been found registered with this email"}));
+            }
+        }catch(err){
+            throw {"error source": "/backend/src/repos/userRepo.js, isEmailRegistered", "error cause": "checking if email is registered", "error message": err.message, "error details": err};
+        }
     }
 }
 
