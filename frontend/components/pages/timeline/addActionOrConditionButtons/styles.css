@@ -1,0 +1,33 @@
+.addActionOrConditionButtonsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.addActionButton,
+.addConditionButton {
+    padding: 16px 32px;
+    color: white;
+    font-weight: 700;
+    background-color: var(--background);
+    border-radius: 10px;
+}
+
+.addActionButton {
+    border: 3px solid var(--blue)
+}
+
+.addActionButton:hover {
+    background-color: var(--blue);
+    cursor: pointer;
+}
+
+@media (max-width: 400px) {
+
+    .addActionButton,
+    .addConditionButton {
+        padding: 16px 24px;
+    }
+}

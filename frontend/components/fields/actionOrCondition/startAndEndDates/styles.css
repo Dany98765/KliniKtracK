@@ -1,0 +1,22 @@
+.startAndEndDatesFieldsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.startDateTitle, .endDateTitle {
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.requiredAsteriks {
+    color: red;
+}
+
+.startDateFieldContainer, .endDateFieldContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 15px;
+}

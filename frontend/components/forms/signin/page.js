@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import "./styles.css"
-import EmailField from "@/components/fields/emailField/page"
-import PasswordField from "@/components/fields/passwordField/page"
+import EmailField from "@/components/fields/auth/emailField/page"
+import PasswordField from "@/components/fields/auth/passwordField/page"
 import { Alert } from "@mui/material"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"

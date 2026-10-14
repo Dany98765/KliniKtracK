@@ -39,32 +39,6 @@
     color: #B8BAC7;
 }
 
-.addActionOrConditionButtonsContainer {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    align-items: center;
-    margin-top: 30px;
-}
-
-.addActionButton,
-.addConditionButton {
-    padding: 16px 32px;
-    color: white;
-    font-weight: 700;
-    background-color: var(--background);
-    border-radius: 10px;
-}
-
-.addActionButton {
-    border: 3px solid var(--blue)
-}
-
-.addActionButton:hover {
-    background-color: var(--blue);
-    cursor: pointer;
-}
-
 .addConditionButton {
     border: 3px solid var(--purple)
 }
@@ -99,9 +73,5 @@
     .timelineHeroSectionDesc {
         font-size: 14px;
         width: 95%;
-    }
-
-    .addActionButton, .addConditionButton {
-        padding: 16px 24px;
     }
 }

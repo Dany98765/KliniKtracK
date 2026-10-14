@@ -96,11 +96,11 @@
     font-size: 14px;
 }
 
-.doctorImgContainer {
+.authDoctorImgContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 50px;
 }
 
 .doctor {

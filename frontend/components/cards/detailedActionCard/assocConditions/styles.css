@@ -26,3 +26,9 @@
     justify-content: flex-start;
     gap: 8px;
 }
+
+@media (max-width: 800px) {
+    .assocConditionsContainer {
+        margin-left: 0px;
+    }
+}
