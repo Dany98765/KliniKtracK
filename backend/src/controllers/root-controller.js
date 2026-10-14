@@ -1,16 +1,54 @@
 import userRepo from "../repos/userRepo.js";
 import bcrypt from "bcrypt";
 import findMissingFields from "../utils/find-missing-fields.js";
+import { validateEmail, validateName, validatePassword } from "../../../frontend/utils/validation/signup.js";
+import validateRole from "../utils/validateRole.js";
 
 export async function createNewUser(req, res) {
     let { name, email, password, role } = req.body;
+    if (email && userRepo.isEmailRegistered(email)) {
+        return res.status(409).send("Email already in use");
+    }
     if (!(name && email && password && role)) {
         let missingArray = findMissingFields([[name, "name"], [email, "email"], [password, "password"], [role, "role"]]);
         return res.status(400).send("Missing fields are required for signup: " + JSON.stringify(missingArray));
     } else {
-        let hashedPassword = await bcrypt.hash(password, 12);
-        await userRepo.createNewUser(name, email, hashedPassword, role);
-        return res.sendStatus(201);
+        let nameValidation = validateName({ name: name });
+        let emailValidation = validateEmail({ email: email });
+        let passwordValidation = validatePassword({ password: password });
+        let roleValidation = validateRole({ role: role });
+        if (nameValidation.msg == null) {
+            nameValidation = false;
+        }
+        if (emailValidation.msg == null) {
+            emailValidation = false;
+        }
+        if (passwordValidation.msg == null) {
+            passwordValidation = false;
+        }
+        if (roleValidation.msg == null) {
+            roleValidation = false;
+        }
+        if (nameValidation || emailValidation || passwordValidation || roleValidation) {
+            let invalidArray = [];
+            if (nameValidation) {
+                invalidArray.push(nameValidation.msg)
+            }
+            if (emailValidation) {
+                invalidArray.push(emailValidation.msg)
+            }
+            if (passwordValidation) {
+                invalidArray.push(passwordValidation.msg);
+            }
+            if (roleValidation) {
+                invalidArray.push(roleValidation.msg);
+            }
+            return res.status(400).send("Some fields do not meet the requirements: " + JSON.stringify(invalidArray));
+        } else {
+            let hashedPassword = await bcrypt.hash(password, 12);
+            await userRepo.createNewUser(name, email, hashedPassword, role);
+            return res.sendStatus(201);
+        }
     }
 }
 
