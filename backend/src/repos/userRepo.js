@@ -54,6 +54,14 @@ let userRepo = {
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, fetchUserActions", "error cause": "fetching user actions", "error message": err.message, "error details": err};
         }
+    }, 
+
+    async createAction(id, name, description, start_date, end_date, type, doctor, doctor_id){
+        try{
+            await db.query("INSERT INTO actions (user_id, name, description, start_date, end_date, type, doctor, doctor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [id, name, description, start_date, end_date, type, doctor, doctor_id]);
+        }catch(err){
+            throw {"error source": "/backend/src/repos/userRepo.js, createAction", "error cause": "creating action", "error message": err.message, "error details": err};
+        }
     }
 }
 

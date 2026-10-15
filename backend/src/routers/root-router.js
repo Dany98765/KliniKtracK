@@ -5,6 +5,6 @@ let router = express.Router();
 
 router.post("/signup", rootController.createNewUser);
 router.post("/login", rootController.authorizeLogin);
-router.get("/actions", rootController.fetchActions);
+router.route("/actions").get(rootController.fetchActions).post(rootController.createAction);
 
 export default router;
