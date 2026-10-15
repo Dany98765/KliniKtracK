@@ -83,3 +83,15 @@ export async function authorizeLogin(req, res) {
         }
     }
 }
+
+export async function fetchActions(req, res){
+    let { id } = req.body;
+    if(!id){
+        res.status(400).send("Missing user id is required to fetch actions");
+    }else{
+        let actions = await userRepo.fetchUseractions(id);
+        res.status(200).json({actions: actions});
+    }
+}
+
+}

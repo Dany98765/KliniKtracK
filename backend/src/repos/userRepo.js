@@ -44,6 +44,16 @@ let userRepo = {
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, isEmailRegistered", "error cause": "checking if email is registered", "error message": err.message, "error details": err};
         }
+    }, 
+
+    async fetchUseractions(id){
+        try{
+            let results = await db.query("SELECT name, description, start_date, end_date, doctor, doctor_id, type FROM actions WHERE user_id = $1", [id]);
+            let rows = results.rows;
+            return rows;
+        }catch(err){
+            throw {"error source": "/backend/src/repos/userRepo.js, fetchUserActions", "error cause": "fetching user actions", "error message": err.message, "error details": err};
+        }
     }
 }
 
