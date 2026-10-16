@@ -104,3 +104,13 @@ export async function createAction(req, res){
         return res.sendStatus(201);
     }
 }
+
+export async function fetchConditions(req, res){
+    let { id } = req.body;
+    if(!id){
+        return res.status(400).send("Missing fields are required to fetch conditions: [id]");
+    }else{
+        let conditions = await userRepo.fetchUserConditions(id);
+        return res.status(200).json({conditions: conditions});
+    }
+}

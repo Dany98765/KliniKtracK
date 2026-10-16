@@ -62,6 +62,16 @@ let userRepo = {
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, createAction", "error cause": "creating action", "error message": err.message, "error details": err};
         }
+    }, 
+
+    async fetchUserConditions(id){
+        try{
+            let results = await db.query("SELECT name, description, type, symptoms, start_date, end_date FROM conditions WHERE user_id = $1", [id]);
+            let rows = results.rows;
+            return rows;
+        }catch(err){
+            throw {"error source": "/backend/src/repos/userRepo.js, fetchUserConditions", "error cause": "fetching user conditions", "error message": err.message, "error details": err};
+        }
     }
 }
 
