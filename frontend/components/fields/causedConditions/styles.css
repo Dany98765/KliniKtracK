@@ -1,0 +1,63 @@
+.causedConditionsTitle {
+    font-weight: 900;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.requiredAsteriks {
+    color: red
+}
+
+.causedConditionsField {
+    width: 250px !important;
+}
+
+@media (max-width: 1200px) {
+    .causedConditionsField {
+        width: 200px !important;
+    }
+}
+
+@media (max-width: 1000px) {
+    .causedConditionsField {
+        width: 300px !important;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .causedConditionsField {
+        width: 250px !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .causedConditionsField {
+        width: 200px !important;
+    }
+}
+
+
+@media (max-width: 550px) {
+    .causedConditionsField {
+        width: 400px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .causedConditionsField {
+        width: 300px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .causedConditionsField {
+        width: 300px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .causedConditionsField {
+        width: 200px !important;
+    }
+}

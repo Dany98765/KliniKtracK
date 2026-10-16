@@ -1,0 +1,137 @@
+.actionTypeFieldTitle {
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.requiredAsteriks {
+    color: red
+}
+
+.actionTypesSelectionContainer {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.surgicalOperationActionTypeSelectionContainer,
+.tabletActionTypeSelectionContainer,
+.geneticActionTypeSelectionContainer {
+    background-color: none;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.surgicalOperationActionTypeSelectionContainer {
+    border: 2px solid var(--purple);
+}
+
+.tabletActionTypeSelectionContainer {
+    border: 2px solid var(--blue);
+}
+
+.geneticActionTypeSelectionContainer {
+    border: 2px solid #CCCCCC;
+}
+
+.surgicalOperationInfo,
+.tabletInfo,
+.geneticInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.surgicalOperationActionTypeImgContainer,
+.tabletActionTypeImgContainer,
+.geneticActionTypeImgContainer {
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.surgicalOperationActionTypeImgContainer {
+    background-color: var(--purple);
+}
+
+.tabletActionTypeImgContainer {
+    background-color: var(--blue);
+}
+
+.geneticActionTypeImgContainer {
+    background-color: #CCCCCC;
+
+}
+
+.surgicalOperationFieldSelectionTitle,
+.tabletFieldSelectionTitle,
+.geneticFieldSelectionTitle {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.surgicalOperationFieldSelectionDesc,
+.tabletFieldSelectionDesc,
+.geneticFieldSelectionDesc {
+    color: #FFFFFF70;
+    margin-top: 10px;
+}
+
+.chooseSurgicalOperationActionTypeButton,
+.chooseTabletActionTypeButton,
+.chooseGeneticActionTypeButton {
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    margin-top: 30px;
+    font-weight: 700;
+}
+
+.chooseSurgicalOperationActionTypeButton {
+    background-color: var(--purple);
+}
+
+.chooseTabletActionTypeButton {
+    background-color: var(--blue);
+}
+
+.chooseGeneticActionTypeButton {
+    background-color: #CCCCCC;
+}
+
+.chooseSurgicalOperationActionTypeButton:hover,
+.chooseTabletActionTypeButton:hover,
+.chooseGeneticActionTypeButton:hover {
+    background-color: #A411D980;
+    cursor: pointer;
+}
+
+.chooseSurgicalOperationActionTypeButton:hover {
+    background-color: #A411D980;
+}
+.chooseTabletActionTypeButton:hover {
+    background-color: #23BAE780;
+}
+.chooseGeneticActionTypeButton:hover {
+    background-color: #CCCCCC80;
+}
+
+.surgicalOperationInfo,
+.tabletInfo,
+.geneticInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+}

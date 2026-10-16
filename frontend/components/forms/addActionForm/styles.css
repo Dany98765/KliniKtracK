@@ -1,4 +1,4 @@
-.addActionFormContainer{
+.addActionFormContainer {
     background-color: var(--secondary-bg);
     border-radius: 20px;
     padding: 30px;
@@ -12,6 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 50px
 }
 
 .addActionInputFieldsContainer {
@@ -20,4 +21,60 @@
     justify-content: flex-start;
     align-items: flex-start;
     gap: 30px;
+}
+
+.doctorNameAndIDFIeldsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+
+.contributeActionButton {
+    width: 100%;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    background-color: white;
+    color: black;
+    font-weight: 800;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.contributeActionButton:hover {
+    background-color: #FFFFFF99;
+    cursor: pointer;
+}
+
+.causedAndSolvedConditionsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+
+@media (max-width: 1000px) {
+    .splittedFieldTypesContainer {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 550px) {
+    .doctorNameAndIDFIeldsContainer {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .causedAndSolvedConditionsContainer {
+        flex-direction: column;
+        gap: 20px;
+    }
 }

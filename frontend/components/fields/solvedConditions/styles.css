@@ -1,0 +1,61 @@
+.solvedConditionsTitle {
+    font-weight: 900;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.requiredAsteriks {
+    color: red
+}
+
+.solvedConditionsField {
+    width: 250px !important;
+}
+
+@media (max-width: 1200px) {
+    .solvedConditionsField {
+        width: 200px !important;
+    }
+}
+
+@media (max-width: 1000px) {
+    .solvedConditionsField {
+        width: 300px !important;
+    }
+}
+
+@media (max-width: 800px) {
+    .solvedConditionsField {
+        width: 250px !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .solvedConditionsField {
+        width: 200px !important;
+    }
+}
+
+@media (max-width: 550px) {
+    .solvedConditionsField {
+        width: 400px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .solvedConditionsField {
+        width: 300px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .solvedConditionsField {
+        width: 300px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .solvedConditionsField {
+        width: 200px !important;
+    }
+}

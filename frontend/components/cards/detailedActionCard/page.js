@@ -7,6 +7,7 @@ export default function DetailedActionCard({ title, desc, subType, date, doctor,
     let startDateObj = new Date(date);
     startDateObj.setDate(startDateObj.getDate() + duration - 1);
     let endDate = startDateObj.toLocaleDateString()
+    console.log(endDate)
     return (
         <div className="detailedActionCardContainer">
             <ActionHeaderData title={title} subType={subType} setShowCard={setShowCard} />

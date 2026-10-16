@@ -13,3 +13,45 @@
 .requiredAsteriks {
     color: red
 }
+
+.eventDescriptionField {
+    width: 500px;
+}
+
+@media (max-width: 1200px) {
+    .eventDescriptionField {
+        width: 400px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .eventDescriptionField {
+        width: 600px;
+    }
+}
+
+/*------------------------------------*/
+
+@media (max-width: 800px) {
+    .eventDescriptionField {
+        width: 500px;
+    }
+}
+
+@media (max-width: 700px) {
+    .eventDescriptionField {
+        width: 400px;
+    }
+}
+
+@media (max-width: 500px) {
+    .eventDescriptionField {
+        width: 300px;
+    }
+}
+
+@media (max-width: 400px) {
+    .eventDescriptionField {
+        width: 200px;
+    }
+}

@@ -5,7 +5,7 @@ import SignupForm from "@/components/forms/signup/page"
 export default function SignupPage() {
     return (
         <div className="signupPageContainer">
-            <AuthUICard page="signin" />
+            <AuthUICard page="signup" />
             <SignupForm />
         </div>
     )

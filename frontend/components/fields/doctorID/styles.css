@@ -1,0 +1,109 @@
+/* .eventdoctorIDFieldContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.eventDoctorIDTitle {
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.requiredAsteriks {
+    color: red
+}
+
+.coloredK {
+    color: var(--blue)
+}
+
+.doctorIDField {
+    width: 250px;
+}
+
+@media (max-width: 1200px) {
+    .doctorIDField {
+        width: 200px;
+    }
+
+    .eventDoctorIDTitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .doctorIDField {
+        width: 350px;
+    }
+} */
+
+.eventdoctorIDFieldContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.eventDoctorIDTitle {
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.requiredAsteriks {
+    color: red;
+}
+
+.coloredK {
+    color: var(--blue);
+}
+
+.doctorIDField {
+    width: 250px;
+}
+
+@media (max-width: 1200px) {
+    .doctorIDField {
+        width: 200px;
+    }
+
+    .eventDoctorIDTitle {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .doctorIDField {
+        width: 300px
+    }
+}
+
+@media (max-width: 800px) {
+    .doctorIDField {
+        width: 250px;
+    }
+}
+
+@media (max-width: 700px) {
+    .doctorIDField {
+        width: 200px;
+    }
+}
+
+@media (max-width: 550px) {
+    .doctorIDField {
+        width: 400px;
+    }
+}
+
+@media (max-width: 500px) {
+    .doctorIDField {
+        width: 300px;
+    }
+}
+
+@media (max-width: 400px) {
+    .doctorIDField {
+        width: 200px;
+    }
+}

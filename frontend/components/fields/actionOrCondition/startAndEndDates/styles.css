@@ -4,7 +4,8 @@
     gap: 30px;
 }
 
-.startDateTitle, .endDateTitle {
+.startDateTitle,
+.endDateTitle {
     font-weight: 900;
     font-size: 18px;
 }
@@ -13,10 +14,70 @@
     color: red;
 }
 
-.startDateFieldContainer, .endDateFieldContainer {
+.startDateFieldContainer,
+.endDateFieldContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 15px;
+}
+
+.startDateField,
+.endDateField {
+    width: 250px;
+}
+
+@media (max-width: 1200px) {
+    .startDateField,
+    .endDateField {
+        width: 200px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .startDateField, 
+    .endDateField {
+        width: 300px;
+    }
+}
+
+@media (max-width: 800px) {
+    .startDateField, 
+    .endDateField {
+        width: 250px;
+    }
+}
+
+@media (max-width: 700px) {
+    .startDateField, 
+    .endDateField {
+        width: 200px;
+    }
+}
+
+@media (max-width: 550px) {
+    .startDateField, 
+    .endDateField {
+        width: 400px;
+    }
+
+    .startAndEndDatesFieldsContainer {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .startDateField, 
+    .endDateField {
+        width: 300px;
+    }
+} 
+
+@media (max-width: 400px) {
+    .startDateField,
+    .endDateField {
+        width: 200px;
+    }
 }
