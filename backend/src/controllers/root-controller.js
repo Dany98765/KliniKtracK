@@ -89,7 +89,7 @@ export async function fetchActions(req, res){
     if(!id){
         return res.status(400).send("Missing fields are required to fetch actions: [id]");
     }else{
-        let actions = await userRepo.fetchUseractions(id);
+        let actions = await userRepo.fetchUserActions(id);
         return res.status(200).json({actions: actions});
     }
 }

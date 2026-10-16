@@ -46,7 +46,7 @@ let userRepo = {
         }
     }, 
 
-    async fetchUseractions(id){
+    async fetchUserActions(id){
         try{
             let results = await db.query("SELECT name, description, start_date, end_date, doctor, doctor_id, type FROM actions WHERE user_id = $1", [id]);
             let rows = results.rows;
