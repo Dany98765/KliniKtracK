@@ -25,8 +25,12 @@ export default function AddActionForm() {
     })
 
     useEffect(() => {
-        console.log(addActionFormFields.startDate.toLocaleDateString())
+        console.log(addActionFormFields)
     }, [addActionFormFields])
+
+    function contributeAction() {
+        const { name, description, startDate, endDate, doctorName, doctorID, causedConditions, solvedConditions, actionType } = addActionFormFields
+    }
     return (
         <div className="addActionFormContainer">
             <div className="splittedFieldTypesContainer">
@@ -71,7 +75,7 @@ export default function AddActionForm() {
                     />
                 </div>
             </div>
-            <button className="contributeActionButton">
+            <button className="contributeActionButton" onClick={contributeAction}>
                 Contribute Action
             </button>
         </div>

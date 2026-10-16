@@ -4,7 +4,7 @@ import { selectFieldProps } from "./selectFieldProps"
 import "./styles.css"
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 
-export default function CausedConditionsField() {
+export default function CausedConditionsField({ state, setState }) {
     return (
         <div className="causedConditionsFieldContainer">
             <p className="causedConditionsTitle">Caused Conditions <span className="requiredAsteriks">*</span></p>
@@ -16,6 +16,14 @@ export default function CausedConditionsField() {
                 <Select
                     labelId="demo-simple-select-label"
                     variant="outlined"
+                    multiple
+                    value={state.causedConditions}
+                    onChange={(e) => {
+                        setState((prev) => ({
+                            ...prev,
+                            causedConditions: e.target.value
+                        }))
+                    }}
                 >
                     <MenuItem value={10}>Ten</MenuItem>
                     <MenuItem value={20}>Twenty</MenuItem>

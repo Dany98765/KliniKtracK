@@ -3,7 +3,7 @@
 import Image from "next/image"
 import "./styles.css"
 
-export default function ActionTypeField() {
+export default function ActionTypeField({ state, setState }) {
     return (
         <div className="actionTypeFieldContainer">
             <p className="actionTypeFieldTitle">Action Type <span className="requiredAsteriks">*</span></p>
@@ -25,7 +25,12 @@ export default function ActionTypeField() {
                         </div>
 
                     </div>
-                    <button className="chooseSurgicalOperationActionTypeButton">
+                    <button className="chooseSurgicalOperationActionTypeButton" onClick={() => {
+                        setState((prev) => ({
+                            ...prev,
+                            actionType: "Surgical Operation"
+                        }))
+                    }}>
                         Choose Type →
                     </button>
                 </div>
@@ -46,7 +51,12 @@ export default function ActionTypeField() {
                         </div>
 
                     </div>
-                    <button className="chooseTabletActionTypeButton">
+                    <button className="chooseTabletActionTypeButton" onClick={() => {
+                        setState((prev) => ({
+                            ...prev,
+                            actionType: "Tablet"
+                        }))
+                    }}>
                         Choose Type →
                     </button>
                 </div>
@@ -67,7 +77,12 @@ export default function ActionTypeField() {
                         </div>
 
                     </div>
-                    <button className="chooseGeneticActionTypeButton">
+                    <button className="chooseGeneticActionTypeButton" onClick={() => {
+                        setState((prev) => ({
+                            ...prev,
+                            actionType: "Genetic"
+                        }))
+                    }}>
                         Choose Type →
                     </button>
                 </div>

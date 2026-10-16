@@ -6,8 +6,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { slotProps } from "./dateFieldProps";
 import dayjs from "dayjs";
+import { useEffect } from "react";
 
 export default function EventStartAndEndDatesFields({ state, setState }) {
+    useEffect(() => {
+        setState((prev) => ({
+            ...prev,
+            startDate: prev?.startDate?.toLocalDateString(),
+            startDate: prev?.endDate?.toLocalDateString()
+        }))
+    }, [state])
     return (
         <div className="startAndEndDatesFieldsContainer">
             <div className="startDateFieldContainer">

@@ -3,7 +3,7 @@
 import "./styles.css"
 import TextField from '@mui/material/TextField';
 
-export default function EventDoctorIDField() {
+export default function EventDoctorIDField({ state, setState }) {
     return (
         <div className="eventDoctorIDFieldContainer">
             <p className="eventDoctorIDTitle">
@@ -18,6 +18,13 @@ export default function EventDoctorIDField() {
                 label="Eg: 3847028409288940"
                 variant="standard"
                 className="doctorIDField"
+                value={state.doctorID}
+                onChange={(e) => {
+                    setState((prev) => ({
+                        ...prev,
+                        doctorID: e.target.value
+                    }))
+                }}
                 sx={{
                     color: "white",
                     '& .MuiInput-root': {
