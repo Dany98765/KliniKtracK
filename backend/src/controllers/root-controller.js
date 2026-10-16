@@ -114,3 +114,18 @@ export async function fetchConditions(req, res){
         return res.status(200).json({conditions: conditions});
     }
 }
+
+export async function createCondition(req, res){
+    let { id, name, description, type, symptoms, start_date, end_date } = req.body;
+    if(!(id && name && description && type && symptoms && start_date && end_date)){
+        let missingArray = findMissingFields([[id, "id"], [name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [start_date, "start date"], [end_date, "end date"]]);
+        return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
+    }else{
+        if(!(symptoms.length > 0)){
+            return res.status(400).send("At least one symptom is needed to create a condition");
+        }else{
+            await userRepo.createCondition(id, name, description, type, symptoms, start_date, end_date);
+            return res.sendStatus(201);
+        }
+    }
+}

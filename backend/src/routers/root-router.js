@@ -6,6 +6,6 @@ let router = express.Router();
 router.post("/signup", rootController.createUser);
 router.post("/login", rootController.authorizeLogin);
 router.route("/actions").get(rootController.fetchActions).post(rootController.createAction);
-router.get("/conditions", rootController.fetchConditions);
+router.route("/conditions").get(rootController.fetchConditions).post(rootController.createCondition);
 
 export default router;

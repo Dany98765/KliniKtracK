@@ -72,6 +72,14 @@ let userRepo = {
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, fetchUserConditions", "error cause": "fetching user conditions", "error message": err.message, "error details": err};
         }
+    }, 
+
+    async createCondition(id, name, description, type, symptoms, start_date, end_date){
+        try{
+            await db.query("INSERT INTO conditions (user_id, name, description, type, symptoms, start_date, end_date) VALUES ($1, $2, $3, $4, $5, $6, $7)", [id, name, description, type, symptoms, start_date, end_date]);
+        }catch(err){
+            throw {"error source": "/backend/src/repos/userRepo.js, createConditions", "error cause": "creating condition", "error message": err.message, "error details": err};
+        }
     }
 }
 
