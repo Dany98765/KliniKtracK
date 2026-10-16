@@ -3,14 +3,14 @@
 import "./styles.css"
 import TextField from '@mui/material/TextField';
 
-export default function EventNameField({ state, setState }) {
+export default function EventNameField({ state, setState, className }) {
     return (
         <div className="eventNameFieldContainer">
             <p className="eventNameTitle">Name <span className="requiredAsteriks">*</span></p>
             <TextField
                 label="Eg: Joint Replacement"
                 variant="standard"
-                className="eventNameField"
+                className={className}
                 value={state.name}
                 onChange={(e) => {
                     setState((prev) => ({

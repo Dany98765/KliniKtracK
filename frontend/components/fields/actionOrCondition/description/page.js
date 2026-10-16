@@ -3,14 +3,14 @@
 import "./styles.css"
 import TextField from '@mui/material/TextField';
 
-export default function EventDescriptionField({ state, setState }) {
+export default function EventDescriptionField({ state, setState, className }) {
     return (
         <div className="eventDescFieldContainer">
             <p className="eventDescTitle">Description <span className="requiredAsteriks">*</span></p>
             <TextField
-                label="Eg: I performed a surgery on my damaged joint where the affected structures were carefully repaired and restored for the joint’s movements and functions. Finally, my condition was carefully monitored."
+                label={className == 'actionDescriptionField' ? "Eg: I performed a surgery on my damaged joint where the affected structures were carefully repaired and restored for the joint’s movements and functions. Finally, my condition was carefully monitored." : "Eg: I faced a condition called Avascular Necrosis after having a surgery in my knee which lead to stiffness, joint pain and difficulty in walking."}
                 variant="standard"
-                className="eventDescriptionField"
+                className={className}
                 value={state.description}
                 onChange={(e) => {
                     setState((prev) => ({

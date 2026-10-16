@@ -98,10 +98,12 @@ export default function AddActionForm() {
                     <EventNameField
                         state={addActionFormFields}
                         setState={setAddActionFormFields}
+                        className="actionNameField"
                     />
                     <EventDescriptionField
                         state={addActionFormFields}
                         setState={setAddActionFormFields}
+                        className="actionDescriptionField"
                     />
                     <EventStartAndEndDatesFields
                         state={addActionFormFields}

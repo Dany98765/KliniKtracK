@@ -1,0 +1,58 @@
+"use client"
+
+import { useState } from "react";
+import "./styles.css"
+import TextField from '@mui/material/TextField';
+
+export default function ConditionSymptomsField({ state, setState }) {
+    const [currentSymptom, setCurrentSymptom] = useState("")
+    console.log(state.symptoms)
+    return (
+        <div className="conditionTypeFieldContainer">
+            <p className="conditionSymptomsTitle">Type <span className="requiredAsteriks">*</span></p>
+            <TextField
+                label="Eg: Joint Pain"
+                variant="standard"
+                className="conditionSymptomsField"
+                value={currentSymptom}
+                onChange={(e) => setCurrentSymptom(e.target.value)}
+                sx={{
+                    color: "white",
+                    '& .MuiInput-root': {
+                        '&:before': {
+                            borderBottomColor: '#FFFFFF90',
+                        },
+                        '&:hover:not(.Mui-disabled):before': {
+                            borderBottomColor: '#FFFFFF90',
+                        },
+                        '&:after': {
+                            borderBottomColor: '#FFFFFF90',
+                        },
+                    },
+                    '& input': {
+                        color: '#FFFFFF',
+                        fontSize: '16px',
+                    },
+                    '& .MuiInputLabel-root': { color: '#FFFFFF90' },
+                    '& .MuiInputLabel-root.Mui-focused': { color: '#FFFFFF90' },
+                }}
+            />
+            <div className="allSymptomsAndAddSymptomButtonContainer">
+                {state.symptoms && state.symptoms?.map((symptom, id) => (
+                    <span key={id} className="symptomTag">
+                        {symptom}
+                    </span>
+                )
+                )}
+                <button className="addSymptomButton" onClick={(e) => {
+                    setState((prev) => ({
+                        ...prev,
+                        symptoms: [...prev.symptoms, currentSymptom]
+                    }))
+                }}>
+                    +
+                </button>
+            </div>
+        </div>
+    )
+}

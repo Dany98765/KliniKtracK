@@ -14,18 +14,22 @@
     color: red
 }
 
-.eventDescriptionField {
+.actionDescriptionField {
     width: 500px;
 }
 
+.conditionDescriptionField {
+    width: 100%;
+}
+
 @media (max-width: 1200px) {
-    .eventDescriptionField {
+    .actionDescriptionField {
         width: 400px;
     }
 }
 
 @media (max-width: 1000px) {
-    .eventDescriptionField {
+    .actionDescriptionField {
         width: 600px;
     }
 }
@@ -33,25 +37,25 @@
 /*------------------------------------*/
 
 @media (max-width: 800px) {
-    .eventDescriptionField {
+    .actionDescriptionField {
         width: 500px;
     }
 }
 
 @media (max-width: 700px) {
-    .eventDescriptionField {
+    .actionDescriptionField {
         width: 400px;
     }
 }
 
 @media (max-width: 500px) {
-    .eventDescriptionField {
+    .actionDescriptionField {
         width: 300px;
     }
 }
 
 @media (max-width: 400px) {
-    .eventDescriptionField {
+    .actionDescriptionField {
         width: 200px;
     }
 }

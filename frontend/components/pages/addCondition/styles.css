@@ -1,0 +1,61 @@
+.addConditionPageContainer {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.addConditionPageHeroSectionContainer {
+    background-color: var(--purple);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 200px;
+}
+
+.addConditionTagContainer {
+    background-color: #23BAE710;
+    border-radius: 100px;
+    border: 1px solid #FFFFFF07;
+    padding: 10px 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.addConditionUICircle {
+    background-color: var(--blue);
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+}
+
+.addConditionPageHeroSectionTitle {
+    font-size: 40px;
+    font-weight: 900;
+    text-align: center;
+}
+
+.addConditionTagDesc {
+    color: white;
+    font-size: 14px;
+}
+
+.contributeTxt, .healthHistoryTxt {
+    color: var(--blue)
+}
+
+.addConditionPageHeroSectionDesc {
+    color: #FFFFFF90;
+    font-weight: 600;
+    width: 90%;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
