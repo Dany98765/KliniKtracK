@@ -1,15 +1,15 @@
 import db from "../pool.js";
 
 let userRepo = {
-    async createNewUser(name, email, password, role){
+    async createUser(name, email, password, role){
         try{
             await db.query("INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4)", [name, email, password, role]);
         }catch(err){
-            throw {"error source": "/backend/src/repos/userRepo.js, createNewUser", "error cause": "creating new user", "error message": err.message, "error details": err};
+            throw {"error source": "/backend/src/repos/userRepo.js, createUser", "error cause": "creating new user", "error message": err.message, "error details": err};
         }
     }, 
 
-    async getUserPassword(email){
+    async fetchUserPassword(email){
         try{
             let results = await db.query("SELECT password FROM users WHERE email = $1", [email]);
             let rows = results.rows;
@@ -26,7 +26,7 @@ let userRepo = {
                 }
             }
         }catch(err){
-            throw {"error source": "/backend/src/repos/userRepo.js, getUserPassword", "error cause": "getting user password", "error message": err.message, "error details": err};
+            throw {"error source": "/backend/src/repos/userRepo.js, fetchUserPassword", "error cause": "getting user password", "error message": err.message, "error details": err};
         }
     }, 
 

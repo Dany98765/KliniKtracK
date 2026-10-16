@@ -4,7 +4,7 @@ import findMissingFields from "../utils/find-missing-fields.js";
 import { validateEmail, validateName, validatePassword } from "../../../frontend/utils/validation/signup.js";
 import validateRole from "../utils/validateRole.js";
 
-export async function createNewUser(req, res) {
+export async function createUser(req, res) {
     let { name, email, password, role } = req.body;
     if(email && userRepo.isEmailRegistered(email)){
         return res.status(409).send("Email already in use");
@@ -46,7 +46,7 @@ export async function createNewUser(req, res) {
             return res.status(400).send("Some fields do not meet the requirements: " + JSON.stringify(invalidArray));
         }else{
             let hashedPassword = await bcrypt.hash(password, 12);
-            await userRepo.createNewUser(name, email, hashedPassword, role);
+            await userRepo.createUser(name, email, hashedPassword, role);
             return res.sendStatus(201);
         }
     }
@@ -59,7 +59,7 @@ export async function authorizeLogin(req, res) {
         return res.status(400).send("Missing fields are required for login: " + JSON.stringify(missingArray));
     }else{
         let storedPassword;
-        let foundPassword = await userRepo.getUserPassword(email);
+        let foundPassword = await userRepo.fetchUserPassword(email);
         switch(foundPassword){
             case "multiple users have this email":
                 console.log(JSON.stringify({ "error source": "/backend/src/controllers/root-controller.js, authorizeLogin", "error cause": "getting user password", "error message/details": "multiple accounts have been found registered with this email" }));
