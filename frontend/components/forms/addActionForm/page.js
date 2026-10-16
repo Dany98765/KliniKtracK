@@ -9,14 +9,17 @@ import EventDoctorIDField from "@/components/fields/doctorID/page"
 import ActionTypeField from "@/components/fields/actionType/page"
 import CausedConditionsField from "@/components/fields/causedConditions/page"
 import SolvedConditionsField from "@/components/fields/solvedConditions/page"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useTransition } from "react"
+import { actionDescription, actionDoctorName, actionName, actionStartAndEndDates, actionTypeValidationFn } from "@/utils/validation/addAction"
+import { Alert } from "@mui/material"
 
 export default function AddActionForm() {
+    const [isPending, startTransition] = useTransition()
     const [addActionFormFields, setAddActionFormFields] = useState({
         name: "",
         description: "",
-        startDate: new Date(),
-        endDate: new Date(),
+        startDate: "",
+        endDate: "",
         doctorName: "",
         doctorID: "",
         causedConditions: [],
@@ -24,15 +27,72 @@ export default function AddActionForm() {
         actionType: ""
     })
 
-    useEffect(() => {
-        console.log(addActionFormFields)
-    }, [addActionFormFields])
-
+    const [actionFormFieldsValidation, setActionFormFieldsValidation] = useState({
+        name: "",
+        description: "",
+        dates: "",
+        doctorName: "",
+        actionType: ""
+    })
+    // useEffect(() => {
+    //     console.log(addActionFormFields)
+    // }, [addActionFormFields])
+    // useEffect(() => {
+    //         setState((prev) => ({
+    //             ...prev,
+    //             startDate: prev?.startDate?.toLocalDateString(),
+    //             startDate: prev?.endDate?.toLocalDateString()
+    //         }))
+    //     }, [state])
     function contributeAction() {
+
         const { name, description, startDate, endDate, doctorName, doctorID, causedConditions, solvedConditions, actionType } = addActionFormFields
+        let actionNameValidationResult = actionName({ name })
+        let actionDescriptionValidationResult = actionDescription({ description })
+        let startAndEndDateValidationResult = actionStartAndEndDates({ startDate, endDate })
+        let actionDoctorNameValidationResult = actionDoctorName({ doctorName })
+        let actionTypeValidationResult = actionTypeValidationFn({ actionType })
+
+        if (!actionNameValidationResult.msg &&
+            !actionDescriptionValidationResult.msg &&
+            !startAndEndDateValidationResult.msg &&
+            !actionDoctorNameValidationResult.msg &&
+            !actionTypeValidationResult.msg
+        ) {
+            console.log("SUCCESSFUL VALIDATION!")
+            setActionFormFieldsValidation({
+                name: "",
+                description: "",
+                dates: "",
+                doctorName: "",
+                actionType: ""
+            })
+            // API Endpoint
+        } else {
+            console.log("UNSUCCESSFUL VALIDATION!")
+            setActionFormFieldsValidation({
+                name: actionNameValidationResult.msg,
+                description: actionDescriptionValidationResult.msg,
+                dates: startAndEndDateValidationResult.msg,
+                doctorName: actionDoctorNameValidationResult.msg,
+                actionType: actionTypeValidationResult.msg
+            })
+        }
     }
+    let { name, description, dates, doctorName, actionType } = actionFormFieldsValidation
+    let errToShow =
+        name ||
+        description ||
+        dates ||
+        doctorName ||
+        actionType
     return (
         <div className="addActionFormContainer">
+            {errToShow &&
+                <Alert severity="error" className="errPopup">
+                    {errToShow}
+                </Alert>
+            }
             <div className="splittedFieldTypesContainer">
                 <div className="addActionInputFieldsContainer">
                     <EventNameField
@@ -69,7 +129,7 @@ export default function AddActionForm() {
                     </div>
                 </div>
                 <div>
-                    <ActionTypeField 
+                    <ActionTypeField
                         state={addActionFormFields}
                         setState={setAddActionFormFields}
                     />

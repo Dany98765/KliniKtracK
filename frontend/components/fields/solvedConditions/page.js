@@ -6,7 +6,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 export default function SolvedConditionsField({ state, setState }) {
     return (
         <div className="solvedConditionsFieldContainer">
-            <p className="solvedConditionsTitle">Solved Conditions <span className="requiredAsteriks">*</span></p>
+            <p className="solvedConditionsTitle">Solved Conditions</p>
             <FormControl
                 className="solvedConditionsField"
                 sx={selectFieldProps}

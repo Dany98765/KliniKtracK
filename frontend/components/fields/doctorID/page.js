@@ -13,7 +13,7 @@ export default function EventDoctorIDField({ state, setState }) {
                 trac
                 <span className="coloredK">K </span>
                 Profile ID
-                <span className="requiredAsteriks">*</span></p>
+                </p>
             <TextField
                 label="Eg: 3847028409288940"
                 variant="standard"
