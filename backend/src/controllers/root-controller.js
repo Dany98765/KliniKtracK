@@ -6,7 +6,7 @@ import validateRole from "../utils/validateRole.js";
 
 export async function createUser(req, res) {
     let { name, email, password, role } = req.body;
-    if(email && userRepo.isEmailRegistered(email)){
+    if(email && await userRepo.isEmailRegistered(email)){
         return res.status(409).send("Email already in use");
     }
     if(!(name && email && password && role)){
@@ -95,12 +95,18 @@ export async function fetchActions(req, res){
 }
 
 export async function createAction(req, res){
-    let { id, name, description, start_date, end_date, type, doctor, doctor_id } = req.body;
+    let { id, name, description, start_date, end_date, type, doctor, doctor_id, causedConditions, solvedConditions } = req.body;
     if(!(id && name && description && start_date && end_date && type)){
         let missingArray = findMissingFields([[id, "id"], [name, "name"], [description, "description"], [start_date, "start date"], [end_date, "end date"], [type, "type"]]);
         return res.status(400).send("Missing fields are required to create new action: " + JSON.stringify(missingArray));
     }else{
-        await userRepo.createAction(id, name, description, start_date, end_date, type, doctor, doctor_id);
+        let actionId = await userRepo.createAction(id, name, description, start_date, end_date, type, doctor, doctor_id);
+        for(let i = 0; i < causedConditions.length; i++){
+            await userRepo.createActionToConditionAssociation(id, actionId, causedConditions[i], "Caused");
+        }
+        for(let i = 0; i < solvedConditions.length; i++){
+            await userRepo.createActionToConditionAssociation(id, actionId, solvedConditions[i], "Solved");
+        }
         return res.sendStatus(201);
     }
 }
@@ -116,7 +122,7 @@ export async function fetchConditions(req, res){
 }
 
 export async function createCondition(req, res){
-    let { id, name, description, type, symptoms, start_date, end_date } = req.body;
+    let { id, name, description, type, symptoms, start_date, end_date, causedWhichActions, sideEffectForWhichActions } = req.body;
     if(!(id && name && description && type && symptoms && start_date && end_date)){
         let missingArray = findMissingFields([[id, "id"], [name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [start_date, "start date"], [end_date, "end date"]]);
         return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
@@ -124,7 +130,13 @@ export async function createCondition(req, res){
         if(!(symptoms.length > 0)){
             return res.status(400).send("At least one symptom is needed to create a condition");
         }else{
-            await userRepo.createCondition(id, name, description, type, symptoms, start_date, end_date);
+            let conditionId = await userRepo.createCondition(id, name, description, type, symptoms, start_date, end_date);
+            for(let i = 0; i < causedWhichActions.length; i++){
+                await userRepo.createConditionToActionAssociation(id, causedWhichActions[i], conditionId, "Solved");
+            }
+            for(let i = 0; i < sideEffectForWhichActions.length; i++){
+                await userRepo.createConditionToActionAssociation(id, sideEffectForWhichActions[i], conditionId, "Caused");
+            }
             return res.sendStatus(201);
         }
     }
