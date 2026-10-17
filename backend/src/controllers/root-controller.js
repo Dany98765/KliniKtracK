@@ -122,7 +122,7 @@ export async function fetchConditions(req, res){
 }
 
 export async function createCondition(req, res){
-    let { id, name, description, type, symptoms, start_date, end_date } = req.body;
+    let { id, name, description, type, symptoms, start_date, end_date, causedWhichActions, sideEffectForWhichActions } = req.body;
     if(!(id && name && description && type && symptoms && start_date && end_date)){
         let missingArray = findMissingFields([[id, "id"], [name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [start_date, "start date"], [end_date, "end date"]]);
         return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
@@ -130,7 +130,13 @@ export async function createCondition(req, res){
         if(!(symptoms.length > 0)){
             return res.status(400).send("At least one symptom is needed to create a condition");
         }else{
-            await userRepo.createCondition(id, name, description, type, symptoms, start_date, end_date);
+            let conditionId = await userRepo.createCondition(id, name, description, type, symptoms, start_date, end_date);
+            for(let i = 0; i < causedWhichActions.length; i++){
+                await userRepo.createConditionToActionAssociation(id, causedWhichActions[i], conditionId, "Solved");
+            }
+            for(let i = 0; i < sideEffectForWhichActions.length; i++){
+                await userRepo.createConditionToActionAssociation(id, sideEffectForWhichActions[i], conditionId, "Caused");
+            }
             return res.sendStatus(201);
         }
     }
