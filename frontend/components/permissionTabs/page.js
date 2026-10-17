@@ -36,6 +36,9 @@ export default function PermissionTabs({ filterLabels }) {
                         backgroundColor: '#A411D9'
                     },
                 }}
+                variant="scrollable"
+                scrollButtons="auto"
+                allowScrollButtonsMobile
             >
                 {filterLabels.map((filterLabel, id) => (
                     <Tab key={id} label={filterLabel} />

@@ -54,6 +54,7 @@
 .pendingPermissionCardDateRangeTxt,
 .abortedPermissionCardDateRangeTxt {
     font-weight: 600;
+    width: 500px;
 }
 
 .grantedPermissionCardDateRangeTxt {
@@ -80,10 +81,8 @@
 
 .permissionCardScopeTxt {
     width: 100%;
-    /* Uses the width of its parent instead of fixed 500px */
     text-align: right;
     overflow-wrap: anywhere;
-    /* Prevents long scope text from overflowing */
 }
 
 .pendingPermissionCardPermissionTypeTagContainer,
@@ -109,7 +108,7 @@
 .pendingPermissionCardPermissionTypeTagContainer {
     color: #CCCCCC20;
 }
-/* 
+
 @media (max-width: 900px) {
     .permissionCardContainer {
         flex-direction: column;
@@ -123,12 +122,20 @@
 
     .permissionCardScopeAndCurrentStatusContainer {
         width: 100%;
-        flex-basis: auto; 
+        flex-basis: auto;
         align-items: flex-start;
-        margin-left: 0; 
+        margin-left: 0;
     }
 
     .permissionCardScopeTxt {
         text-align: left;
     }
-} */
+}
+
+@media (max-width: 400px) {
+    .grantedPermissionCardDateRangeTxt,
+    .pendingPermissionCardDateRangeTxt,
+    .abortedPermissionCardDateRangeTxt {
+        font-size: 12px;
+    }
+}
