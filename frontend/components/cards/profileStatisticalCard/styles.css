@@ -1,0 +1,41 @@
+.profileStatisticalCardContainer {
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--purple);
+    background-color: var(--secondary-bg);
+    width: 300px;
+}
+
+.headerDataContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.statisticalCardTitleTxt {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.statisticalCardImgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--purple);
+    border-radius: 100%;
+    width: 40px;
+    aspect-ratio: 1 / 1;
+}
+
+.insightNum {
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.filterTxt {
+    font-size: 18px;
+    color: #A5A1B8;
+    margin-top: 10px;
+}

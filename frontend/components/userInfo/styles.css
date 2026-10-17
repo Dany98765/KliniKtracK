@@ -1,0 +1,84 @@
+.userInfoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    margin-top: 30px;
+}
+
+.profileTagContainer {
+    background-color: #FFFFFF05;
+    border-radius: 100px;
+    border: 1px solid #FFFFFF07;
+    padding: 10px 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    width: 200px;
+}
+
+.profileUICircle {
+    background-color: var(--blue);
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+}
+
+.tagDesc {
+    color: white;
+    font-size: 14px;
+}
+
+.userRoleTxt {
+    color: var(--purple);
+    font-weight: 600;
+}
+
+.userInfoTxtContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    min-width: 0;
+}
+
+.userNameTxt {
+    color: white;
+    font-size: 44px;
+    font-weight: 900;
+    width: 100%;
+}
+
+.userEmail {
+    color: #A5A1B8;
+}
+
+.userRoleTxt,
+.userNameTxt,
+.userEmail {
+    white-space: nowrap;
+}
+
+.profileStatisticalCardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+@media (max-width: 1000px) {
+    .userInfoContainer {
+        flex-wrap: wrap;
+    }
+
+    .profileStatisticalCardsContainer {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
