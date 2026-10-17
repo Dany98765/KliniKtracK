@@ -95,12 +95,18 @@ export async function fetchActions(req, res){
 }
 
 export async function createAction(req, res){
-    let { id, name, description, start_date, end_date, type, doctor, doctor_id } = req.body;
+    let { id, name, description, start_date, end_date, type, doctor, doctor_id, causedConditions, solvedConditions } = req.body;
     if(!(id && name && description && start_date && end_date && type)){
         let missingArray = findMissingFields([[id, "id"], [name, "name"], [description, "description"], [start_date, "start date"], [end_date, "end date"], [type, "type"]]);
         return res.status(400).send("Missing fields are required to create new action: " + JSON.stringify(missingArray));
     }else{
-        await userRepo.createAction(id, name, description, start_date, end_date, type, doctor, doctor_id);
+        let actionId = await userRepo.createAction(id, name, description, start_date, end_date, type, doctor, doctor_id);
+        for(let i = 0; i < causedConditions.length; i++){
+            await userRepo.createActionToConditionAssociation(id, actionId, causedConditions[i], "Caused");
+        }
+        for(let i = 0; i < solvedConditions.length; i++){
+            await userRepo.createActionToConditionAssociation(id, actionId, solvedConditions[i], "Solved");
+        }
         return res.sendStatus(201);
     }
 }

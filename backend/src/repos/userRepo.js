@@ -58,7 +58,10 @@ let userRepo = {
 
     async createAction(id, name, description, start_date, end_date, type, doctor, doctor_id){
         try{
-            await db.query("INSERT INTO actions (user_id, name, description, start_date, end_date, type, doctor, doctor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [id, name, description, start_date, end_date, type, doctor, doctor_id]);
+            let results = await db.query("INSERT INTO actions (user_id, name, description, start_date, end_date, type, doctor, doctor_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id", [id, name, description, start_date, end_date, type, doctor, doctor_id]);
+            let rows = results.rows;
+            let actionId = rows[0].id
+            return actionId;
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, createAction", "error cause": "creating action", "error message": err.message, "error details": err};
         }
@@ -79,6 +82,14 @@ let userRepo = {
             await db.query("INSERT INTO conditions (user_id, name, description, type, symptoms, start_date, end_date) VALUES ($1, $2, $3, $4, $5, $6, $7)", [id, name, description, type, symptoms, start_date, end_date]);
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, createConditions", "error cause": "creating condition", "error message": err.message, "error details": err};
+        }
+    }, 
+
+    async createActionToConditionAssociation(userId, actionId, conditionId, roleOfAction){
+        try{
+            await db.query("INSERT INTO actions_to_conditions (user_id, action_id, condition_id, role_of_action) VALUES ($1, $2, $3, $4)", [userId, actionId, conditionId, roleOfAction]);
+        }catch(err){
+            throw {"error source": "/backend/src/repos/userRepo.js, createActionToConditionAssociation", "error cause": "creating action to condition association", "error message": err.message, "error details": err};
         }
     }
 }
