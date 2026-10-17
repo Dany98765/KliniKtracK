@@ -6,10 +6,9 @@ import TextField from '@mui/material/TextField';
 
 export default function ConditionSymptomsField({ state, setState }) {
     const [currentSymptom, setCurrentSymptom] = useState("")
-    console.log(state.symptoms)
     return (
         <div className="conditionTypeFieldContainer">
-            <p className="conditionSymptomsTitle">Type <span className="requiredAsteriks">*</span></p>
+            <p className="conditionSymptomsTitle">Symptoms <span className="requiredAsteriks">*</span></p>
             <TextField
                 label="Eg: Joint Pain"
                 variant="standard"
@@ -38,17 +37,29 @@ export default function ConditionSymptomsField({ state, setState }) {
                 }}
             />
             <div className="allSymptomsAndAddSymptomButtonContainer">
-                {state.symptoms && state.symptoms?.map((symptom, id) => (
-                    <span key={id} className="symptomTag">
-                        {symptom}
-                    </span>
-                )
-                )}
+                <div className="allSymptomsContainer">
+                    {state.symptoms && state.symptoms?.map((symptom, id) => (
+                        <span key={id} className="symptomTag">
+                            {symptom}
+                            <p className="deleteSymptomTag" onClick={() => {
+                                let symptomsArr = state.symptoms;
+                                symptomsArr.splice(id, 1)
+                                setState((prev) => ({
+                                    ...prev,
+                                    symptoms: [...symptomsArr]
+                                }))
+                            }
+                            }>×</p>
+                        </span>
+                    )
+                    )}
+                </div>
                 <button className="addSymptomButton" onClick={(e) => {
                     setState((prev) => ({
                         ...prev,
                         symptoms: [...prev.symptoms, currentSymptom]
                     }))
+                    setCurrentSymptom("")
                 }}>
                     +
                 </button>

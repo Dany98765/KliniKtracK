@@ -2,11 +2,20 @@
 
 import "./styles.css"
 import { selectFieldProps } from "./selectFieldProps"
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
-export default function SolvedConditionsField({ state, setState }) {
+import { FormControl, IconButton, InputLabel, MenuItem, Select, Tooltip } from "@mui/material"
+import HelpOutlineIcon from "@mui/icons-material/HelpOutlined"
+
+export default function SolvedConditionsField({ title, tooltip, state, setState }) {
     return (
         <div className="solvedConditionsFieldContainer">
-            <p className="solvedConditionsTitle">Solved Conditions</p>
+            <div className="titleAndTooltipContainer">
+                <p className="causedConditionsTitle">{title}</p>
+                <Tooltip title={tooltip} arrow>
+                    <IconButton aria-label="help" size="small">
+                        <HelpOutlineIcon fontSize="small" color="info" />
+                    </IconButton>
+                </Tooltip>
+            </div>
             <FormControl
                 className="solvedConditionsField"
                 sx={selectFieldProps}

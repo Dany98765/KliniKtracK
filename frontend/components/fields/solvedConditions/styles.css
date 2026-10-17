@@ -1,6 +1,14 @@
 .solvedConditionsTitle {
     font-weight: 900;
     font-size: 18px;
+}
+
+.titleAndTooltipContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
     margin-bottom: 10px;
 }
 

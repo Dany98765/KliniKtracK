@@ -27,7 +27,6 @@
     aspect-ratio: 1 / 1;
     font-size: 20px;
     text-align: center;
-    margin-top: 15px;
 }
 
 .allSymptomsAndAddSymptomButtonContainer {
@@ -35,17 +34,34 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 10px;
+    margin-top: 10px;
+    gap: 20px;
 }
 
 .symptomTag {
     background-color: #A411D920;
     border-radius: 100px;
     padding: 7px 20px;
-    /* border: none;
-    text-align: center;
     display: flex;
     justify-content: center;
-    align-items: center; 
-    padding: 16px 2; */
+    align-items: center;
+    gap: 5px;
+}
+
+.deleteSymptomTag {
+    color: red;
+    font-size: 20px;
+}
+
+.deleteSymptomTag:hover {
+    color: #FF000080;
+    cursor: pointer;
+}
+
+.allSymptomsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
 }

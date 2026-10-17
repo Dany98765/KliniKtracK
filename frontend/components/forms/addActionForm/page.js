@@ -12,6 +12,7 @@ import SolvedConditionsField from "@/components/fields/solvedConditions/page"
 import { useEffect, useState, useTransition } from "react"
 import { actionDescription, actionDoctorName, actionName, actionStartAndEndDates, actionTypeValidationFn } from "@/utils/validation/addAction"
 import { Alert } from "@mui/material"
+import { causedConditions, solvedConditions } from "@/tooltip-msg"
 
 export default function AddActionForm() {
     const [isPending, startTransition] = useTransition()
@@ -121,10 +122,14 @@ export default function AddActionForm() {
                     </div>
                     <div className="causedAndSolvedConditionsContainer">
                         <CausedConditionsField
+                            title="Caused Conditions"
+                            tooltip={causedConditions}
                             state={addActionFormFields}
                             setState={setAddActionFormFields}
                         />
                         <SolvedConditionsField
+                            title="Solved Conditions"
+                            tooltip={solvedConditions}
                             state={addActionFormFields}
                             setState={setAddActionFormFields}
                         />

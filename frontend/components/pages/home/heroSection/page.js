@@ -1,15 +1,20 @@
+"use client"
+
+import { useRouter } from "next/navigation"
 import "./styles.css"
 import Image from "next/image"
+import { ROUTES } from "@/routes"
 
 export default function HeroSection() {
+    const router = useRouter()
     return (
         <div className="heroSectionContainer">
             <div className="leftSectionContainer">
                 <div className="circle"></div>
-                <div className="tagContainer">
+                {/* <div className="tagContainer">
                     <span className="heroSectionCircle" />
                     <p className="tagTitle">Full-Fledged Solution</p>
-                </div>
+                </div> */}
                 <h1 className="heroSectionTitle">
                     The One Solution to <br />
                     <span className="preciselyTxt">Precisely</span>
@@ -21,8 +26,7 @@ export default function HeroSection() {
                     done, <br /> tablets taken with detailed concentration info all documented on behalf of your side or your doctor!
                 </p>
                 <div className="heroSectionButtons">
-                    <button className="signupButton">Signup     →</button>
-                    <button className="viewAllFeaturesButton">View All Features</button>
+                    <button className="signupButton" onClick={() => router.push(ROUTES.SIGNUP)}>Signup     →</button>
                 </div>
             </div>
             <div className="rightHeroSectionContainer">
@@ -32,7 +36,7 @@ export default function HeroSection() {
                     height={500}
                     alt="Doctor"
                     loading="eager"
-                    className="doctorImg"
+                    className="doctorImgHomePageHeroSection"
                 />
             </div>
         </div>

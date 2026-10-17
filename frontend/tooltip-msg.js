@@ -1,0 +1,6 @@
+export let whatIsAction = "An Action is a certain event which occurred during along your life. It could be a genetic one, a surgical operation you have done or a certain tablet you have taken for some time. You have the access to link actions to conditions and mention whether the action were a cause or result of a certain action."
+export let whatIsCondition = "A condition is either a sub disease / side effect after a certain action or it caused for a certain action to occur."
+export let causedWhichActions = "Listing the conditions previously made on behalf of your side (eg: operation)"
+export let sideEffectForWhichActions = "Listing the conditions (eg: complications during a surgery) which were caused as a result of a certain action done (eg: surgery itself)"
+export let causedConditions = "The conditions which were a consequence as a result of this action done"
+export let solvedConditions = "The conditions which were solved as a result of this action"

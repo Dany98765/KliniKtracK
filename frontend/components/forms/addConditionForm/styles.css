@@ -10,3 +10,18 @@
     flex-direction: column;
     gap: 20px;
 }
+
+.causedWhichActionsAndSideEffectForWhichActionsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+
+@media (max-width: 550px) {
+    .causedWhichActionsAndSideEffectForWhichActionsContainer {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

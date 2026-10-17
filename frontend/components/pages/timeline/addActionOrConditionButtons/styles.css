@@ -6,6 +6,15 @@
     margin-top: 30px;
 }
 
+.addActionButtonAndToolTipContainer,
+.addConditionButtonAndToolTipContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
 .addActionButton,
 .addConditionButton {
     padding: 16px 32px;
@@ -22,6 +31,14 @@
 .addActionButton:hover {
     background-color: var(--blue);
     cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    .addActionButtonAndToolTipContainer,
+    .addConditionButtonAndToolTipContainer {
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 400px) {
