@@ -5,6 +5,10 @@
     justify-content: flex-start;
 }
 
+.doctorIDFieldForGrantPermissionForm {
+    width: 250px;
+}
+
 .eventDoctorIDTitle {
     font-weight: 900;
     font-size: 18px;
@@ -34,9 +38,19 @@
     }
 }
 
+@media (max-width: 950px) {
+    .doctorIDFieldForGrantPermissionForm {
+        width: 600px;
+    }
+}
+
 @media (max-width: 800px) {
     .doctorIDField {
         width: 250px;
+    }
+
+    .doctorIDFieldForGrantPermissionForm {
+        width: 400px;
     }
 }
 
@@ -50,11 +64,21 @@
     .doctorIDField {
         width: 400px;
     }
+
+    .doctorIDFieldForGrantPermissionForm {
+        width: 300px;
+    }
 }
 
 @media (max-width: 500px) {
     .doctorIDField {
         width: 300px;
+    }
+}
+
+@media (max-width: 450px) {
+    .doctorIDFieldForGrantPermissionForm {
+        width: 200px;
     }
 }
 

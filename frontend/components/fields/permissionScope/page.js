@@ -4,7 +4,7 @@ import { selectFieldProps } from "./selectFieldProps"
 import "./styles.css"
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 
-export default function PermissionScopeField({ state, setState }) {
+export default function PermissionScopeField({ state, setState, className = "" }) {
     return (
         <div className="permissionScopeFieldContainer">
             <p className="permissionScopeTitle">Permission Scope</p>
@@ -16,6 +16,7 @@ export default function PermissionScopeField({ state, setState }) {
                 <Select
                     labelId="demo-simple-select-label"
                     variant="outlined"
+                    className={className}
                     value={state.permissionScope}
                     onChange={(e) => {
                         setState((prev) => ({

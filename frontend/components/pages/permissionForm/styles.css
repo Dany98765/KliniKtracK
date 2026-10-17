@@ -16,3 +16,22 @@
     justify-content: flex-start;
     gap: 30px;
 }
+
+.docsImgContainer {
+    width: 100%;
+    aspect-ratio: 7 / 3;
+    overflow: hidden;
+}
+
+.docsImg {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 1200px) {
+    .permissionFormPage {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+}

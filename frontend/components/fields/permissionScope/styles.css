@@ -4,6 +4,10 @@
     margin-bottom: 10px;
 }
 
+.permissionScopeField {
+    width: 100%;
+}
+
 .titleAndTooltipContainer {
     display: flex;
     flex-direction: row;

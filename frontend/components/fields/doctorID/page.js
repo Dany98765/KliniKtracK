@@ -3,7 +3,7 @@
 import "./styles.css"
 import TextField from '@mui/material/TextField';
 
-export default function EventDoctorIDField({ state, setState, form = "addActionOrCondition" }) {
+export default function EventDoctorIDField({ state, setState, form = "addActionOrCondition", className = "doctorIDField" }) {
     return (
         <div className="eventDoctorIDFieldContainer">
             <p className="eventDoctorIDTitle">
@@ -19,7 +19,7 @@ export default function EventDoctorIDField({ state, setState, form = "addActionO
             <TextField
                 label="Eg: 3847028409288940"
                 variant="standard"
-                className="doctorIDField"
+                className={className}
                 value={state.doctorID}
                 onChange={(e) => {
                     setState((prev) => ({

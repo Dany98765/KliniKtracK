@@ -4,6 +4,12 @@
     gap: 30px;
 }
 
+.startAndEndDatesFieldsContainerForGrantPermissionForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .startDateTitle,
 .endDateTitle {
     font-weight: 900;
