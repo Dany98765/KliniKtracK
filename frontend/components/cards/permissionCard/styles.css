@@ -1,0 +1,134 @@
+.permissionCardContainer {
+    background-color: var(--secondary-bg);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.permissionCardMainDataContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 32px;
+    flex: 1;
+    min-width: 0;
+}
+
+.startingDateTxt {
+    font-size: 44px;
+    font-weight: 900;
+    flex-shrink: 0;
+}
+
+.userNameAndDateRangeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    min-width: 0;
+}
+
+.permissionCardUserNameTxt {
+    font-size: 20px;
+    font-weight: 800;
+    width: 500px;
+    overflow-wrap: anywhere;
+}
+
+.permissionCardDateContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.grantedPermissionCardDateRangeTxt,
+.pendingPermissionCardDateRangeTxt,
+.abortedPermissionCardDateRangeTxt {
+    font-weight: 600;
+}
+
+.grantedPermissionCardDateRangeTxt {
+    color: var(--blue)
+}
+
+.abortedPermissionCardDateRangeTxt {
+    color: var(--purple)
+}
+
+.pendingPermissionCardDateRangeTxt {
+    color: #CCCCCC;
+}
+
+.permissionCardScopeAndCurrentStatusContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-left: auto;
+    flex: 0 1 300px;
+    min-width: 0;
+}
+
+.permissionCardScopeTxt {
+    width: 100%;
+    /* Uses the width of its parent instead of fixed 500px */
+    text-align: right;
+    overflow-wrap: anywhere;
+    /* Prevents long scope text from overflowing */
+}
+
+.pendingPermissionCardPermissionTypeTagContainer,
+.grantedPermissionCardPermissionTypeTagContainer,
+.abortedPermissionCardPermissionTypeTagContainer {
+    padding: 12px 16px;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+}
+
+.abortedPermissionCardPermissionTypeTagContainer {
+    background-color: #A411D920;
+}
+
+.grantedPermissionCardPermissionTypeTagContainer {
+    background-color: #23BAE720;
+}
+
+.pendingPermissionCardPermissionTypeTagContainer {
+    color: #CCCCCC20;
+}
+/* 
+@media (max-width: 900px) {
+    .permissionCardContainer {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .permissionCardMainDataContainer {
+        width: 100%;
+        gap: 20px;
+    }
+
+    .permissionCardScopeAndCurrentStatusContainer {
+        width: 100%;
+        flex-basis: auto; 
+        align-items: flex-start;
+        margin-left: 0; 
+    }
+
+    .permissionCardScopeTxt {
+        text-align: left;
+    }
+} */
