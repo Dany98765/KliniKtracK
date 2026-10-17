@@ -1,0 +1,34 @@
+"use client"
+
+import { selectFieldProps } from "./selectFieldProps"
+import "./styles.css"
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
+
+export default function PermissionScopeField({ state, setState }) {
+    return (
+        <div className="permissionScopeFieldContainer">
+            <p className="permissionScopeTitle">Permission Scope</p>
+            <FormControl
+                className="permissionScopeField"
+                sx={selectFieldProps}
+            >
+                <InputLabel id="demo-simple-select-label">--Select Scope--</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    variant="outlined"
+                    value={state.permissionScope}
+                    onChange={(e) => {
+                        setState((prev) => ({
+                            ...prev,
+                            permissionScope: e.target.value
+                        }))
+                    }}
+                >
+                    <MenuItem value="Read Only">Read Only</MenuItem>
+                    <MenuItem value="Write Only">Write Only</MenuItem>
+                    <MenuItem value="Read & Write">Read & Write</MenuItem>
+                </Select>
+            </FormControl>
+        </div>
+    )
+}

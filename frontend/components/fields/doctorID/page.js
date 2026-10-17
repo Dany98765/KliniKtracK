@@ -3,16 +3,18 @@
 import "./styles.css"
 import TextField from '@mui/material/TextField';
 
-export default function EventDoctorIDField({ state, setState }) {
+export default function EventDoctorIDField({ state, setState, form = "addActionOrCondition" }) {
     return (
         <div className="eventDoctorIDFieldContainer">
             <p className="eventDoctorIDTitle">
-                <span className="coloredK">K</span>
+                {form == 'grantPermission' && "Doctor's" }
+                <span className="coloredK"> K</span>
                 lini
                 <span className="coloredK">K</span>
                 trac
                 <span className="coloredK">K </span>
                 Profile ID
+                {form == 'grantPermission' && <span className="requiredAsteriks"> *</span>}
                 </p>
             <TextField
                 label="Eg: 3847028409288940"

@@ -1,0 +1,71 @@
+.grantPermissionFormContainer {
+    background-color: var(--secondary-bg);
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.grantPermissionTagContainer {
+    background-color: #23BAE705;
+    border-radius: 100px;
+    border: 1px solid #FFFFFF07;
+    padding: 10px 28px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.grantPermissionUICircle {
+    background-color: var(--blue);
+    border-radius: 100%;
+    width: 10px;
+    height: 10px;
+}
+
+.grantPermissionTagDesc {
+    color: white;
+    font-size: 14px;
+}
+
+.grantPermisisonFormTitle {
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.blueExpertTxt {
+    color: var(--blue)
+}
+
+.grantPermisisonFormDesc {
+    color: #FFFFFF70;
+    margin-top: 20px;
+}
+
+.grantPermissionFormFieldsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.grantPermissionButton {
+    background-color: var(--blue);
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 30px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.grantPermissionButton:hover {
+    cursor: pointer;
+    background-color: #23BAE770;
+}

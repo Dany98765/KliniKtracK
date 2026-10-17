@@ -1,0 +1,68 @@
+.permissionScopeTitle {
+    font-weight: 900;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.titleAndTooltipContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.permissionScopeField {
+    width: 250px !important;
+}
+
+@media (max-width: 1200px) {
+    .permissionScopeField {
+        width: 200px !important;
+    }
+}
+
+@media (max-width: 1000px) {
+    .permissionScopeField {
+        width: 300px !important;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .permissionScopeField {
+        width: 250px !important;
+    }
+}
+
+@media (max-width: 700px) {
+    .permissionScopeField {
+        width: 200px !important;
+    }
+}
+
+
+@media (max-width: 550px) {
+    .permissionScopeField {
+        width: 400px !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .permissionScopeField {
+        width: 300px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .permissionScopeField {
+        width: 300px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .permissionScopeField {
+        width: 200px !important;
+    }
+}
