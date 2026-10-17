@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 
 export default function ConditionSymptomsField({ state, setState }) {
     const [currentSymptom, setCurrentSymptom] = useState("")
+    let isDisabled = state?.symptoms?.length === 5 ? true : false
     return (
         <div className="conditionTypeFieldContainer">
             <p className="conditionSymptomsTitle">Symptoms <span className="requiredAsteriks">*</span></p>
@@ -54,12 +55,14 @@ export default function ConditionSymptomsField({ state, setState }) {
                     )
                     )}
                 </div>
-                <button className="addSymptomButton" onClick={(e) => {
-                    setState((prev) => ({
-                        ...prev,
-                        symptoms: [...prev.symptoms, currentSymptom]
-                    }))
-                    setCurrentSymptom("")
+                <button className="addSymptomButton" style={{ backgroundColor: isDisabled ? "#FFFFFF95" : "#FFFFFF" }} disabled={isDisabled} onClick={(e) => {
+                    if (currentSymptom.trim().length > 0) {
+                        setState((prev) => ({
+                            ...prev,
+                            symptoms: [...prev.symptoms, currentSymptom]
+                        }))
+                        setCurrentSymptom("")
+                    }
                 }}>
                     +
                 </button>

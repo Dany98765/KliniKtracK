@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation"
 import "./styles.css"
 import Image from "next/image"
 import { ROUTES } from "@/routes"
+import { useSession } from "next-auth/react"
 
 export default function HeroSection() {
     const router = useRouter()
+    const { data: status } = useSession()
     return (
         <div className="heroSectionContainer">
             <div className="leftSectionContainer">
@@ -25,9 +27,9 @@ export default function HeroSection() {
                     Confidently inform your doctor with your latest health status, surgical operations
                     done, <br /> tablets taken with detailed concentration info all documented on behalf of your side or your doctor!
                 </p>
-                <div className="heroSectionButtons">
+                {status == 'unauthenticated' && (<div className="heroSectionButtons">
                     <button className="signupButton" onClick={() => router.push(ROUTES.SIGNUP)}>Signup     →</button>
-                </div>
+                </div>)}
             </div>
             <div className="rightHeroSectionContainer">
                 <Image

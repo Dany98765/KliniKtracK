@@ -11,12 +11,35 @@
     gap: 20px;
 }
 
+.errPopup {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
 .causedWhichActionsAndSideEffectForWhichActionsContainer {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap: 30px;
+}
+
+.contributeConditionButton {
+    width: 100%;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+    background-color: white;
+    color: black;
+    font-weight: 800;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.contributeConditionButton:hover {
+    background-color: #FFFFFF99;
+    cursor: pointer;
 }
 
 @media (max-width: 550px) {

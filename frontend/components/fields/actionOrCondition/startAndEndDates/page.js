@@ -17,7 +17,9 @@ export default function EventStartAndEndDatesFields({ state, setState }) {
                         label="Select Start date"
                         className="startDateField"
                         slotProps={slotProps}
-                        value={state.startDate ? dayjs(state.startDate) : dayjs()}
+                        // value={state.startDate ? dayjs(state.startDate) : dayjs()}
+                        value={dayjs(state.startDate) || state.startDate}
+                        disableHighlightToday
                         onChange={(e) => {
                             setState((prev) => ({
                                 ...prev,
@@ -34,7 +36,8 @@ export default function EventStartAndEndDatesFields({ state, setState }) {
                         label="Select Start date"
                         className="endDateField"
                         slotProps={slotProps}
-                        value={state.endDate ? dayjs(state.endDate) : dayjs()}
+                        // value={state.endDate ? dayjs(state.endDate) : dayjs()}
+                        value={dayjs(state.endDate) || state.endDate}
                         onChange={(e) => {
                             setState((prev) => ({
                                 ...prev,

@@ -20,9 +20,9 @@
 
 .addSymptomButton {
     border-radius: 100%;
-    border: 1px solid white;
+    border: 1px solid black !important;
     font-weight: 600;
-    background-color: none;
+    background-color: white;
     width: 32px;
     aspect-ratio: 1 / 1;
     font-size: 20px;
