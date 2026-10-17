@@ -6,7 +6,7 @@ import validateRole from "../utils/validateRole.js";
 
 export async function createUser(req, res) {
     let { name, email, password, role } = req.body;
-    if(email && userRepo.isEmailRegistered(email)){
+    if(email && await userRepo.isEmailRegistered(email)){
         return res.status(409).send("Email already in use");
     }
     if(!(name && email && password && role)){
