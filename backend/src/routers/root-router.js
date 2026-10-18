@@ -7,5 +7,6 @@ router.post("/signup", rootController.createUser);
 router.post("/login", rootController.authorizeLogin);
 router.route("/actions").get(rootController.fetchActions).post(rootController.createAction);
 router.route("/conditions").get(rootController.fetchConditions).post(rootController.createCondition);
+router.get("/actions-to-conditions", rootController.fetchConditionsForAction);
 
 export default router;

@@ -141,3 +141,14 @@ export async function createCondition(req, res){
         }
     }
 }
+
+export async function fetchConditionsForAction(req, res){
+    let { id, actionId } = req.body;
+    if(!(id && actionId)){
+        let missingArray = findMissingFields([[id, "id"], [actionId, "action id"]]);
+        return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
+    }else{
+        let conditions = await userRepo.fetchActionToConditionAssociation(id, actionId);
+        return res.status(200).json({conditions: conditions});
+    }
+}
