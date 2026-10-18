@@ -7,7 +7,7 @@ export default function EventDoctorIDField({ state, setState, form = "addActionO
     return (
         <div className="eventDoctorIDFieldContainer">
             <p className="eventDoctorIDTitle">
-                {form == 'grantPermission' && "Doctor's" }
+                {form == 'grantPermission' ? "Doctor's" : form == 'requestPermission' && "Patient's"}
                 <span className="coloredK"> K</span>
                 lini
                 <span className="coloredK">K</span>

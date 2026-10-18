@@ -9,7 +9,18 @@ export function grantPermissionDoctorID({ doctorID }) {
     }
 }
 
-export function grantPermissionScope({ permissionScope }) {
+export function requestPermissionPatientID({ patientID }) {
+    if (!patientID) {
+        return {
+            msg: "Patient ID field is required!"
+        }
+    }
+    return {
+        msg: null
+    }
+}
+
+export function permissionScope({ permissionScope }) {
     if (!permissionScope) {
         return {
             msg: "Permission scope field is required!"
@@ -20,7 +31,7 @@ export function grantPermissionScope({ permissionScope }) {
     }
 }
 
-export function grantPermissionStartAndEndDates({ startDate, endDate }) {
+export function permissionStartAndEndDates({ startDate, endDate }) {
     if (!startDate) {
         return {
             msg: "Start date field is required!"

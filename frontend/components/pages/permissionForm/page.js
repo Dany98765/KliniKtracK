@@ -2,11 +2,16 @@ import GrantPermissionForm from "@/components/forms/grantPermissionForm/page"
 import "./styles.css"
 import Image from "next/image"
 import PermissionFormFAQSection from "@/components/permissionFormFAQSection/page"
+import { auth } from "@/auth"
+import RequestPermissionForm from "@/components/forms/requestPermissionForm/page"
 
-export default function PermissionFormPage() {
+export default async function PermissionFormPage() {
+    const session = await auth()
+    console.log(JSON.stringify(session) + "SESSION!")
     return (
         <div className="permissionFormPage">
-            <GrantPermissionForm />
+            {session?.user?.role == 'Patient' && <GrantPermissionForm />}
+            {session?.user?.role == 'Doctor' && <RequestPermissionForm />}
             <div className="permissionFormPageImgAndFaqSectionContainer">
                 <div className="docsImgContainer">
                     <Image

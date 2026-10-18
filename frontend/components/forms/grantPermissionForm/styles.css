@@ -34,7 +34,7 @@
     font-size: 14px;
 }
 
-.grantPermisisonFormTitle {
+.grantPermissisonFormTitle {
     font-size: 30px;
     font-weight: 900;
 }
@@ -43,7 +43,7 @@
     color: var(--blue)
 }
 
-.grantPermisisonFormDesc {
+.grantPermissisonFormDesc {
     color: #FFFFFF70;
     margin-top: 20px;
 }

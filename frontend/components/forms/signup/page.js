@@ -5,7 +5,7 @@ import "./styles.css"
 import NameField from "@/components/fields/auth/nameField/page"
 import EmailField from "@/components/fields/auth/emailField/page"
 import PasswordField from "@/components/fields/auth/passwordField/page"
-import { validateEmail, validateName, validatePassword, validatePasswordConfirmation, validateRole } from "@/utils/validation/signup"
+import { validateEmail, validateName, validatePassword, validatePasswordConfirmation, validateRole } from "@/utils/validation/auth"
 import { Alert } from "@mui/material"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
@@ -26,7 +26,8 @@ export default function SignupForm() {
         nameErr: "",
         emailErr: "",
         passwordErr: "",
-        confirmPasswordErr: ""
+        confirmPasswordErr: "",
+        general: ""
     })
     const router = useRouter()
     async function signupNow() {
@@ -37,7 +38,6 @@ export default function SignupForm() {
         let emailValidationResult = validateEmail({ email })
         let passwordValidationResult = validatePassword({ password })
         let confirmPasswordValidationResult = validatePasswordConfirmation({ password, confirmPassword })
-        console.log(roleValidationResult, nameValidationResult, emailValidationResult, passwordValidationResult, confirmPasswordValidationResult)
         // checking if user's input bypasses validation criteria
         if (!roleValidationResult.msg && !nameValidationResult.msg && !emailValidationResult.msg && !passwordValidationResult.msg && !confirmPasswordValidationResult.msg) {
             console.log("SUCCESS VALIDATION!")
@@ -48,15 +48,33 @@ export default function SignupForm() {
                 passwordErr: "",
                 confirmPasswordErr: ""
             }))
-            // Fn for creating user -> backend
-            console.log("SUCCESSFUL STATE BATCHING!")
-            await signIn("credentials", {
-                ...signupFormFields,
-                redirect: false
-            })
-            console.log("SUCCESSFUL SIGNIN AUTH!")
-            router.push(ROUTES.HOME)
-            console.log("SUCCESSFUL REDIRECT!")
+            try {
+                const response = await fetch("http://localhost:5000/signup", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, password, role })
+                })
+                const data = await response.text()
+                console.log('Success:', data);
+                if (!response.ok) {
+                    throw new Error(`${data}`)
+                }
+                await signIn("credentials", {
+                    ...signupFormFields,
+                    redirect: false
+                })
+                console.log("SUCCESSFUL SIGNIN AUTH!")
+                router.push(ROUTES.HOME)
+                console.log("SUCCESSFUL REDIRECT!")
+            } catch (err) {
+                setValidationErr((prev) => ({
+                    ...prev,
+                    general: err.message
+                }))
+                throw new Error(`HTTP error! ${err.message} `);
+            }
         } else {
             // user's input does not satisfy validation criteria
             setValidationErr((prev) => ({
@@ -70,12 +88,14 @@ export default function SignupForm() {
         }
     }
     // possible msg popups to display
+    let { general, roleErr, nameErr, emailErr, passwordErr, confirmPasswordErr } = validationErr
     let errorMsgToDisplay =
-        validationErr.roleErr ||
-        validationErr.nameErr ||
-        validationErr.emailErr ||
-        validationErr.passwordErr ||
-        validationErr.confirmPasswordErr;
+        general ||
+        roleErr ||
+        nameErr ||
+        emailErr ||
+        passwordErr ||
+        confirmPasswordErr;
     return (
         <div className="signupFormContainer">
             <h2>Create your account.</h2>

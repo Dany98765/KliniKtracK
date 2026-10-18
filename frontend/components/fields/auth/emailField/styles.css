@@ -60,3 +60,9 @@
         width: 30vh;
     }
 }
+
+@media (max-width: 450px) {
+    .emailInputField {
+        width: 25vh;
+    }
+}

@@ -1,66 +1,66 @@
 import userRepo from "../repos/userRepo.js";
 import bcrypt from "bcrypt";
 import findMissingFields from "../utils/find-missing-fields.js";
-import { validateEmail, validateName, validatePassword } from "../../../frontend/utils/validation/signup.js";
+import { validateEmail, validateName, validatePassword } from "../../../frontend/utils/validation/auth.js";
 import validateRole from "../utils/validateRole.js";
 
 export async function createUser(req, res) {
     let { name, email, password, role } = req.body;
-    if(email && await userRepo.isEmailRegistered(email)){
+    if (email && await userRepo.isEmailRegistered(email)) {
         return res.status(409).send("Email already in use");
     }
-    if(!(name && email && password && role)){
+    if (!(name && email && password && role)) {
         let missingArray = findMissingFields([[name, "name"], [email, "email"], [password, "password"], [role, "role"]]);
         return res.status(400).send("Missing fields are required for signup: " + JSON.stringify(missingArray));
-    }else{
-        let nameValidation = validateName({name: name});
-        let emailValidation = validateEmail({email: email});
-        let passwordValidation = validatePassword({password: password});
-        let roleValidation = validateRole({role: role});
-        if(nameValidation.msg == null){
+    } else {
+        let nameValidation = validateName({ name: name });
+        let emailValidation = validateEmail({ email: email });
+        let passwordValidation = validatePassword({ password: password });
+        let roleValidation = validateRole({ role: role });
+        if (nameValidation.msg == null) {
             nameValidation = false;
         }
-        if(emailValidation.msg == null){
+        if (emailValidation.msg == null) {
             emailValidation = false;
         }
-        if(passwordValidation.msg == null){
+        if (passwordValidation.msg == null) {
             passwordValidation = false;
         }
-        if(roleValidation.msg == null){
+        if (roleValidation.msg == null) {
             roleValidation = false;
         }
-        if(nameValidation || emailValidation || passwordValidation || roleValidation){
+        if (nameValidation || emailValidation || passwordValidation || roleValidation) {
             let invalidArray = [];
-            if(nameValidation){
+            if (nameValidation) {
                 invalidArray.push(nameValidation.msg);
             }
-            if(emailValidation){
+            if (emailValidation) {
                 invalidArray.push(emailValidation.msg);
             }
-            if(passwordValidation){
+            if (passwordValidation) {
                 invalidArray.push(passwordValidation.msg);
             }
-            if(roleValidation){
+            if (roleValidation) {
                 invalidArray.push(roleValidation.msg);
             }
             return res.status(400).send("Some fields do not meet the requirements: " + JSON.stringify(invalidArray));
-        }else{
+        } else {
             let hashedPassword = await bcrypt.hash(password, 12);
             await userRepo.createUser(name, email, hashedPassword, role);
-            return res.sendStatus(201);
+            return res.sendStatus(201).send("Successful Signup!");
         }
     }
 }
 
 export async function authorizeLogin(req, res) {
     let { email, password } = req.body;
-    if(!(email && password)){
+    if (!(email && password)) {
         let missingArray = findMissingFields([[email, "email"], [password, "password"]]);
         return res.status(400).send("Missing fields are required for login: " + JSON.stringify(missingArray));
-    }else{
+    } else {
         let storedPassword;
         let foundPassword = await userRepo.fetchUserPassword(email);
-        switch(foundPassword){
+        switch (foundPassword) {
             case "multiple users have this email":
                 console.log(JSON.stringify({ "error source": "/backend/src/controllers/root-controller.js, authorizeLogin", "error cause": "getting user password", "error message/details": "multiple accounts have been found registered with this email" }));
                 return res.status(502).send("A data configuration problem has occured with this user's account, Unable to login");
@@ -76,65 +76,65 @@ export async function authorizeLogin(req, res) {
                 storedPassword = foundPassword;
                 break;
         };
-        if(await bcrypt.compare(password, storedPassword)){
+        if (await bcrypt.compare(password, storedPassword)) {
             return res.sendStatus(200);
-        }else{
+        } else {
             return res.status(401).send("Incorrect password for user, Unable to login");
         }
     }
 }
 
-export async function fetchActions(req, res){
+export async function fetchActions(req, res) {
     let { id } = req.body;
-    if(!id){
+    if (!id) {
         return res.status(400).send("Missing fields are required to fetch actions: [id]");
-    }else{
+    } else {
         let actions = await userRepo.fetchUserActions(id);
-        return res.status(200).json({actions: actions});
+        return res.status(200).json({ actions: actions });
     }
 }
 
-export async function createAction(req, res){
+export async function createAction(req, res) {
     let { id, name, description, start_date, end_date, type, doctor, doctor_id, causedConditions, solvedConditions } = req.body;
-    if(!(id && name && description && start_date && end_date && type)){
+    if (!(id && name && description && start_date && end_date && type)) {
         let missingArray = findMissingFields([[id, "id"], [name, "name"], [description, "description"], [start_date, "start date"], [end_date, "end date"], [type, "type"]]);
         return res.status(400).send("Missing fields are required to create new action: " + JSON.stringify(missingArray));
-    }else{
+    } else {
         let actionId = await userRepo.createAction(id, name, description, start_date, end_date, type, doctor, doctor_id);
-        for(let i = 0; i < causedConditions.length; i++){
+        for (let i = 0; i < causedConditions.length; i++) {
             await userRepo.createActionToConditionAssociation(id, actionId, causedConditions[i], "Caused");
         }
-        for(let i = 0; i < solvedConditions.length; i++){
+        for (let i = 0; i < solvedConditions.length; i++) {
             await userRepo.createActionToConditionAssociation(id, actionId, solvedConditions[i], "Solved");
         }
         return res.sendStatus(201);
     }
 }
 
-export async function fetchConditions(req, res){
+export async function fetchConditions(req, res) {
     let { id } = req.body;
-    if(!id){
+    if (!id) {
         return res.status(400).send("Missing fields are required to fetch conditions: [id]");
-    }else{
+    } else {
         let conditions = await userRepo.fetchUserConditions(id);
-        return res.status(200).json({conditions: conditions});
+        return res.status(200).json({ conditions: conditions });
     }
 }
 
-export async function createCondition(req, res){
+export async function createCondition(req, res) {
     let { id, name, description, type, symptoms, start_date, end_date, causedWhichActions, sideEffectForWhichActions } = req.body;
-    if(!(id && name && description && type && symptoms && start_date && end_date)){
+    if (!(id && name && description && type && symptoms && start_date && end_date)) {
         let missingArray = findMissingFields([[id, "id"], [name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [start_date, "start date"], [end_date, "end date"]]);
         return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
-    }else{
-        if(!(symptoms.length > 0)){
+    } else {
+        if (!(symptoms.length > 0)) {
             return res.status(400).send("At least one symptom is needed to create a condition");
-        }else{
+        } else {
             let conditionId = await userRepo.createCondition(id, name, description, type, symptoms, start_date, end_date);
-            for(let i = 0; i < causedWhichActions.length; i++){
+            for (let i = 0; i < causedWhichActions.length; i++) {
                 await userRepo.createConditionToActionAssociation(id, causedWhichActions[i], conditionId, "Solved");
             }
-            for(let i = 0; i < sideEffectForWhichActions.length; i++){
+            for (let i = 0; i < sideEffectForWhichActions.length; i++) {
                 await userRepo.createConditionToActionAssociation(id, sideEffectForWhichActions[i], conditionId, "Caused");
             }
             return res.sendStatus(201);

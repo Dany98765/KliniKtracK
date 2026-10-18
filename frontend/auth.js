@@ -31,6 +31,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           label: "passwordField",
           placeholder: "Create a strong password...",
         },
+        role: {
+          type: "text",
+          label: "roleField",
+          placeholder: "Select Role",
+        },
       },
       authorize: async (credentials) => {
         // await dbConnect()
@@ -64,6 +69,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: token.id,
           email: token.email,
           name: token.name,
+          role: token.role
         };
       }
       return session;

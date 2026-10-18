@@ -8,6 +8,7 @@ import { Alert } from "@mui/material"
 import { signIn } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { ROUTES } from "@/routes"
+import { validateEmail, validatePassword } from "@/utils/validation/auth"
 
 export default function SigninForm() {
     // signin form fields state initiation 
@@ -22,20 +23,48 @@ export default function SigninForm() {
     })
     const router = useRouter()
     async function signinNow() {
-        const { email, password } = signinFormFields; // <- will be used for signin backend fn
-        // backend fn for checking if credentials are correct
-        // if so, ->
-        await signIn("credentials", {
-            ...signinFormFields,
-            redirect: false
-        })
-        router.push(ROUTES.HOME)
-        // else ->
-        // setIsSuccessfulSignin((prev) => ({
-        //     ...prev,
-        //     isSuccessful: false,
-        //     msg: "Invalid email or password"
-        // }))
+        const { email, password } = signinFormFields;
+        // validation functions called
+        let emailValidationResult = validateEmail({ email })
+        let passwordValidationResult = validatePassword({ password })
+        // checking if user's input bypasses validation criteria
+        if (!emailValidationResult.msg &&
+            !passwordValidationResult.msg) {
+            console.log("SUCCESS VALIDATION!")
+            try {
+                const response = await fetch("http://localhost:5000/login", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                })
+                const data = await response.text()
+                 if (!response.ok) {
+                    throw new Error(`${data}`)
+                }
+                console.log('Success:', data);
+                await signIn("credentials", {
+                    ...signinFormFields,
+                    redirect: false
+                })
+                console.log("SUCCESSFUL SIGNIN AUTH!")
+                router.push(ROUTES.HOME)
+                console.log("SUCCESSFUL REDIRECT!")
+            } catch (err) {
+                setIsSuccessfulSignin({
+                    isSuccessful: false,
+                    msg: err.message
+                })
+                throw new Error(`HTTP error! Status: ${err.message}`);
+            }
+        } else {
+            // user's input does not satisfy validation criteria
+            setIsSuccessfulSignin({
+                isSuccessful: false,
+                msg: "Invalid email or password"
+            })
+        }
     }
     // possible msg popups to display
     return (
