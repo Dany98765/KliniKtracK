@@ -59,7 +59,7 @@ export async function authorizeLogin(req, res) {
         return res.status(400).send("Missing fields are required for login: " + JSON.stringify(missingArray));
     } else {
         let storedPassword;
-        let foundPassword = await userRepo.fetchUserPassword(email);
+        let { foundPassword, userId } = await userRepo.fetchUserPassword(email);
         switch (foundPassword) {
             case "multiple users have this email":
                 console.log(JSON.stringify({ "error source": "/backend/src/controllers/root-controller.js, authorizeLogin", "error cause": "getting user password", "error message/details": "multiple accounts have been found registered with this email" }));
@@ -77,42 +77,42 @@ export async function authorizeLogin(req, res) {
                 break;
         };
         if (await bcrypt.compare(password, storedPassword)) {
-            return res.sendStatus(200);
+            return res.status(200).send(String(userId));
         } else {
             return res.status(401).send("Incorrect password for user, Unable to login");
         }
     }
 }
 
-export async function fetchActions(req, res){
+export async function fetchActions(req, res) {
     let { id } = req.params;
     let userId = Number(id);
-    if(!Number.isInteger(userId)){
+    if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
-    }else{
+    } else {
         let actions = await userRepo.fetchUserActions(userId);
-        return res.status(200).json({actions: actions});
+        return res.status(200).json({ actions: actions });
     }
 }
 
-export async function createAction(req, res){
+export async function createAction(req, res) {
     let { name, description, start_date, end_date, type, doctor, doctor_id, causedConditions, solvedConditions } = req.body;
     let { id } = req.params;
     let userId = Number(id);
-    if(!Number.isInteger(userId)){
+    if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
-    }else if(!(name && description && start_date && end_date && type)){
+    } else if (!(name && description && start_date && end_date && type)) {
         let missingArray = findMissingFields([[name, "name"], [description, "description"], [start_date, "start date"], [end_date, "end date"], [type, "type"]]);
         return res.status(400).send("Missing fields are required to create new action: " + JSON.stringify(missingArray));
-    }else{
+    } else {
         let actionId = await userRepo.createAction(userId, name, description, start_date, end_date, type, doctor, doctor_id);
-        if(causedConditions){
-            for(let i = 0; i < causedConditions.length; i++){
+        if (causedConditions) {
+            for (let i = 0; i < causedConditions.length; i++) {
                 await userRepo.createActionToConditionAssociation(userId, actionId, causedConditions[i], "Caused");
             }
         }
-        if(solvedConditions){
-            for(let i = 0; i < solvedConditions.length; i++){
+        if (solvedConditions) {
+            for (let i = 0; i < solvedConditions.length; i++) {
                 await userRepo.createActionToConditionAssociation(userId, actionId, solvedConditions[i], "Solved");
             }
         }
@@ -120,38 +120,38 @@ export async function createAction(req, res){
     }
 }
 
-export async function fetchConditions(req, res){
+export async function fetchConditions(req, res) {
     let { id } = req.params;
     let userId = Number(id);
-    if(!Number.isInteger(userId)){
+    if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
-    }else{
+    } else {
         let conditions = await userRepo.fetchUserConditions(userId);
-        return res.status(200).json({conditions: conditions});
+        return res.status(200).json({ conditions: conditions });
     }
 }
 
-export async function createCondition(req, res){
+export async function createCondition(req, res) {
     let { name, description, type, symptoms, start_date, end_date, causedWhichActions, sideEffectForWhichActions } = req.body;
     let { id } = req.params;
     let userId = Number(id);
-    if(!Number.isInteger(userId)){
+    if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
-    }else if(!(name && description && type && symptoms && start_date && end_date)){
+    } else if (!(name && description && type && symptoms && start_date && end_date)) {
         let missingArray = findMissingFields([[name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [start_date, "start date"], [end_date, "end date"]]);
         return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
     } else {
         if (!(symptoms.length > 0)) {
             return res.status(400).send("At least one symptom is needed to create a condition");
-        }else{
+        } else {
             let conditionId = await userRepo.createCondition(userId, name, description, type, symptoms, start_date, end_date);
-            if(causedWhichActions){
-                for(let i = 0; i < causedWhichActions.length; i++){
+            if (causedWhichActions) {
+                for (let i = 0; i < causedWhichActions.length; i++) {
                     await userRepo.createConditionToActionAssociation(userId, causedWhichActions[i], conditionId, "Solved");
                 }
             }
-            if(sideEffectForWhichActions){
-                for(let i = 0; i < sideEffectForWhichActions.length; i++){
+            if (sideEffectForWhichActions) {
+                for (let i = 0; i < sideEffectForWhichActions.length; i++) {
                     await userRepo.createConditionToActionAssociation(userId, sideEffectForWhichActions[i], conditionId, "Caused");
                 }
             }
@@ -160,38 +160,38 @@ export async function createCondition(req, res){
     }
 }
 
-export async function fetchConditionsForAction(req, res){
+export async function fetchConditionsForAction(req, res) {
     let { id, actionId } = req.params;
     let userId = Number(id);
     let actionIdInt = Number(actionId);
-    if(!Number.isInteger(userId)){
-        if(!Number.isInteger(actionIdInt)){
+    if (!Number.isInteger(userId)) {
+        if (!Number.isInteger(actionIdInt)) {
             return res.status(400).send("Integer user id and integer action id must be passed in as route parameters");
-        }else{
+        } else {
             return res.status(400).send("Integer user id must be passed in as a route parameter");
         }
-    }else if(!Number.isInteger(actionIdInt)){
+    } else if (!Number.isInteger(actionIdInt)) {
         return res.status(400).send("Integer action id must be passed in as a route parameter");
-    }else{
+    } else {
         let conditions = await userRepo.fetchActionToConditionAssociation(userId, actionIdInt);
-        return res.status(200).json({conditions: conditions});
+        return res.status(200).json({ conditions: conditions });
     }
 }
 
-export async function fetchActionsForCondition(req, res){
-     let { id, conditionId } = req.params;
+export async function fetchActionsForCondition(req, res) {
+    let { id, conditionId } = req.params;
     let userId = Number(id);
     let conditionIdInt = Number(conditionId);
-    if(!Number.isInteger(userId)){
-        if(!Number.isInteger(conditionIdInt)){
+    if (!Number.isInteger(userId)) {
+        if (!Number.isInteger(conditionIdInt)) {
             return res.status(400).send("Integer user id and integer condition id must be passed in as route parameters");
-        }else{
+        } else {
             return res.status(400).send("Integer user id must be passed in as a route parameter");
         }
-    }else if(!Number.isInteger(conditionIdInt)){
+    } else if (!Number.isInteger(conditionIdInt)) {
         return res.status(400).send("Integer condition id must be passed in as a route parameter");
-    }else{
+    } else {
         let actions = await userRepo.fetchConditionToActionAssociation(userId, conditionIdInt);
-        return res.status(200).json({actions: actions});
+        return res.status(200).json({ actions: actions });
     }
 }

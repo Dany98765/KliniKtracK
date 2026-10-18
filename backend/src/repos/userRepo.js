@@ -13,6 +13,8 @@ let userRepo = {
         try {
             let results = await db.query("SELECT password FROM users WHERE email = $1", [email]);
             let rows = results.rows;
+            let idResults = await db.query("SELECT id FROM users WHERE email = $1", [email]);
+            let idRows = idResults.rows;
             if (rows.length > 1) {
                 return "multiple users have this email";
             } else if (rows.length < 1) {
@@ -22,7 +24,10 @@ let userRepo = {
                 if (!password) {
                     return "no password found";
                 } else {
-                    return password;
+                    return {
+                        foundPassword: password,
+                        userId: idRows[0].id
+                    };
                 }
             }
         } catch (err) {
