@@ -1,8 +1,5 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-// import User from "./db/user.model"
-// import bcrypt from "bcrypt"
-// import dbConnect from "./utils/mongoose"
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   secret: process.env.AUTH_SECRET,
@@ -38,12 +35,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       },
       authorize: async (credentials) => {
-        // await dbConnect()
-        // let user = null
-        // user = await User.findOne({ email: credentials.email })
-        // if (!user) return null
-        // const matchingPasswords = await bcrypt.compare(credentials.password, user.password)
-        // if (!matchingPasswords) return null;
         return {
           id: credentials.userId,
           email: credentials.email,

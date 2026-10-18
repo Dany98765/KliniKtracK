@@ -7,21 +7,34 @@ import "./styles.css"
 import SummarisedTimelineCard from "@/components/cards/summarisedTimelineCard/page";
 import DetailedActionCard from "../cards/detailedActionCard/page";
 import DetailedConditionCard from "../cards/detailedConditionCard/page";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { initialTasks, links, scales } from "./timeline-config";
+import { useRouter, useSearchParams } from "next/navigation";
+import { links, scales } from "./timeline-config";
+import { useSession } from "next-auth/react";
+import { fetchAllActions } from "@/utils/actions/userActions.action";
 
 export default function TimelineComponent() {
-  const [tasks, setTasks] = useState(initialTasks);
+  const { data } = useSession()
+  let userId = data?.user?.id
+  const [tasks, setTasks] = useState();
+  console.log(userId + " FROM CLIENT SIDE")
+  useEffect(() => {
+    if (userId) {
+      async function localUseEffectFn() {
+        let fetchActionsRes = await fetchAllActions({ userId })
+        setTasks(fetchActionsRes)
+      }
+      localUseEffectFn()
+    }
+  }, [])
   let searchParams = useSearchParams();
   let revealAssocTable = searchParams?.get("revealAssocTable") || "false"
-  const params = new URLSearchParams(searchParams.toString());
   const router = useRouter()
-  const pathname = usePathname();
   const [showCard, setShowCard] = useState({
     id: "",
     type: "Action", // action - condition
     isShowing: false
   })
+
   function changeTaskColor(id, color) {
     setTasks((current) =>
       current.map((task) =>
@@ -63,38 +76,39 @@ export default function TimelineComponent() {
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
             <DetailedActionCard
-              title={initialTasks[showCard.id].title}
-              desc={initialTasks[showCard.id].desc}
-              subType={initialTasks[showCard.id].subType}
-              date={initialTasks[showCard.id].start.toLocaleDateString()}
-              duration={initialTasks[showCard.id].duration}
-              doctor={initialTasks[showCard.id].doctor || null}
+              title={fetchActionsRes[showCard.id].title}
+              desc={fetchActionsRes[showCard.id].desc}
+              subType={fetchActionsRes[showCard.id].subType}
+              date={fetchActionsRes[showCard.id].start.toLocaleDateString()}
+              duration={fetchActionsRes[showCard.id].duration}
+              doctor={fetchActionsRes[showCard.id].doctor || null}
               setShowCard={setShowCard}
               revealAssocTable={revealAssocTable}
-              caused={initialTasks[showCard.id].caused}
-              solved={initialTasks[showCard.id].solved}
+              caused={fetchActionsRes[showCard.id].caused}
+              solved={fetchActionsRes[showCard.id].solved}
             // doctor ID
             />
           </div>
         ) : (
           <DetailedConditionCard
-            title={initialTasks[showCard.id].title}
-            desc={initialTasks[showCard.id].desc}
-            subType={initialTasks[showCard.id].subType}
-            date={initialTasks[showCard.id].start.toLocaleDateString()}
-            duration={initialTasks[showCard.id].duration}
-            tags={initialTasks[showCard.id].tags}
+            title={fetchActionsRes[showCard.id].title}
+            desc={fetchActionsRes[showCard.id].desc}
+            subType={fetchActionsRes[showCard.id].subType}
+            date={fetchActionsRes[showCard.id].start.toLocaleDateString()}
+            duration={fetchActionsRes[showCard.id].duration}
+            tags={fetchActionsRes[showCard.id].tags}
             setShowCard={setShowCard}
             revealAssocTable={revealAssocTable}
-            caused={initialTasks[showCard.id].caused}
-            wasSolved={initialTasks[showCard.id].wasSolved}
+            caused={fetchActionsRes[showCard.id].caused}
+            wasSolved={fetchActionsRes[showCard.id].wasSolved}
           // doctor ID
           />
         )
       )}
       <div className="willowContainer">
         <Willow>
-          <div className="ganttContainer" style={{ height: `${initialTasks.length}00px` }}>
+          {/* style={{ height: `${tasks.length}00px` }} */}
+          <div className="ganttContainer" >
             <Gantt
               tasks={tasks}
               links={links}
