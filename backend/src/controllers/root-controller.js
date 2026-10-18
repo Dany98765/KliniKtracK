@@ -106,11 +106,15 @@ export async function createAction(req, res){
         return res.status(400).send("Missing fields are required to create new action: " + JSON.stringify(missingArray));
     }else{
         let actionId = await userRepo.createAction(userId, name, description, start_date, end_date, type, doctor, doctor_id);
-        for(let i = 0; i < causedConditions.length; i++){
-            await userRepo.createActionToConditionAssociation(userId, actionId, causedConditions[i], "Caused");
+        if(causedConditions){
+            for(let i = 0; i < causedConditions.length; i++){
+                await userRepo.createActionToConditionAssociation(userId, actionId, causedConditions[i], "Caused");
+            }
         }
-        for(let i = 0; i < solvedConditions.length; i++){
-            await userRepo.createActionToConditionAssociation(userId, actionId, solvedConditions[i], "Solved");
+        if(solvedConditions){
+            for(let i = 0; i < solvedConditions.length; i++){
+                await userRepo.createActionToConditionAssociation(userId, actionId, solvedConditions[i], "Solved");
+            }
         }
         return res.sendStatus(201);
     }
@@ -141,11 +145,15 @@ export async function createCondition(req, res){
             return res.status(400).send("At least one symptom is needed to create a condition");
         }else{
             let conditionId = await userRepo.createCondition(userId, name, description, type, symptoms, start_date, end_date);
-            for(let i = 0; i < causedWhichActions.length; i++){
-                await userRepo.createConditionToActionAssociation(userId, causedWhichActions[i], conditionId, "Solved");
+            if(causedWhichActions){
+                for(let i = 0; i < causedWhichActions.length; i++){
+                    await userRepo.createConditionToActionAssociation(userId, causedWhichActions[i], conditionId, "Solved");
+                }
             }
-            for(let i = 0; i < sideEffectForWhichActions.length; i++){
-                await userRepo.createConditionToActionAssociation(userId, sideEffectForWhichActions[i], conditionId, "Caused");
+            if(sideEffectForWhichActions){
+                for(let i = 0; i < sideEffectForWhichActions.length; i++){
+                    await userRepo.createConditionToActionAssociation(userId, sideEffectForWhichActions[i], conditionId, "Caused");
+                }
             }
             return res.sendStatus(201);
         }
