@@ -4,5 +4,7 @@ export const ROUTES = {
     SIGNIN: "/signin",
     TIMELINE: "/timeline",
     ADD_ACTION: "/addAction",
-    ADD_CONDITION: "/addCondition"
+    ADD_CONDITION: "/addCondition",
+    PROFILE: "/profile",
+    PERMISSION_FORM: "/permissionForm"
 }

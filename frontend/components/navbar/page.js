@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { ROUTES } from "@/routes"
 import { signOut, useSession } from "next-auth/react"
 import Loader from "../loader/page"
+import ProfileDropdown from "../profileDropdown/page"
 
 export default function Navbar() {
     const router = useRouter()
@@ -36,9 +37,7 @@ export default function Navbar() {
                         Get Started
                     </button>
                 ) : status == 'authenticated' ? (
-                    <button className="logoutButton" onClick={signOut}>
-                        Logout
-                    </button>
+                    <ProfileDropdown />
                 ) : (
                     <Loader />
                 )

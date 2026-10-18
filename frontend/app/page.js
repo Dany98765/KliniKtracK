@@ -1,8 +1,11 @@
+import { auth } from "@/auth";
 import styles from "./page.module.css";
 import HeroSection from "@/components/pages/home/heroSection/page";
 import WhyUsSection from "@/components/pages/home/whyUsSection/page";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth()
+  console.log(session?.user)
   return (
     <div className={styles.page}>
       <HeroSection />

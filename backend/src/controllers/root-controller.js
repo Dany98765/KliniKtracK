@@ -46,8 +46,8 @@ export async function createUser(req, res) {
             return res.status(400).send("Some fields do not meet the requirements: " + JSON.stringify(invalidArray));
         } else {
             let hashedPassword = await bcrypt.hash(password, 12);
-            await userRepo.createUser(name, email, hashedPassword, role);
-            return res.sendStatus(201).send("Successful Signup!");
+            let { userId } = await userRepo.createUser(name, email, hashedPassword, role);
+            return res.status(201).send(String(userId));
         }
     }
 }

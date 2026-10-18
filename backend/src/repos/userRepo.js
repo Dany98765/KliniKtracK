@@ -3,7 +3,10 @@ import db from "../pool.js";
 let userRepo = {
     async createUser(name, email, password, role) {
         try {
-            await db.query("INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4)", [name, email, password, role]);
+            let newUser = await db.query("INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id", [name, email, password, role]);
+            return {
+                userId: newUser.rows[0].id
+            }
         } catch (err) {
             throw { "error source": "/backend/src/repos/userRepo.js, createUser", "error cause": "creating new user", "error message": err.message, "error details": err };
         }

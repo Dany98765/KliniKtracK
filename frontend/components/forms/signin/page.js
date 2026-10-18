@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import "./styles.css"
 import EmailField from "@/components/fields/auth/emailField/page"
 import PasswordField from "@/components/fields/auth/passwordField/page"
@@ -11,6 +11,7 @@ import { ROUTES } from "@/routes"
 import { validateEmail, validatePassword } from "@/utils/validation/auth"
 
 export default function SigninForm() {
+    const [isPending, startTransition] = useTransition()
     // signin form fields state initiation 
     const [signinFormFields, setSigninFormFields] = useState({
         email: "",
@@ -22,53 +23,56 @@ export default function SigninForm() {
         msg: ""
     })
     const router = useRouter()
-    async function signinNow() {
-        const { email, password } = signinFormFields;
-        // validation functions called
-        let emailValidationResult = validateEmail({ email })
-        let passwordValidationResult = validatePassword({ password })
-        // checking if user's input bypasses validation criteria
-        if (!emailValidationResult.msg &&
-            !passwordValidationResult.msg) {
-            console.log("SUCCESS VALIDATION!")
-            try {
-                const response = await fetch("http://localhost:5000/login", {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ email, password })
-                })
-                const data = await response.text()
-                console.log(data)
-                if (!response.ok) {
-                    throw new Error(`${data}`)
-                }
-                if (response.status == 200) {
-                    console.log('Success:', data);
-                    await signIn("credentials", {
-                        ...signinFormFields,
-                        userId: data,
-                        redirect: false
+    function signinNow() {
+        startTransition(async () => {
+            const { email, password } = signinFormFields;
+            // validation functions called
+            let emailValidationResult = validateEmail({ email })
+            let passwordValidationResult = validatePassword({ password })
+            // checking if user's input bypasses validation criteria
+            if (!emailValidationResult.msg &&
+                !passwordValidationResult.msg) {
+                console.log("SUCCESS VALIDATION!")
+                try {
+                    const response = await fetch("http://localhost:5000/login", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
                     })
-                    console.log("SUCCESSFUL SIGNIN AUTH!")
-                    router.push(ROUTES.HOME)
-                    console.log("SUCCESSFUL REDIRECT!")
+                    const data = await response.text()
+                    console.log(data)
+                    if (response.status == 200) {
+                        console.log('Success:', data);
+                        await signIn("credentials", {
+                            ...signinFormFields,
+                            userId: data,
+                            redirect: false
+                        })
+                        console.log("SUCCESSFUL SIGNIN AUTH!")
+                        router.push(ROUTES.HOME)
+                        console.log("SUCCESSFUL REDIRECT!")
+                    }
+                    setIsSuccessfulSignin({
+                        isSuccessful: false,
+                        msg: data
+                    })
+                } catch (err) {
+                    setIsSuccessfulSignin({
+                        isSuccessful: false,
+                        msg: err.message
+                    })
+                    throw new Error(`HTTP error! Status: ${err.message}`);
                 }
-            } catch (err) {
+            } else {
+                // user's input does not satisfy validation criteria
                 setIsSuccessfulSignin({
                     isSuccessful: false,
-                    msg: err.message
+                    msg: "Invalid email or password"
                 })
-                throw new Error(`HTTP error! Status: ${err.message}`);
             }
-        } else {
-            // user's input does not satisfy validation criteria
-            setIsSuccessfulSignin({
-                isSuccessful: false,
-                msg: "Invalid email or password"
-            })
-        }
+        })
     }
     // possible msg popups to display
     return (
@@ -92,7 +96,7 @@ export default function SigninForm() {
                 />
             </div>
             <button className="signinNowButton" onClick={signinNow}>
-                Signin Now →
+                {isPending ? 'Signing in...' : 'Signin Now →'}
             </button>
             <p className="altToSigninTxt">Don't have an account? <span className="signupNavigatorTxt" onClick={() => router.push(ROUTES.SIGNUP)}>Signup</span></p>
         </div>

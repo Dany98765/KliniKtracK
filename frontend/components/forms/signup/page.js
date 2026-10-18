@@ -58,16 +58,20 @@ export default function SignupForm() {
                 })
                 const data = await response.text()
                 console.log('Success:', data);
-                if (!response.ok) {
-                    throw new Error(`${data}`)
+                if (response.status == 201) {
+                    await signIn("credentials", {
+                        ...signupFormFields,
+                        userId: data,
+                        redirect: false
+                    })
+                    console.log("SUCCESSFUL SIGNIN AUTH!")
+                    router.push(ROUTES.HOME)
+                    console.log("SUCCESSFUL REDIRECT!")
                 }
-                await signIn("credentials", {
-                    ...signupFormFields,
-                    redirect: false
-                })
-                console.log("SUCCESSFUL SIGNIN AUTH!")
-                router.push(ROUTES.HOME)
-                console.log("SUCCESSFUL REDIRECT!")
+                setValidationErr((prev) => ({
+                    ...prev,
+                    general: data
+                }))
             } catch (err) {
                 setValidationErr((prev) => ({
                     ...prev,
