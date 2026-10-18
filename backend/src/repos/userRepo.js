@@ -112,6 +112,16 @@ let userRepo = {
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, fetchActionToConditionAssociation", "error cause": "fetching action to condition association", "error message": err.message, "error details": err};
         }
+    }, 
+
+    async fetchConditionToActionAssociation(userId, conditionId){
+        try{
+            let results = await db.query("SELECT atc.action_id, a.name, atc.role_of_action FROM actions_to_conditions atc JOIN actions a ON atc.action_id = a.id WHERE atc.user_id = $1 AND atc.condition_id = $2", [userId, conditionId]);
+            let rows = results.rows;
+            return rows;
+        }catch(err){
+            throw {"error source": "/backend/src/repos/userRepo.js, fetchConditionToActionAssociation", "error cause": "fetching condition to action association", "error message": err.message, "error details": err};
+        }
     }
 }
 
