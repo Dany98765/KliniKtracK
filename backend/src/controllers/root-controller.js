@@ -96,7 +96,6 @@ export async function fetchActions(req, res) {
 }
 
 export async function createAction(req, res) {
-    console.log("CREATING ACTION STARTED!")
     let { name, description, start_date, end_date, type, doctor, doctor_id, causedConditions, solvedConditions } = req.body;
     let { id } = req.params;
     let userId = Number(id);
