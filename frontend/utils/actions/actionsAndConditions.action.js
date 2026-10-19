@@ -35,9 +35,9 @@ export async function fetchAllActionsAndConditions({ userId }) {
         throw new Error(`Failed to fetch actions: ${fetchAllActionsRes.status}`)
     }
     const fetchAllActionsData = await fetchAllActionsRes.json()
-    const initialTasks = (fetchAllActionsData.actions ?? []).map(({ name, description, start_date, end_date, doctor, doctor_id, type }, id) => {
-        const start = new Date(start_date)
-        const end = new Date(end_date)
+    const initialTasks = (fetchAllActionsData.actions ?? []).map(({ name, description, startDate, endDate, doctor, doctorId, type }, id) => {
+        const start = new Date(startDate)
+        const end = new Date(endDate)
         const startDateStr = formatDate(start)
         const endDateStr = formatDate(end)
         return {
@@ -48,8 +48,8 @@ export async function fetchAllActionsAndConditions({ userId }) {
             type: "Action",
             subType: type ?? "",
             doctor: doctor ?? "",
-            doctorId: doctor_id ?? null,
-            start: start.toISOString(),
+            doctorId: doctorId ?? null,
+            start: start,
             date: `${startDateStr} → ${endDateStr}`,
             duration: Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24) + 1)),
             color: colorIndicator("Action", type),
@@ -66,9 +66,9 @@ export async function fetchAllActionsAndConditions({ userId }) {
         throw new Error(`Failed to fetch conditions: ${fetchAllConditionsRes.status}`)
     }
     const fetchAllConditionsData = await fetchAllConditionsRes.json()
-    const allConditions = (fetchAllConditionsData.conditions ?? []).map(({ name, description, start_date, end_date, symptoms, type }, id) => {
-        const start = new Date(start_date)
-        const end = new Date(end_date)
+    const allConditions = (fetchAllConditionsData.conditions ?? []).map(({ name, description, startDate, endDate, symptoms, type }, id) => {
+        const start = new Date(startDate)
+        const end = new Date(endDate)
         const startDateStr = formatDate(start)
         const endDateStr = formatDate(end)
         return {

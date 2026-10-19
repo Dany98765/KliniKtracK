@@ -133,6 +133,7 @@ export async function fetchConditions(req, res) {
 
 export async function createCondition(req, res) {
     let { name, description, type, symptoms, startDate, endDate, causedWhichActions, sideEffectForWhichActions } = req.body;
+    console.log(startDate, endDate + ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
     let { id } = req.params;
     let userId = Number(id);
     if (!Number.isInteger(userId)) {

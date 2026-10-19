@@ -70,7 +70,7 @@ export default function AddConditionForm() {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ name, description, type, symptoms, start_date: startDate, end_date: endDate, causedWhichActions: solvedConditions, sideEffectForWhichActions: causedConditions })
+                        body: JSON.stringify({ name, description, type, symptoms, startDate, endDate, causedWhichActions: solvedConditions, sideEffectForWhichActions: causedConditions })
                     })
 
                     let data = await response.text()
