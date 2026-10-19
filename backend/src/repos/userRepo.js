@@ -130,6 +130,20 @@ let userRepo = {
         }catch(err){
             throw {"error source": "/backend/src/repos/userRepo.js, fetchConditionToActionAssociation", "error cause": "fetching condition to action association", "error message": err.message, "error details": err};
         }
+    }, 
+
+    async fetchProfileStats(userId){
+        let roleData = await db.query("SELECT role FROM users WHERE id = $1", [userId]);
+        let role = roleData.rows[0].role;
+        let stats;
+        if(role == "Patient"){
+            let statsData = await db.query("SELECT u.name, u.email, u.role, COUNT(DISTINCT a.id) AS actions_count, COUNT(DISTINCT c.id) AS conditions_count, COUNT(DISTINCT p.id) As permissions_count FROM users u LEFT JOIN actions a ON u.id = a.user_id LEFT JOIN conditions c ON u.id = c.user_id LEFT JOIN permissions p ON u.id = p.patient_id WHERE u.id = $1 GROUP BY u.name, u.email, u.role", [userId]);
+            stats = statsData.rows[0];
+        }else{
+            let statsData = await db.query("SELECT u.name, u.email, u.role, COUNT(DISTINCT p.id) AS total_permissions, COUNT(DISTINCT p.id) FILTER (WHERE current_status = 'Granted') AS granted_permissions, COUNT(DISTINCT p.id) FILTER (WHERE current_status = 'Aborted') AS aborted_permissions FROM users u LEFT JOIN permissions p ON u.id = p.doctor_id WHERE u.id = $1 GROUP BY u.name, u.email, u.role", [userId]);
+            stats = statsData.rows[0];
+        }
+        return stats;
     }
 }
 
