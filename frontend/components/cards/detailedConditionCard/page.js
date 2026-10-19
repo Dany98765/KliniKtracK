@@ -3,15 +3,14 @@ import ConditionAuxiliaryData from "./conditionAuxiliaryData/page";
 import ConditionHeaderData from "./conditionHeaderData/page";
 import AssocActions from "./assocActions/page";
 
-export default function DetailedConditionCard({ title, desc, subType, date, start, tags, duration, setShowCard, revealAssocTable, caused, wasSolved }) {
+export default function DetailedConditionCard({ userId, DBID, title, desc, subType, date, start, tags, duration, setShowCard, revealAssocTable, caused, wasSolved }) {
     let startDateObj = new Date(start);
     startDateObj.setDate(startDateObj.getDate() + duration - 1);
-    let endDate = startDateObj.toLocaleDateString()
     return (
         <div className="detailedConditionCardContainer">
             <ConditionHeaderData title={title} subType={subType} setShowCard={setShowCard} />
             {revealAssocTable == 'true' ? (
-                <AssocActions caused={caused} wasSolved={wasSolved} />
+                <AssocActions userId={userId} DBID={DBID} caused={caused} wasSolved={wasSolved} />
             ) : (
                 <div>
                     <p className="conditionDesc">{desc}</p>

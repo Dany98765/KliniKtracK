@@ -125,24 +125,24 @@ export default function AddActionForm() {
                 if (response.status === 200) {
                     const fetchAllConditionsData = await response.json();
                     console.log(fetchAllConditionsData.condition)
-                    if (Array.isArray(fetchAllConditionsData.conditions)) {
-                        fetchAllConditionsData.conditions.map(({ name, id }) =>
-                            setAssocConditions(
-                                fetchAllConditionsData.conditions.map(({ name, id }) => ({
-                                    id,
-                                    name
-                                }))
-                            )
-                        );
-                    }
                     // if (Array.isArray(fetchAllConditionsData.conditions)) {
-                    //     setAssocConditions(
-                    //         fetchAllConditionsData.conditions.map(({ name, id }) => ({
-                    //             id,
-                    //             name
-                    //         }))
+                    //     fetchAllConditionsData.conditions.map(({ name, id }) =>
+                    //         setAssocConditions(
+                    //             fetchAllConditionsData.conditions.map(({ name, id }) => ({
+                    //                 id,
+                    //                 name
+                    //             }))
+                    //         )
                     //     );
                     // }
+                    if (Array.isArray(fetchAllConditionsData.conditions)) {
+                        setAssocConditions(
+                            fetchAllConditionsData.conditions.map(({ name, id }) => ({
+                                id,
+                                name
+                            }))
+                        );
+                    }
                 } else {
                     const err = await response.text()
                     console.log(err + ")))))))))))))))))))))))))))))))")

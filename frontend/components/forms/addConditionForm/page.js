@@ -65,6 +65,7 @@ export default function AddConditionForm() {
                     symptoms: "",
                     dates: ""
                 })
+                console.log(startDate, endDate)
                 try {
                     const response = await fetch(`http://localhost:5000/conditions/${userId}`, {
                         method: "POST",
@@ -120,9 +121,17 @@ export default function AddConditionForm() {
                 })
                 if (response.status === 200) {
                     const fetchAllActionsData = await response.json();
+                    // if (Array.isArray(fetchAllActionsData.actions)) {
+                    //     fetchAllActionsData.actions.map(({ name, id }) =>
+                    //         setAssocActions(prev => [...prev, { id, name }])
+                    //     );
+                    // }
                     if (Array.isArray(fetchAllActionsData.actions)) {
-                        fetchAllActionsData.actions.map(({ name, id }) =>
-                            setAssocActions(prev => [...prev, { id, name }])
+                        setAssocActions(
+                            fetchAllActionsData.actions.map(({ name, id }) => ({
+                                id,
+                                name
+                            }))
                         );
                     }
                 } else {
