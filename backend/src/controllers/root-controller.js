@@ -221,3 +221,18 @@ export async function grantPermission(req, res){
         return res.sendStatus(201);
     }
 }
+
+export async function requestPermission(req, res){
+    let { id } = req.params;
+    let doctorId = Number(id);
+    let { patientId, scope, startDate, endDate } = req.body;
+    if (!Number.isInteger(doctorId)) {
+        return res.status(400).send("Integer doctor id must be passed in as a route parameter");
+    }else if(!(patientId && scope && startDate && endDate)){
+        let missingArray = findMissingFields([[patientId, "patient id"], [scope, "scope"], [startDate, "start date"], [endDate, "end date"]]);
+        return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
+    }else{
+        await userRepo.createPermission(patientId, doctorId, scope, 'Pending', startDate, endDate);
+        return res.sendStatus(201);
+    }
+}
