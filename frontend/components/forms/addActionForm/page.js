@@ -14,10 +14,13 @@ import { actionDescription, actionDoctorName, actionName, actionStartAndEndDates
 import { Alert } from "@mui/material"
 import { causedConditions, solvedConditions } from "@/tooltip-msg"
 import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { ROUTES } from "@/routes"
 
 export default function AddActionForm() {
     const { data } = useSession()
     let userId = data?.user?.id
+    const router = useRouter()
     const [isPending, startTransition] = useTransition()
     const [addActionFormFields, setAddActionFormFields] = useState({
         name: "",
@@ -80,6 +83,7 @@ export default function AddActionForm() {
                             ...prev,
                             general: "Success!"
                         }))
+                        router.push(ROUTES.TIMELINE)
                     } else {
                         setActionFormFieldsValidation((prev) => ({
                             ...prev,
@@ -92,7 +96,7 @@ export default function AddActionForm() {
                         general: err
                     }))
 
-                    throw new Error(`Error occured while creating action: ${err}`)
+                    throw new Error(`An error occured while creating action: ${err}`)
                 }
                 // API Endpoint
             } else {

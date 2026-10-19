@@ -8,7 +8,7 @@ export default function EventNameField({ state, setState, className }) {
         <div className="eventNameFieldContainer">
             <p className="eventNameTitle">Name <span className="requiredAsteriks">*</span></p>
             <TextField
-                label="Eg: Joint Replacement"
+                label={className == 'conditionNameField' ? 'Eg: Bone Disorder' : 'Eg: Joint Replacement'}
                 variant="standard"
                 className={className}
                 value={state.name}

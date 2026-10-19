@@ -14,7 +14,7 @@ export default function SummarisedTimelineCard({ id, color, title, type, setShow
       }}
       onClick={() => setShowCard((prev) => ({
         ...prev,
-        id,
+        id: id,
         type,
         isShowing: true
       }))}

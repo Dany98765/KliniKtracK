@@ -15,11 +15,11 @@ import { fetchAllActionsAndConditions } from "@/utils/actions/actionsAndConditio
 export default function TimelineComponent() {
   const { data } = useSession()
   let userId = data?.user?.id
-  const [allActionsAndConditions, setAllActionsAndConditions] = useState();
+  const [allActionsAndConditions, setAllActionsAndConditions] = useState([]);
   useEffect(() => {
     if (userId) {
       async function localUseEffectFn() {
-        let { initialTasks, allConditions } = await fetchAllActionsAndConditions({ userId });
+        const { initialTasks, allConditions } = await fetchAllActionsAndConditions({ userId });
         setAllActionsAndConditions([...initialTasks, ...allConditions]);
       }
       localUseEffectFn();
@@ -33,6 +33,9 @@ export default function TimelineComponent() {
     type: "Action", // action - condition
     isShowing: false
   })
+  const selectedItem = allActionsAndConditions.find(
+    (item) => item.id === showCard.id
+  );
 
   function taskTemplate(props) {
     return (
@@ -57,36 +60,37 @@ export default function TimelineComponent() {
   }, []);
   return (
     <div className="timeline">
-      {showCard.isShowing && (
+      {showCard.isShowing && selectedItem && (
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
             <DetailedActionCard
-              title={allActionsAndConditions[showCard.id]?.title}
-              desc={allActionsAndConditions[showCard.id].desc}
-              subType={allActionsAndConditions[showCard.id].subType}
-              date={allActionsAndConditions[showCard.id].date}
-              start={allActionsAndConditions[showCard.id].start}
-              duration={allActionsAndConditions[showCard.id].duration}
-              doctor={allActionsAndConditions[showCard.id].doctor || null}
+              title={selectedItem.title}
+              desc={selectedItem.desc}
+              subType={selectedItem.subType}
+              date={selectedItem.date}
+              start={selectedItem.start}
+              duration={selectedItem.duration}
+              doctor={selectedItem.doctor}
               setShowCard={setShowCard}
               revealAssocTable={revealAssocTable}
-              caused={allActionsAndConditions[showCard.id].caused}
-              solved={allActionsAndConditions[showCard.id].solved}
+              caused={selectedItem.caused}
+              solved={selectedItem.solved}
             // doctor ID
             />
           </div>
         ) : (
           <DetailedConditionCard
-            title={conditions[showCard.id].title}
-            desc={conditions[showCard.id].desc}
-            subType={conditions[showCard.id].subType}
-            date={conditions[showCard.id].start.toLocaleDateString()}
-            duration={conditions[showCard.id].duration}
-            tags={conditions[showCard.id].tags}
+            title={selectedItem.title}
+            desc={selectedItem.desc}
+            subType={selectedItem.subType}
+            date={selectedItem.date}
+            start={selectedItem.start}
+            duration={selectedItem.duration}
+            tags={selectedItem.symptoms}
             setShowCard={setShowCard}
             revealAssocTable={revealAssocTable}
-            caused={conditions[showCard.id].caused}
-            wasSolved={conditions[showCard.id].wasSolved}
+            caused={selectedItem.caused}
+            wasSolved={selectedItem.solved}
           // doctor ID
           />
         )
@@ -107,6 +111,6 @@ export default function TimelineComponent() {
           </div>
         </Willow>
       </div>
-    </div>
+    </div >
   );
 }

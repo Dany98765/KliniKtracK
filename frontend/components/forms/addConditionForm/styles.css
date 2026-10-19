@@ -11,7 +11,7 @@
     gap: 20px;
 }
 
-.errPopup {
+.errPopup, .successPopup {
     width: 100%;
     margin-bottom: 30px;
 }
