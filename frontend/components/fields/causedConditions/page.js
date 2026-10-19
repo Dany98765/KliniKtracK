@@ -5,7 +5,7 @@ import "./styles.css"
 import { FormControl, IconButton, InputLabel, MenuItem, Select, Tooltip } from "@mui/material"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutlined"
 
-export default function CausedConditionsField({ title, tooltip, state, setState }) {
+export default function CausedConditionsField({ title, tooltip, state, setState, assocEvents }) {
     return (
         <div className="causedConditionsFieldContainer">
             <div className="titleAndTooltipContainer">
@@ -33,9 +33,9 @@ export default function CausedConditionsField({ title, tooltip, state, setState 
                         }))
                     }}
                 >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {assocEvents?.map((condition, id) => (
+                        <MenuItem value={id}>{condition.name}</MenuItem>
+                    ))}
                 </Select>
             </FormControl>
         </div>
