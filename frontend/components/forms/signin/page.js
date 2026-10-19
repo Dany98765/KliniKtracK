@@ -42,8 +42,11 @@ export default function SigninForm() {
                         body: JSON.stringify({ email, password })
                     })
                     const data = await response.text()
-                    console.log(data)
                     if (response.status == 200) {
+                        setIsSuccessfulSignin({
+                            isSuccessful: true,
+                            msg: ""
+                        })
                         console.log('Success:', data);
                         await signIn("credentials", {
                             ...signinFormFields,
@@ -53,11 +56,12 @@ export default function SigninForm() {
                         console.log("SUCCESSFUL SIGNIN AUTH!")
                         router.push(ROUTES.HOME)
                         console.log("SUCCESSFUL REDIRECT!")
+                    } else {
+                        setIsSuccessfulSignin({
+                            isSuccessful: false,
+                            msg: data
+                        })
                     }
-                    setIsSuccessfulSignin({
-                        isSuccessful: false,
-                        msg: data
-                    })
                 } catch (err) {
                     setIsSuccessfulSignin({
                         isSuccessful: false,

@@ -16,16 +16,16 @@ export default function TimelineComponent() {
   const { data } = useSession()
   let userId = data?.user?.id
   const [tasks, setTasks] = useState();
-  console.log(userId + " FROM CLIENT SIDE")
   useEffect(() => {
     if (userId) {
       async function localUseEffectFn() {
-        let fetchActionsRes = await fetchAllActions({ userId })
-        setTasks(fetchActionsRes)
+        let { initialTasks } = await fetchAllActions({ userId })
+        setTasks(initialTasks)
       }
       localUseEffectFn()
     }
   }, [])
+
   let searchParams = useSearchParams();
   let revealAssocTable = searchParams?.get("revealAssocTable") || "false"
   const router = useRouter()
@@ -76,39 +76,39 @@ export default function TimelineComponent() {
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
             <DetailedActionCard
-              title={fetchActionsRes[showCard.id].title}
-              desc={fetchActionsRes[showCard.id].desc}
-              subType={fetchActionsRes[showCard.id].subType}
-              date={fetchActionsRes[showCard.id].start.toLocaleDateString()}
-              duration={fetchActionsRes[showCard.id].duration}
-              doctor={fetchActionsRes[showCard.id].doctor || null}
+              title={tasks[showCard.id].title}
+              desc={tasks[showCard.id].desc}
+              subType={tasks[showCard.id].subType}
+              date={tasks[showCard.id].start.toLocaleDateString()}
+              duration={tasks[showCard.id].duration}
+              doctor={tasks[showCard.id].doctor || null}
               setShowCard={setShowCard}
               revealAssocTable={revealAssocTable}
-              caused={fetchActionsRes[showCard.id].caused}
-              solved={fetchActionsRes[showCard.id].solved}
+              caused={tasks[showCard.id].caused}
+              solved={tasks[showCard.id].solved}
             // doctor ID
             />
           </div>
         ) : (
           <DetailedConditionCard
-            title={fetchActionsRes[showCard.id].title}
-            desc={fetchActionsRes[showCard.id].desc}
-            subType={fetchActionsRes[showCard.id].subType}
-            date={fetchActionsRes[showCard.id].start.toLocaleDateString()}
-            duration={fetchActionsRes[showCard.id].duration}
-            tags={fetchActionsRes[showCard.id].tags}
+            title={tasks[showCard.id].title}
+            desc={tasks[showCard.id].desc}
+            subType={tasks[showCard.id].subType}
+            date={tasks[showCard.id].start.toLocaleDateString()}
+            duration={tasks[showCard.id].duration}
+            tags={tasks[showCard.id].tags}
             setShowCard={setShowCard}
             revealAssocTable={revealAssocTable}
-            caused={fetchActionsRes[showCard.id].caused}
-            wasSolved={fetchActionsRes[showCard.id].wasSolved}
+            caused={tasks[showCard.id].caused}
+            wasSolved={tasks[showCard.id].wasSolved}
           // doctor ID
           />
         )
       )}
+      
       <div className="willowContainer">
         <Willow>
-          {/* style={{ height: `${tasks.length}00px` }} */}
-          <div className="ganttContainer" >
+          <div className="ganttContainer" style={{ height: `${tasks?.length}00px` }} >
             <Gantt
               tasks={tasks}
               links={links}
