@@ -11,5 +11,6 @@ router.get("/actions-to-conditions{/:id}{/:actionId}", rootController.fetchCondi
 router.get("/conditions-to-actions{/:id}{/:conditionId}", rootController.fetchActionsForCondition);
 router.get("/profile-stats{/:id}", rootController.fetchProfileStats);
 router.post("/grantPermission{/:id}", rootController.grantPermission);
+router.post("/requestPermission{/:id}", rootController.requestPermission);
 
 export default router;

@@ -102,7 +102,7 @@ export async function createAction(req, res) {
     if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
     } else if (!(name && description && startDate && endDate && type)) {
-        let missingArray = findMissingFields([[name, "name"], [description, "description"], [startDate, "start date"], [endDate, "end date"], [type, "type"]]);
+        let missingArray = findMissingFields([[name, "name"], [description, "description"], [startDate, "startDate"], [endDate, "endDate"], [type, "type"]]);
         return res.status(400).send("Missing fields are required to create new action: " + JSON.stringify(missingArray));
     } else {
         let actionId = await userRepo.createAction(userId, name, description, startDate, endDate, type, doctor, doctorId);
@@ -138,7 +138,7 @@ export async function createCondition(req, res) {
     if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
     } else if (!(name && description && type && symptoms && startDate && endDate)) {
-        let missingArray = findMissingFields([[name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [startDate, "start date"], [endDate, "end date"]]);
+        let missingArray = findMissingFields([[name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [startDate, "startDate"], [endDate, "endDate"]]);
         return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
     } else {
         if (!(symptoms.length > 0)) {
@@ -214,10 +214,25 @@ export async function grantPermission(req, res){
     if (!Number.isInteger(patientId)) {
         return res.status(400).send("Integer patient id must be passed in as a route parameter");
     }else if(!(doctorId && scope && startDate && endDate)){
-        let missingArray = findMissingFields([[doctorId, "doctor id"], [scope, "scope"], [startDate, "start date"], [endDate, "end date"]]);
+        let missingArray = findMissingFields([[doctorId, "doctorId"], [scope, "scope"], [startDate, "startDate"], [endDate, "endDate"]]);
         return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
     }else{
         await userRepo.createPermission(patientId, doctorId, scope, 'Granted', startDate, endDate);
+        return res.sendStatus(201);
+    }
+}
+
+export async function requestPermission(req, res){
+    let { id } = req.params;
+    let doctorId = Number(id);
+    let { patientId, scope, startDate, endDate } = req.body;
+    if (!Number.isInteger(doctorId)) {
+        return res.status(400).send("Integer doctor id must be passed in as a route parameter");
+    }else if(!(patientId && scope && startDate && endDate)){
+        let missingArray = findMissingFields([[patientId, "patientId"], [scope, "scope"], [startDate, "startDate"], [endDate, "endDate"]]);
+        return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
+    }else{
+        await userRepo.createPermission(patientId, doctorId, scope, 'Pending', startDate, endDate);
         return res.sendStatus(201);
     }
 }
