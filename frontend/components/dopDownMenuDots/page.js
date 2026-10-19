@@ -59,9 +59,6 @@ export default function DropdownMenuDots({ type, setShowCard }) {
         <MenuItem onClick={closeActionOrConditionCard} component="a">
           Close
         </MenuItem>
-        <MenuItem onClick={handleClose} component="a" href="#">
-          Edit
-        </MenuItem>
         <MenuItem onClick={revealAssocConditionsOrActionsTable} component="a">
           {trueToShowAssocTable ? 'View Body Info' : `View Assoc ${type == 'Action' ? 'Conditions' : 'Actions'}`}
         </MenuItem>

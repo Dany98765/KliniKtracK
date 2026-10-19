@@ -10,22 +10,21 @@ import DetailedConditionCard from "../cards/detailedConditionCard/page";
 import { useRouter, useSearchParams } from "next/navigation";
 import { links, scales } from "./timeline-config";
 import { useSession } from "next-auth/react";
-import { fetchAllActions } from "@/utils/actions/userActions.action";
+import { fetchAllActionsAndConditions } from "@/utils/actions/actionsAndConditions.action";
 
 export default function TimelineComponent() {
   const { data } = useSession()
   let userId = data?.user?.id
-  const [tasks, setTasks] = useState();
+  const [allActionsAndConditions, setAllActionsAndConditions] = useState();
   useEffect(() => {
     if (userId) {
       async function localUseEffectFn() {
-        let { initialTasks } = await fetchAllActions({ userId })
-        setTasks(initialTasks)
+        let { initialTasks, allConditions } = await fetchAllActionsAndConditions({ userId });
+        setAllActionsAndConditions([...initialTasks, ...allConditions]);
       }
-      localUseEffectFn()
+      localUseEffectFn();
     }
-  }, [])
-
+  }, [userId]);
   let searchParams = useSearchParams();
   let revealAssocTable = searchParams?.get("revealAssocTable") || "false"
   const router = useRouter()
@@ -35,19 +34,6 @@ export default function TimelineComponent() {
     isShowing: false
   })
 
-  function changeTaskColor(id, color) {
-    setTasks((current) =>
-      current?.map((task) =>
-        task.id === id
-          ? {
-            ...task,
-            color,
-          }
-          : task
-      )
-    );
-  }
-
   function taskTemplate(props) {
     return (
       <SummarisedTimelineCard
@@ -56,7 +42,6 @@ export default function TimelineComponent() {
         title={props.data.title}
         type={props.data.type}
         setShowCard={setShowCard}
-        onColorChange={changeTaskColor}
       />
     );
   }
@@ -70,85 +55,47 @@ export default function TimelineComponent() {
       : window.location.pathname;
     router.replace(newUrl);
   }, []);
-  console.log(JSON.stringify(tasks) + "[[")
-  const currentTask = tasks?.map((task) => {
-    console.log(task.id)
-  })
   return (
     <div className="timeline">
-      {/* {showCard.isShowing && (
+      {showCard.isShowing && (
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
             <DetailedActionCard
-              title={currentTask[showCard.id]?.title}
-              desc={currentTask[showCard.id].desc}
-              subType={currentTask[showCard.id].subType}
-              date={currentTask[showCard.id].date}
-              start={currentTask[showCard.id].start}
-              duration={currentTask[showCard.id].duration}
-              doctor={currentTask[showCard.id].doctor || null}
+              title={allActionsAndConditions[showCard.id]?.title}
+              desc={allActionsAndConditions[showCard.id].desc}
+              subType={allActionsAndConditions[showCard.id].subType}
+              date={allActionsAndConditions[showCard.id].date}
+              start={allActionsAndConditions[showCard.id].start}
+              duration={allActionsAndConditions[showCard.id].duration}
+              doctor={allActionsAndConditions[showCard.id].doctor || null}
               setShowCard={setShowCard}
               revealAssocTable={revealAssocTable}
-              caused={currentTask[showCard.id].caused}
-              solved={currentTask[showCard.id].solved}
+              caused={allActionsAndConditions[showCard.id].caused}
+              solved={allActionsAndConditions[showCard.id].solved}
             // doctor ID
             />
           </div>
         ) : (
           <DetailedConditionCard
-            title={tasks[showCard.id].title}
-            desc={tasks[showCard.id].desc}
-            subType={tasks[showCard.id].subType}
-            date={tasks[showCard.id].start.toLocaleDateString()}
-            duration={tasks[showCard.id].duration}
-            tags={tasks[showCard.id].tags}
+            title={conditions[showCard.id].title}
+            desc={conditions[showCard.id].desc}
+            subType={conditions[showCard.id].subType}
+            date={conditions[showCard.id].start.toLocaleDateString()}
+            duration={conditions[showCard.id].duration}
+            tags={conditions[showCard.id].tags}
             setShowCard={setShowCard}
             revealAssocTable={revealAssocTable}
-            caused={tasks[showCard.id].caused}
-            wasSolved={tasks[showCard.id].wasSolved}
+            caused={conditions[showCard.id].caused}
+            wasSolved={conditions[showCard.id].wasSolved}
           // doctor ID
           />
         )
-      )} */}
-      {showCard.isShowing && currentTask && (
-        showCard.type === "Action" ? (
-          <div className="detailedActionCard">
-            <DetailedActionCard
-              title={currentTask.title}
-              desc={currentTask.desc}
-              subType={currentTask.subType}
-              date={currentTask.date}
-              start={currentTask.start}
-              duration={currentTask.duration}
-              doctor={currentTask.doctor || null}
-              setShowCard={setShowCard}
-              revealAssocTable={revealAssocTable}
-              caused={currentTask.caused}
-              solved={currentTask.solved}
-            />
-          </div>
-        ) : (
-          <DetailedConditionCard
-            title={currentTask.title}
-            desc={currentTask.desc}
-            subType={currentTask.subType}
-            date={new Date(currentTask.start).toLocaleDateString("en-GB", { timeZone: "UTC" })}
-            duration={currentTask.duration}
-            tags={currentTask.tags}
-            setShowCard={setShowCard}
-            revealAssocTable={revealAssocTable}
-            caused={currentTask.caused}
-            wasSolved={currentTask.wasSolved}
-          />
-        )
       )}
-
-
       <div className="willowContainer">
         <Willow>
-          <div className="ganttContainer" style={{ height: `${tasks?.length}00px` }} >
+          <div className="ganttContainer" style={{ height: `${allActionsAndConditions?.length}00px` }} >
             <Gantt
-              tasks={tasks}
+              tasks={allActionsAndConditions}
               links={links}
               scales={scales}
               taskTemplate={taskTemplate}

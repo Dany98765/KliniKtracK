@@ -26,9 +26,9 @@ export default function ActionAuxiliaryData({ doctor, start, date, duration }) {
                         </div>
                         <p className="doctorNameTxt">{doctor}</p>
                     </div>
-                    <button className="viewDrProfileButton">
+                    {/* <button className="viewDrProfileButton">
                         View Profile
-                    </button>
+                    </button> */}
                 </div>
             )
             }
@@ -41,7 +41,6 @@ export default function ActionAuxiliaryData({ doctor, start, date, duration }) {
                     className="scheduleImg"
                 />
                 <p className={`${pixelifySans.className} actionDateTxt`}>{duration > 1 ? `${date}` : `${start}`}</p>
-                {start}
             </div>
         </div>
     )
