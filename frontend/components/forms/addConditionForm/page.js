@@ -1,9 +1,9 @@
 "use client"
 
-import EventDescriptionField from "@/components/fields/actionOrCondition/description/page"
 import "./styles.css"
+import EventDescriptionField from "@/components/fields/actionOrCondition/description/page"
 import EventNameField from "@/components/fields/actionOrCondition/name/page"
-import { useState } from "react"
+import { startTransition, useState, useTransition } from "react"
 import ConditionTypeField from "@/components/fields/conditionType/page"
 import ConditionSymptomsField from "@/components/fields/conditionSymptoms/page"
 import CausedConditionsField from "@/components/fields/causedConditions/page"
@@ -12,8 +12,15 @@ import { causedWhichActions, sideEffectForWhichActions } from "@/tooltip-msg"
 import EventStartAndEndDatesFields from "@/components/fields/actionOrCondition/startAndEndDates/page"
 import { conditionDescription, conditionName, conditionStartAndEndDates, conditionSymptoms, conditionType } from "@/utils/validation/addCondition"
 import { Alert } from "@mui/material"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { ROUTES } from "@/routes"
 
 export default function AddConditionForm() {
+    const { data } = useSession()
+    let userId = data?.user?.id
+    const router = useRouter()
+    const [isPending, startTransition] = useTransition()
     const [addConditionFormFields, setAddConditionFormFields] = useState({
         name: "",
         description: "",
@@ -29,43 +36,78 @@ export default function AddConditionForm() {
         description: "",
         type: "",
         symptoms: "",
-        dates: ""
+        dates: "",
+        general: ""
     })
 
     function contributeCondition() {
-        let { name, description, type, symptoms, causedConditions, solvedConditions, startDate, endDate } = addConditionFormFields
-        let conditionNameValidationResult = conditionName({ name })
-        let conditionDescriptionValidationResult = conditionDescription({ description })
-        let typeValidationResult = conditionType({ type })
-        let symptomsValidationResult = conditionSymptoms({ symptoms })
-        let startAndEndDateValidationResult = conditionStartAndEndDates({ startDate, endDate })
+        startTransition(async () => {
+            let { name, description, type, symptoms, causedConditions, solvedConditions, startDate, endDate } = addConditionFormFields
+            let conditionNameValidationResult = conditionName({ name })
+            let conditionDescriptionValidationResult = conditionDescription({ description })
+            let typeValidationResult = conditionType({ type })
+            let symptomsValidationResult = conditionSymptoms({ symptoms })
+            let startAndEndDateValidationResult = conditionStartAndEndDates({ startDate, endDate })
 
-        if (!conditionNameValidationResult.msg &&
-            !conditionDescriptionValidationResult.msg &&
-            !startAndEndDateValidationResult.msg &&
-            !typeValidationResult.msg &&
-            !symptomsValidationResult.msg
-        ) {
-            console.log("SUCCESSFUL VALIDATION!")
-            setConditionFormFieldsValidation({
-                name: "",
-                description: "",
-                type: "",
-                symptoms: "",
-                dates: ""
-            })
-            // API Endpoint
-        } else {
-            console.log("UNSUCCESSFUL VALIDATION!")
-            setConditionFormFieldsValidation({
-                name: conditionNameValidationResult.msg,
-                description: conditionDescriptionValidationResult.msg,
-                type: typeValidationResult.msg,
-                symptoms: symptomsValidationResult.msg,
-                dates: startAndEndDateValidationResult.msg,
-            })
+            if (!conditionNameValidationResult.msg &&
+                !conditionDescriptionValidationResult.msg &&
+                !startAndEndDateValidationResult.msg &&
+                !typeValidationResult.msg &&
+                !symptomsValidationResult.msg
+            ) {
+                console.log("SUCCESSFUL VALIDATION!")
+                setConditionFormFieldsValidation({
+                    name: "",
+                    description: "",
+                    type: "",
+                    symptoms: "",
+                    dates: ""
+                })
+                try {
+                    const response = await fetch(`http://localhost:5000/conditions/${userId}`, {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ name, description, type, symptoms, start_date: startDate, end_date: endDate, causedWhichActions: solvedConditions, sideEffectForWhichActions: causedConditions })
+                    })
 
-        }
+                    let data = await response.text()
+
+                    if (response.status == 201) {
+                        console.log(data)
+                        setConditionFormFieldsValidation((prev) => ({
+                            ...prev,
+                            general: "Success!"
+                        }))
+                        console.log("CONDITION CREATED SUCCESSFULLY!-------------------->")
+                        router.push(ROUTES.TIMELINE)
+                    } else {
+                        setConditionFormFieldsValidation((prev) => ({
+                            ...prev,
+                            general: data
+                        }))
+                    }
+                } catch (err) {
+                    setConditionFormFieldsValidation((prev) => ({
+                        ...prev,
+                        general: err
+                    }))
+
+                    throw new Error(`An error occured while creating condition: ${err}`)
+                }
+            } else {
+                console.log("UNSUCCESSFUL VALIDATION!")
+                setConditionFormFieldsValidation({
+                    name: conditionNameValidationResult.msg,
+                    description: conditionDescriptionValidationResult.msg,
+                    type: typeValidationResult.msg,
+                    symptoms: symptomsValidationResult.msg,
+                    dates: startAndEndDateValidationResult.msg,
+                })
+
+            }
+        })
     }
     let { name, description, dates, type, symptoms } = conditionFormFieldsValidation
     console.log(symptoms + "{}{}{}{}{}{}")
@@ -74,12 +116,17 @@ export default function AddConditionForm() {
         description ||
         type ||
         symptoms ||
-        dates 
+        dates
     return (
         <div className="addConditionFormContainer">
             {errToShow &&
                 <Alert severity="error" className="errPopup">
                     {errToShow}
+                </Alert>
+            }
+            {general == 'Success!' &&
+                <Alert severity="success" className="successPopup">
+                    Condition Created Successfully!
                 </Alert>
             }
             <EventNameField
@@ -119,7 +166,7 @@ export default function AddConditionForm() {
                 setState={setAddConditionFormFields}
             />
             <button className="contributeConditionButton" onClick={contributeCondition}>
-                Contribute Condition
+                {isPending ? 'Contributing Condition...' : 'Contribute Condition'}
             </button>
         </div>
     )

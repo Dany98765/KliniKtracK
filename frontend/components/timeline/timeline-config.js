@@ -1,20 +1,5 @@
 import { duration } from "@mui/material";
 
-function colorIndicator(type, subType = "") {
-    if (type == 'Action') {
-        switch (subType) {
-            case "Surgical Operation":
-                return "#A411D9"
-            case "Tablet":
-                return "#23BAE7"
-            case "Genetic":
-                return "#DDDDDD"
-        }
-    } else {
-        return "#FFFFFF"
-    }
-}
-
 export const scales = [
     {
         unit: "month",

@@ -15,16 +15,17 @@ export default function EventDoctorIDField({ state, setState, form = "addActionO
                 <span className="coloredK">K </span>
                 Profile ID
                 {form == 'grantPermission' && <span className="requiredAsteriks"> *</span>}
-                </p>
+            </p>
             <TextField
                 label="Eg: 3847028409288940"
                 variant="standard"
+                type="number"
                 className={className}
-                value={state.doctorID}
+                value={state.doctorID ?? ""}
                 onChange={(e) => {
                     setState((prev) => ({
                         ...prev,
-                        doctorID: e.target.value
+                        doctorID: e.target.value === "" ? "" : e.target.value 
                     }))
                 }}
                 sx={{

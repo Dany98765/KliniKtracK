@@ -43,7 +43,7 @@
     font-weight: 700;
 }
 
-.viewDrProfileButton {
+/* .viewDrProfileButton {
     background-color: var(--purple);
     border-radius: 10px;
     padding: 16px 40px;
@@ -55,7 +55,7 @@
 .viewDrProfileButton:hover {
     background-color: #A411D950;
     cursor: pointer;
-}
+} */
 
 .actionDateContainer {
     background-color: #A411D920;
@@ -78,9 +78,9 @@
         padding: 8px 16px;
     }
 
-    .viewDrProfileButton {
+    /* .viewDrProfileButton {
         padding: 8px 16px;
-    }
+    } */
 
     .doctorImgContainer {
         width: 30px;

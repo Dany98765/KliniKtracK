@@ -8,7 +8,7 @@
     padding: 48px;
 }
 
-.errPopup {
+.errPopup, .successPopup {
     width: 100%;
     margin-bottom: 30px;
 }

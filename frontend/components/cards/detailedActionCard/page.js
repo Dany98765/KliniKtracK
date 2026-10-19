@@ -3,11 +3,7 @@ import ActionAuxiliaryData from "./actionAuxiliaryData/page";
 import ActionHeaderData from "./actionHeaderData/page";
 import AssocConditions from "./assocConditions/page";
 
-export default function DetailedActionCard({ title, desc, subType, date, doctor, duration, setShowCard, revealAssocTable, caused, solved }) {
-    let startDateObj = new Date(date);
-    startDateObj.setDate(startDateObj.getDate() + duration - 1);
-    let endDate = startDateObj.toLocaleDateString()
-    console.log(endDate)
+export default function DetailedActionCard({ title, desc, subType, date, start, doctor, duration, setShowCard, revealAssocTable, caused, solved }) {
     return (
         <div className="detailedActionCardContainer">
             <ActionHeaderData title={title} subType={subType} setShowCard={setShowCard} />
@@ -16,7 +12,7 @@ export default function DetailedActionCard({ title, desc, subType, date, doctor,
             ) : (
                 <div>
                     <p className="actionDesc">{desc}</p>
-                    <ActionAuxiliaryData doctor={doctor} date={date} endDate={endDate} duration={duration} />
+                    <ActionAuxiliaryData doctor={doctor} start={start} date={date} duration={duration} />
                 </div>
             )}
         </div>

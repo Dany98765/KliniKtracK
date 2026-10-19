@@ -9,11 +9,11 @@ const pixelifySans = Pixelify_Sans({
     variable: '--font-pixelify', 
 });
 
-export default function ConditionAuxiliaryData({ tags, duration, date, endDate }) {
+export default function ConditionAuxiliaryData({ tags, star, date, duration }) {
     return (
         <div className="conditionTagsAndDateCardsContainer">
             <div className="conditionTagsContainer">
-                {tags.map((tag, i) => (
+                {(tags ?? []).map((tag, i) => (
                     <span key={i} className="singleTag">{tag}</span>
                 ))}
             </div>
@@ -25,7 +25,7 @@ export default function ConditionAuxiliaryData({ tags, duration, date, endDate }
                     height={20}
                     className="scheduleImg"
                 />
-                <p className={`${pixelifySans.className} conditionDateTxt`}>{duration > 1 ? `${date} → ${endDate}` : `${date}`}</p>
+                <p className={`${pixelifySans.className} conditionDateTxt`}>{duration > 1 ? `${date}` : `${start}`}</p>
             </div>
         </div>
     )

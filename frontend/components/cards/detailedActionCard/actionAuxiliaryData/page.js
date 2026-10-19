@@ -9,7 +9,7 @@ const pixelifySans = Pixelify_Sans({
     variable: '--font-pixelify', 
 });
 
-export default function ActionAuxiliaryData({ doctor, date, endDate, duration }) {
+export default function ActionAuxiliaryData({ doctor, start, date, duration }) {
     return (
         <div className="actionOptionalDoctorAndDateCardsContainer">
             {doctor && (
@@ -26,9 +26,9 @@ export default function ActionAuxiliaryData({ doctor, date, endDate, duration })
                         </div>
                         <p className="doctorNameTxt">{doctor}</p>
                     </div>
-                    <button className="viewDrProfileButton">
+                    {/* <button className="viewDrProfileButton">
                         View Profile
-                    </button>
+                    </button> */}
                 </div>
             )
             }
@@ -40,7 +40,7 @@ export default function ActionAuxiliaryData({ doctor, date, endDate, duration })
                     height={20}
                     className="scheduleImg"
                 />
-                <p className={`${pixelifySans.className} actionDateTxt`}>{duration > 1 ? `${date} → ${endDate}` : `${date}`}</p>
+                <p className={`${pixelifySans.className} actionDateTxt`}>{duration > 1 ? `${date}` : `${start}`}</p>
             </div>
         </div>
     )
