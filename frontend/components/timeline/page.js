@@ -64,7 +64,8 @@ export default function TimelineComponent() {
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
             <DetailedActionCard
-              DBRecordID={selectedItem.DBRecordID}
+              userId={userId}
+              DBID={selectedItem.DBID}
               title={selectedItem.title}
               desc={selectedItem.desc}
               subType={selectedItem.subType}
@@ -81,7 +82,8 @@ export default function TimelineComponent() {
           </div>
         ) : (
           <DetailedConditionCard
-            DBRecordID={selectedItem.DBRecordID}
+            userId={userId}
+            DBID={selectedItem.DBID}
             title={selectedItem.title}
             desc={selectedItem.desc}
             subType={selectedItem.subType}
@@ -99,7 +101,7 @@ export default function TimelineComponent() {
       )}
       <div className="willowContainer">
         <Willow>
-          <div className="ganttContainer" style={{ height: `${allActionsAndConditions?.length}00px` }} >
+          <div className="ganttContainer" style={{ height: allActionsAndConditions?.length == 1 ? '200px' : `${allActionsAndConditions?.length}00px` }} >
             <Gantt
               tasks={allActionsAndConditions}
               links={links}

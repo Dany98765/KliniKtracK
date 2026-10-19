@@ -52,6 +52,7 @@ export default function AddActionForm() {
             let startAndEndDateValidationResult = actionStartAndEndDates({ startDate, endDate })
             let actionDoctorNameValidationResult = actionDoctorName({ doctorName })
             let actionTypeValidationResult = actionTypeValidationFn({ actionType })
+            console.log(startDate, endDate)
 
             if (!actionNameValidationResult.msg &&
                 !actionDescriptionValidationResult.msg &&
@@ -73,7 +74,7 @@ export default function AddActionForm() {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ name, description, start_date: startDate, end_date: endDate, type: actionType, doctor: doctorName, doctor_id: parseInt(doctorID, 10), causedConditions, solvedConditions })
+                        body: JSON.stringify({ name, description, startDate: startDate, endDate: endDate, type: actionType, doctor: doctorName, doctorId: parseInt(doctorID, 10), causedConditions, solvedConditions })
                     })
 
                     const data = await response.text()
@@ -123,11 +124,25 @@ export default function AddActionForm() {
                 })
                 if (response.status === 200) {
                     const fetchAllConditionsData = await response.json();
+                    console.log(fetchAllConditionsData.condition)
                     if (Array.isArray(fetchAllConditionsData.conditions)) {
                         fetchAllConditionsData.conditions.map(({ name, id }) =>
-                            setAssocConditions(prev => [...prev, { id, name }])
+                            setAssocConditions(
+                                fetchAllConditionsData.conditions.map(({ name, id }) => ({
+                                    id,
+                                    name
+                                }))
+                            )
                         );
                     }
+                    // if (Array.isArray(fetchAllConditionsData.conditions)) {
+                    //     setAssocConditions(
+                    //         fetchAllConditionsData.conditions.map(({ name, id }) => ({
+                    //             id,
+                    //             name
+                    //         }))
+                    //     );
+                    // }
                 } else {
                     const err = await response.text()
                     console.log(err + ")))))))))))))))))))))))))))))))")
@@ -137,6 +152,7 @@ export default function AddActionForm() {
             fetchAssocConditions()
         }
     }, [userId])
+    console.log(JSON.stringify(assocConditions) + ":;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
     let { name, description, dates, doctorName, actionType } = actionFormFieldsValidation
     let errToShow =
         name ||

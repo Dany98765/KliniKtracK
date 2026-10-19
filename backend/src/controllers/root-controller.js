@@ -97,6 +97,7 @@ export async function fetchActions(req, res) {
 
 export async function createAction(req, res) {
     let { name, description, startDate, endDate, type, doctor, doctorId, causedConditions, solvedConditions } = req.body;
+    console.log(startDate, endDate)
     let { id } = req.params;
     let userId = Number(id);
     if (!Number.isInteger(userId)) {

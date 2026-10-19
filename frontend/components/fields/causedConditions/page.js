@@ -4,6 +4,7 @@ import { selectFieldProps } from "./selectFieldProps"
 import "./styles.css"
 import { FormControl, IconButton, InputLabel, MenuItem, Select, Tooltip } from "@mui/material"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutlined"
+import { causedConditions, solvedConditions } from "@/tooltip-msg"
 
 export default function CausedConditionsField({ title, tooltip, state, setState, assocEvents }) {
     return (
@@ -34,7 +35,7 @@ export default function CausedConditionsField({ title, tooltip, state, setState,
                     }}
                 >
                     {assocEvents?.map((condition, id) => (
-                        <MenuItem value={id}>{condition.name}</MenuItem>
+                        <MenuItem value={condition.id}>{condition.name}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

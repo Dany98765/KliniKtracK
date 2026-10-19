@@ -50,6 +50,7 @@ export default function AddConditionForm() {
             let symptomsValidationResult = conditionSymptoms({ symptoms })
             let startAndEndDateValidationResult = conditionStartAndEndDates({ startDate, endDate })
 
+            console.log(causedConditions, solvedConditions)
             if (!conditionNameValidationResult.msg &&
                 !conditionDescriptionValidationResult.msg &&
                 !startAndEndDateValidationResult.msg &&
@@ -120,7 +121,6 @@ export default function AddConditionForm() {
                 if (response.status === 200) {
                     const fetchAllActionsData = await response.json();
                     if (Array.isArray(fetchAllActionsData.actions)) {
-                        console.log(fetchAllActionsData.actions + "-----------------------")
                         fetchAllActionsData.actions.map(({ name, id }) =>
                             setAssocActions(prev => [...prev, { id, name }])
                         );
@@ -134,6 +134,8 @@ export default function AddConditionForm() {
             fetchAssocActions()
         }
     }, [userId])
+    console.log(JSON.stringify(assocActions) + "-----------------------")
+
     let { name, description, dates, type, symptoms, general } = conditionFormFieldsValidation
     let errToShow =
         name ||

@@ -35,21 +35,21 @@ export async function fetchAllActionsAndConditions({ userId }) {
         throw new Error(`Failed to fetch actions: ${fetchAllActionsRes.status}`)
     }
     const fetchAllActionsData = await fetchAllActionsRes.json()
-    const initialTasks = (fetchAllActionsData.actions ?? []).map(({ name, description, startDate, endDate, doctor, doctorId, type }, id) => {
-        const start = new Date(startDate)
-        const end = new Date(endDate)
+    const initialTasks = (fetchAllActionsData.actions ?? []).map(({ id, name, description, start_date, end_date, doctor, doctorId, type }, actionId) => {
+        const start = new Date(start_date)
+        const end = new Date(end_date)
         const startDateStr = formatDate(start)
         const endDateStr = formatDate(end)
         return {
-            DBRecordID: id,
-            id: `action-${id}`,
+            DBID: id,
+            id: `action-${actionId}`,
             title: name ?? "",
             desc: description ?? "",
             type: "Action",
             subType: type ?? "",
             doctor: doctor ?? "",
             doctorId: doctorId ?? null,
-            start: start,
+            start: start.toISOString(),
             date: `${startDateStr} → ${endDateStr}`,
             duration: Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24) + 1)),
             color: colorIndicator("Action", type),
@@ -66,14 +66,14 @@ export async function fetchAllActionsAndConditions({ userId }) {
         throw new Error(`Failed to fetch conditions: ${fetchAllConditionsRes.status}`)
     }
     const fetchAllConditionsData = await fetchAllConditionsRes.json()
-    const allConditions = (fetchAllConditionsData.conditions ?? []).map(({ name, description, startDate, endDate, symptoms, type }, id) => {
-        const start = new Date(startDate)
-        const end = new Date(endDate)
+    const allConditions = (fetchAllConditionsData.conditions ?? []).map(({ id, name, description, start_date, end_date, symptoms, type }, conditionID) => {
+        const start = new Date(start_date)
+        const end = new Date(end_date)
         const startDateStr = formatDate(start)
         const endDateStr = formatDate(end)
         return {
-            DBRecordID: id,
-            id: `condition-${id}`,
+            DBID: id,
+            id: `condition-${conditionID}`,
             title: name ?? "",
             desc: description ?? "",
             type: "Condition",
