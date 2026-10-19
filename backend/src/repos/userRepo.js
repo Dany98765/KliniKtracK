@@ -144,6 +144,18 @@ let userRepo = {
             stats = statsData.rows[0];
         }
         return stats;
+    }, 
+
+    async createPermission(patient_id, doctor_id, scope, current_status, start_date, end_date){
+        try{
+            let patientData = await db.query("SELECT * FROM users WHERE id = $1", [patient_id]);
+            let patient_name = patientData.rows[0].name;
+            let doctorData = await db.query("SELECT * FROM users WHERE id = $1", [doctor_id]);
+            let doctor_name = doctorData.rows[0].name;
+            await db.query("INSERT INTO permissions (patient_name, patient_id, doctor_name, doctor_id, scope, current_status, start_date, end_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [patient_name, patient_id, doctor_name, doctor_id, scope, current_status, start_date, end_date]);
+        }catch(err){
+            throw { "error source": "/backend/src/repos/userRepo.js, createPermission", "error cause": "creating permission", "error message": err.message, "error details": err };
+        }
     }
 }
 

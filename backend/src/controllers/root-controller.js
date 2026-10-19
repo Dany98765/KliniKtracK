@@ -206,3 +206,18 @@ export async function fetchProfileStats(req, res){
         return res.status(200).json(stats);
     }
 }
+
+export async function grantPermission(req, res){
+    let { id } = req.params;
+    let patientId = Number(id);
+    let { doctorId, scope, startDate, endDate } = req.body;
+    if (!Number.isInteger(patientId)) {
+        return res.status(400).send("Integer patient id must be passed in as a route parameter");
+    }else if(!(doctorId && scope && startDate && endDate)){
+        let missingArray = findMissingFields([[doctorId, "doctor id"], [scope, "scope"], [startDate, "start date"], [endDate, "end date"]]);
+        return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
+    }else{
+        await userRepo.createPermission(patientId, doctorId, scope, 'Granted', startDate, endDate);
+        return res.sendStatus(201);
+    }
+}
