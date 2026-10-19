@@ -3,7 +3,7 @@
 import "./styles.css"
 import EventDescriptionField from "@/components/fields/actionOrCondition/description/page"
 import EventNameField from "@/components/fields/actionOrCondition/name/page"
-import { startTransition, useState, useTransition } from "react"
+import { startTransition, useEffect, useState, useTransition } from "react"
 import ConditionTypeField from "@/components/fields/conditionType/page"
 import ConditionSymptomsField from "@/components/fields/conditionSymptoms/page"
 import CausedConditionsField from "@/components/fields/causedConditions/page"
@@ -21,6 +21,7 @@ export default function AddConditionForm() {
     let userId = data?.user?.id
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
+    const [assocActions, setAssocActions] = useState([])
     const [addConditionFormFields, setAddConditionFormFields] = useState({
         name: "",
         description: "",
@@ -109,14 +110,38 @@ export default function AddConditionForm() {
             }
         })
     }
-    let { name, description, dates, type, symptoms } = conditionFormFieldsValidation
-    console.log(symptoms + "{}{}{}{}{}{}")
+    useEffect(() => {
+        if (userId) {
+            async function fetchAssocActions() {
+                const response = await fetch(`http://localhost:5000/actions/${userId}`, {
+                    method: "GET",
+                    next: { revalidate: 60 }
+                })
+                if (response.status === 200) {
+                    const fetchAllActionsData = await response.json();
+                    if (Array.isArray(fetchAllActionsData.actions)) {
+                        console.log(fetchAllActionsData.actions + "-----------------------")
+                        fetchAllActionsData.actions.map(({ name, id }) =>
+                            setAssocActions(prev => [...prev, { id, name }])
+                        );
+                    }
+                } else {
+                    const err = await response.text()
+                    console.log(err + ")))))))))))))))))))))))))))))))")
+                    throw new Error(`Failed to fetch conditions: ${err}`)
+                }
+            }
+            fetchAssocActions()
+        }
+    }, [userId])
+    let { name, description, dates, type, symptoms, general } = conditionFormFieldsValidation
     let errToShow =
         name ||
         description ||
         type ||
         symptoms ||
-        dates
+        dates ||
+        general
     return (
         <div className="addConditionFormContainer">
             {errToShow &&
@@ -153,12 +178,14 @@ export default function AddConditionForm() {
                     tooltip={causedWhichActions}
                     state={addConditionFormFields}
                     setState={setAddConditionFormFields}
+                    assocEvents={assocActions}
                 />
                 <CausedConditionsField
                     title="Side-Effect for which Actions"
                     tooltip={sideEffectForWhichActions}
                     state={addConditionFormFields}
                     setState={setAddConditionFormFields}
+                    assocEvents={assocActions}
                 />
             </div>
             <EventStartAndEndDatesFields

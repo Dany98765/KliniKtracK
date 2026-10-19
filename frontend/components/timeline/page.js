@@ -64,6 +64,7 @@ export default function TimelineComponent() {
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
             <DetailedActionCard
+              DBRecordID={selectedItem.DBRecordID}
               title={selectedItem.title}
               desc={selectedItem.desc}
               subType={selectedItem.subType}
@@ -80,6 +81,7 @@ export default function TimelineComponent() {
           </div>
         ) : (
           <DetailedConditionCard
+            DBRecordID={selectedItem.DBRecordID}
             title={selectedItem.title}
             desc={selectedItem.desc}
             subType={selectedItem.subType}

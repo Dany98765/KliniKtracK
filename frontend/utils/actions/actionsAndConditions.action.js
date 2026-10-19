@@ -41,20 +41,21 @@ export async function fetchAllActionsAndConditions({ userId }) {
         const startDateStr = formatDate(start)
         const endDateStr = formatDate(end)
         return {
-                id: `action-${id}`,
-                title: name ?? "",
-                desc: description ?? "",
-                type: "Action",
-                subType: type ?? "",
-                doctor: doctor ?? "",
-                doctorId: doctor_id ?? null,
-                start: start.toISOString(),
-                date: `${startDateStr} → ${endDateStr}`,
-                duration: Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24) + 1)),
-                color: colorIndicator("Action", type),
-                caused: [],
-                solved: []
-            }
+            DBRecordID: id,
+            id: `action-${id}`,
+            title: name ?? "",
+            desc: description ?? "",
+            type: "Action",
+            subType: type ?? "",
+            doctor: doctor ?? "",
+            doctorId: doctor_id ?? null,
+            start: start.toISOString(),
+            date: `${startDateStr} → ${endDateStr}`,
+            duration: Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24) + 1)),
+            color: colorIndicator("Action", type),
+            caused: [],
+            solved: []
+        }
     })
 
     const fetchAllConditionsRes = await fetch(`http://localhost:5000/conditions/${userId}`, {
@@ -71,6 +72,7 @@ export async function fetchAllActionsAndConditions({ userId }) {
         const startDateStr = formatDate(start)
         const endDateStr = formatDate(end)
         return {
+            DBRecordID: id,
             id: `condition-${id}`,
             title: name ?? "",
             desc: description ?? "",
@@ -78,7 +80,7 @@ export async function fetchAllActionsAndConditions({ userId }) {
             subType: type ?? "",
             start: start.toISOString(),
             date: `${startDateStr} → ${endDateStr}`,
-            duration: Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24) + 1)),
+            duration: Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24))) + 1,
             color: colorIndicator("Condition"),
             symptoms: Array.isArray(symptoms) ? symptoms : [],
             caused: [],

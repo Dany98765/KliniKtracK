@@ -56,7 +56,7 @@ let userRepo = {
 
     async fetchUserActions(id) {
         try {
-            let results = await db.query("SELECT name, description, start_date, end_date, doctor, doctor_id, type FROM actions WHERE user_id = $1", [id]);
+            let results = await db.query("SELECT id, name, description, start_date, end_date, doctor, doctor_id, type FROM actions WHERE user_id = $1", [id]);
             let rows = results.rows;
             return rows;
         } catch (err) {
@@ -77,7 +77,7 @@ let userRepo = {
 
     async fetchUserConditions(id) {
         try {
-            let results = await db.query("SELECT name, description, type, symptoms, start_date, end_date FROM conditions WHERE user_id = $1", [id]);
+            let results = await db.query("SELECT id, name, description, type, symptoms, start_date, end_date FROM conditions WHERE user_id = $1", [id]);
             let rows = results.rows;
             return rows;
         } catch (err) {

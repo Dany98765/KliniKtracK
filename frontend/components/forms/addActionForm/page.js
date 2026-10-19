@@ -9,7 +9,7 @@ import EventDoctorIDField from "@/components/fields/doctorID/page"
 import ActionTypeField from "@/components/fields/actionType/page"
 import CausedConditionsField from "@/components/fields/causedConditions/page"
 import SolvedConditionsField from "@/components/fields/solvedConditions/page"
-import { useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { actionDescription, actionDoctorName, actionName, actionStartAndEndDates, actionTypeValidationFn } from "@/utils/validation/addAction"
 import { Alert } from "@mui/material"
 import { causedConditions, solvedConditions } from "@/tooltip-msg"
@@ -42,6 +42,8 @@ export default function AddActionForm() {
         actionType: "",
         general: ""
     })
+
+    const [assocConditions, setAssocConditions] = useState([])
     function contributeAction() {
         startTransition(async () => {
             const { name, description, startDate, endDate, doctorName, doctorID, causedConditions, solvedConditions, actionType } = addActionFormFields
@@ -112,6 +114,29 @@ export default function AddActionForm() {
             }
         })
     }
+    useEffect(() => {
+        if (userId) {
+            async function fetchAssocConditions() {
+                const response = await fetch(`http://localhost:5000/conditions/${userId}`, {
+                    method: "GET",
+                    next: { revalidate: 60 }
+                })
+                if (response.status === 200) {
+                    const fetchAllConditionsData = await response.json();
+                    if (Array.isArray(fetchAllConditionsData.conditions)) {
+                        fetchAllConditionsData.conditions.map(({ name, id }) =>
+                            setAssocConditions(prev => [...prev, { id, name }])
+                        );
+                    }
+                } else {
+                    const err = await response.text()
+                    console.log(err + ")))))))))))))))))))))))))))))))")
+                    throw new Error(`Failed to fetch conditions: ${err}`)
+                }
+            }
+            fetchAssocConditions()
+        }
+    }, [userId])
     let { name, description, dates, doctorName, actionType } = actionFormFieldsValidation
     let errToShow =
         name ||
@@ -163,12 +188,14 @@ export default function AddActionForm() {
                             tooltip={causedConditions}
                             state={addActionFormFields}
                             setState={setAddActionFormFields}
+                            assocEvents={assocConditions}
                         />
                         <SolvedConditionsField
                             title="Solved Conditions"
                             tooltip={solvedConditions}
                             state={addActionFormFields}
                             setState={setAddActionFormFields}
+                            assocEvents={assocConditions}
                         />
                     </div>
                 </div>
