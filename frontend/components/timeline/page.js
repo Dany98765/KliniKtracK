@@ -37,7 +37,7 @@ export default function TimelineComponent() {
 
   function changeTaskColor(id, color) {
     setTasks((current) =>
-      current.map((task) =>
+      current?.map((task) =>
         task.id === id
           ? {
             ...task,
@@ -70,22 +70,27 @@ export default function TimelineComponent() {
       : window.location.pathname;
     router.replace(newUrl);
   }, []);
+  console.log(JSON.stringify(tasks) + "[[")
+  const currentTask = tasks?.map((task) => {
+    console.log(task.id)
+  })
   return (
     <div className="timeline">
-      {showCard.isShowing && (
+      {/* {showCard.isShowing && (
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
             <DetailedActionCard
-              title={tasks[showCard.id].title}
-              desc={tasks[showCard.id].desc}
-              subType={tasks[showCard.id].subType}
-              date={tasks[showCard.id].start.toLocaleDateString()}
-              duration={tasks[showCard.id].duration}
-              doctor={tasks[showCard.id].doctor || null}
+              title={currentTask[showCard.id]?.title}
+              desc={currentTask[showCard.id].desc}
+              subType={currentTask[showCard.id].subType}
+              date={currentTask[showCard.id].date}
+              start={currentTask[showCard.id].start}
+              duration={currentTask[showCard.id].duration}
+              doctor={currentTask[showCard.id].doctor || null}
               setShowCard={setShowCard}
               revealAssocTable={revealAssocTable}
-              caused={tasks[showCard.id].caused}
-              solved={tasks[showCard.id].solved}
+              caused={currentTask[showCard.id].caused}
+              solved={currentTask[showCard.id].solved}
             // doctor ID
             />
           </div>
@@ -104,8 +109,41 @@ export default function TimelineComponent() {
           // doctor ID
           />
         )
+      )} */}
+      {showCard.isShowing && currentTask && (
+        showCard.type === "Action" ? (
+          <div className="detailedActionCard">
+            <DetailedActionCard
+              title={currentTask.title}
+              desc={currentTask.desc}
+              subType={currentTask.subType}
+              date={currentTask.date}
+              start={currentTask.start}
+              duration={currentTask.duration}
+              doctor={currentTask.doctor || null}
+              setShowCard={setShowCard}
+              revealAssocTable={revealAssocTable}
+              caused={currentTask.caused}
+              solved={currentTask.solved}
+            />
+          </div>
+        ) : (
+          <DetailedConditionCard
+            title={currentTask.title}
+            desc={currentTask.desc}
+            subType={currentTask.subType}
+            date={new Date(currentTask.start).toLocaleDateString("en-GB", { timeZone: "UTC" })}
+            duration={currentTask.duration}
+            tags={currentTask.tags}
+            setShowCard={setShowCard}
+            revealAssocTable={revealAssocTable}
+            caused={currentTask.caused}
+            wasSolved={currentTask.wasSolved}
+          />
+        )
       )}
-      
+
+
       <div className="willowContainer">
         <Willow>
           <div className="ganttContainer" style={{ height: `${tasks?.length}00px` }} >

@@ -25,10 +25,21 @@ export async function fetchAllActions({ userId }) {
     if (response.status == 200) {
         data?.actions?.forEach(({ name, description, start_date, end_date, doctor, doctor_id, type }, id) => {
             let start = new Date(start_date)
-            let localStartDateStr = start?.toLocaleDateString()
+            const startDateStr = start.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                timeZone: "UTC"
+            });
             let end = new Date(end_date)
-            let localEndDateStr = end?.toLocaleDateString()
-            let duration = Math.floor((end - start) / (1000 * 60 * 60 * 24));
+            const endDateStr = end.toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                timeZone: "UTC"
+            });
+            console.log(startDateStr, endDateStr + "--")
+            let duration = Math.ceil((end - start) / (1000 * 60 * 60 * 24) + 1);
             initialTasks.push({
                 id,
                 title: name,
@@ -36,15 +47,16 @@ export async function fetchAllActions({ userId }) {
                 type: "Action",
                 subType: type,
                 doctor,
-                doctorId: doctor_id, 
-                start: localEndDateStr,
-                date: `${localStartDateStr} → ${localEndDateStr}`,
+                doctorId: doctor_id,
+                start: start.toISOString(),
+                date: `${startDateStr} → ${endDateStr}`,
                 duration,
                 color: colorIndicator("Action", type),
                 caused: [],
                 solved: []
             })
         })
+        console.log(JSON.parse(JSON.stringify(initialTasks)))
         return { initialTasks: JSON.parse(JSON.stringify(initialTasks)) }
     } else {
         return { data }

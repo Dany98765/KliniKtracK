@@ -28,7 +28,7 @@ export default function ActionTypeField({ state, setState }) {
                     <button className="chooseSurgicalOperationActionTypeButton" onClick={() => {
                         setState((prev) => ({
                             ...prev,
-                            actionType: "Surgical Operation"
+                            actionType: "Surgical operation"
                         }))
                     }}>
                         Choose Type →
