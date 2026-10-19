@@ -96,16 +96,16 @@ export async function fetchActions(req, res) {
 }
 
 export async function createAction(req, res) {
-    let { name, description, start_date, end_date, type, doctor, doctor_id, causedConditions, solvedConditions } = req.body;
+    let { name, description, startDate, endDate, type, doctor, doctorId, causedConditions, solvedConditions } = req.body;
     let { id } = req.params;
     let userId = Number(id);
     if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
-    } else if (!(name && description && start_date && end_date && type)) {
-        let missingArray = findMissingFields([[name, "name"], [description, "description"], [start_date, "start date"], [end_date, "end date"], [type, "type"]]);
+    } else if (!(name && description && startDate && endDate && type)) {
+        let missingArray = findMissingFields([[name, "name"], [description, "description"], [startDate, "start date"], [endDate, "end date"], [type, "type"]]);
         return res.status(400).send("Missing fields are required to create new action: " + JSON.stringify(missingArray));
     } else {
-        let actionId = await userRepo.createAction(userId, name, description, start_date, end_date, type, doctor, doctor_id);
+        let actionId = await userRepo.createAction(userId, name, description, startDate, endDate, type, doctor, doctorId);
         if (causedConditions) {
             for (let i = 0; i < causedConditions.length; i++) {
                 await userRepo.createActionToConditionAssociation(userId, actionId, causedConditions[i], "Caused");
@@ -132,19 +132,19 @@ export async function fetchConditions(req, res) {
 }
 
 export async function createCondition(req, res) {
-    let { name, description, type, symptoms, start_date, end_date, causedWhichActions, sideEffectForWhichActions } = req.body;
+    let { name, description, type, symptoms, startDate, endDate, causedWhichActions, sideEffectForWhichActions } = req.body;
     let { id } = req.params;
     let userId = Number(id);
     if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
-    } else if (!(name && description && type && symptoms && start_date && end_date)) {
-        let missingArray = findMissingFields([[name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [start_date, "start date"], [end_date, "end date"]]);
+    } else if (!(name && description && type && symptoms && startDate && endDate)) {
+        let missingArray = findMissingFields([[name, "name"], [description, "description"], [type, "type"], [symptoms, "symptoms"], [startDate, "start date"], [endDate, "end date"]]);
         return res.status(400).send("Missing fields are required to create new condition: " + JSON.stringify(missingArray));
     } else {
         if (!(symptoms.length > 0)) {
             return res.status(400).send("At least one symptom is needed to create a condition");
         } else {
-            let conditionId = await userRepo.createCondition(userId, name, description, type, symptoms, start_date, end_date);
+            let conditionId = await userRepo.createCondition(userId, name, description, type, symptoms, startDate, endDate);
             if (causedWhichActions) {
                 for (let i = 0; i < causedWhichActions.length; i++) {
                     await userRepo.createConditionToActionAssociation(userId, causedWhichActions[i], conditionId, "Solved");
