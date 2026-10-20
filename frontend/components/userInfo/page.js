@@ -12,6 +12,7 @@ export default function UserInfo({ role, name, email, insightsData }) {
                 <p className="userRoleTxt">{role}</p>
                 <p className="userNameTxt">{name}</p>
                 <p className="userEmail">@/ {email}</p>
+                {/* <p className="userIDTxt">ID: {userId}</p> */}
             </div>
             {role == 'Patient' ? (
                 <div className="profileStatisticalCardsContainer">

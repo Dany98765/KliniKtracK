@@ -46,7 +46,7 @@
     min-width: 0;
 }
 
-.userNameTxt {
+.userNameTxt, .userIDTxt {
     color: white;
     font-size: 44px;
     font-weight: 900;

@@ -64,7 +64,7 @@ export default function RequestPermissionForm() {
                     } else {
                         setRequestPermissionFormFields((prev) => ({
                             ...prev,
-                            general: data
+                            general: response.status + data
                         }))
                     }
                 } catch (err) {

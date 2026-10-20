@@ -64,7 +64,7 @@ export default function GrantPermissionForm() {
                     } else {
                         setGrantPermissionFormFields((prev) => ({
                             ...prev,
-                            general: data
+                            general: response.status + data
                         }))
                     }
                 } catch (err) {

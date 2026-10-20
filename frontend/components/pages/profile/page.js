@@ -1,5 +1,5 @@
-import UserInfo from "@/components/userInfo/page"
 import "./styles.css"
+import UserInfo from "@/components/userInfo/page"
 import AllPermissionsCard from "@/components/cards/allPermissionsCard/page"
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
@@ -33,8 +33,33 @@ export default async function ProfilePage() {
             return { err }
         }
     }
+
     let { profileStatsData, err } = await fetchProfileStats()
-    console.log(JSON + "++++++++++")
+    async function fetchAllPermissions() {
+        try {
+            const response = await fetch(`${process.env.BACKEND_URL}/permissions/${session?.user?.id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                next: {
+                    revalidate: 60
+                }
+            })
+
+            if (response.status == 200) {
+                let allPermissionsData = await response.json()
+                return { allPermissionsData: allPermissionsData.permissions }
+            } else {
+                let err = await response.text()
+                throw new Error(err)
+            }
+        } catch (err) {
+            return { err }
+        }
+    }
+    let { allPermissionsData } = await fetchAllPermissions()
+    console.log(JSON.stringify(allPermissionsData))
     return (
         <div className="profilePageContainer">
             {profileStatsData.role == 'Doctor' ? (
@@ -60,7 +85,7 @@ export default async function ProfilePage() {
                 }}
             />
             )}
-            <AllPermissionsCard />
+            <AllPermissionsCard userRole={profileStatsData.role} allPermissionsData={allPermissionsData} />
         </div>
     )
 }

@@ -50,6 +50,42 @@
     flex-wrap: wrap;
 }
 
+.decisionButtonsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
+.abortButton, .acceptButton {
+    border: none;
+    border-radius: 1px;
+    padding: 3px;
+}
+
+.abortButton {
+    background-color: var(--purple);
+    color: white;
+    font-weight: 700;
+}
+
+.abortButton:hover {
+    background-color: #A411D980;
+    cursor: pointer;
+}
+
+.acceptButton {
+    background-color: var(--blue);
+    color: white;
+    font-weight: 700;
+}
+
+.acceptButton:hover {
+    background-color:#23BAE780;
+    cursor: pointer;
+}
+
 .grantedPermissionCardDateRangeTxt,
 .pendingPermissionCardDateRangeTxt,
 .abortedPermissionCardDateRangeTxt {
