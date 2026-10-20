@@ -12,5 +12,6 @@ router.get("/conditions-to-actions{/:id}{/:conditionId}", rootController.fetchAc
 router.get("/profile-stats{/:id}", rootController.fetchProfileStats);
 router.post("/grantPermission{/:id}", rootController.grantPermission);
 router.post("/requestPermission{/:id}", rootController.requestPermission);
+router.patch("/decidePermission{/:id}", rootController.decidePermission);
 
 export default router;

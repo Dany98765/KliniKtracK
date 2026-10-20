@@ -236,3 +236,16 @@ export async function requestPermission(req, res) {
         return res.sendStatus(201);
     }
 }
+
+export async function decidePermission(req, res){
+    let { id } = req.params;
+    let userId = Number(id);
+    let { permissionId, decision } = req.body;
+    if(!(permissionId && decision)){
+        let missingArray = findMissingFields([[permissionId, "permissionId"], [decision, "decision"]]);
+        return res.status(400).send("Missing fields are required for login: " + JSON.stringify(missingArray));
+    }else{
+        await userRepo.decidePermission(permissionId, decision);
+        return res.sendStatus(200);
+    }
+}
