@@ -88,7 +88,7 @@ export async function fetchActions(req, res) {
     let { id } = req.params;
     let userId = Number(id);
     if (!Number.isInteger(userId)) {
-        return res.status(400).json({ msg: "Integer user id must be passed in as a route parameter" });
+        return res.status(400).send("Integer user id must be passed in as a route parameter" );
     } else {
         let actions = await userRepo.fetchUserActions(userId);
         return res.status(200).json({ actions: actions });
