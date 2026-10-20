@@ -119,16 +119,6 @@ export default function AddActionForm() {
                 })
                 if (response.status === 200) {
                     const fetchAllConditionsData = await response.json();
-                    // if (Array.isArray(fetchAllConditionsData.conditions)) {
-                    //     fetchAllConditionsData.conditions.map(({ name, id }) =>
-                    //         setAssocConditions(
-                    //             fetchAllConditionsData.conditions.map(({ name, id }) => ({
-                    //                 id,
-                    //                 name
-                    //             }))
-                    //         )
-                    //     );
-                    // }
                     if (Array.isArray(fetchAllConditionsData.conditions)) {
                         setAssocConditions(
                             fetchAllConditionsData.conditions.map(({ name, id }) => ({

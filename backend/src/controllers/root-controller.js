@@ -59,7 +59,7 @@ export async function authorizeLogin(req, res) {
         return res.status(400).send("Missing fields are required for login: " + JSON.stringify(missingArray));
     } else {
         let storedPassword;
-        let { foundPassword, userId } = await userRepo.fetchUserPassword(email);
+        let { foundPassword, userId, userRole } = await userRepo.fetchUserPassword(email);
         switch (foundPassword) {
             case "multiple users have this email":
                 console.log(JSON.stringify({ "error source": "/backend/src/controllers/root-controller.js, authorizeLogin", "error cause": "getting user password", "error message/details": "multiple accounts have been found registered with this email" }));
@@ -77,7 +77,7 @@ export async function authorizeLogin(req, res) {
                 break;
         };
         if (await bcrypt.compare(password, storedPassword)) {
-            return res.status(200).send(String(userId));
+            return res.status(200).json({ userId, userRole });
         } else {
             return res.status(401).send("Incorrect password for user, Unable to login");
         }

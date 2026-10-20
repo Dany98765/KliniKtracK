@@ -16,6 +16,10 @@
     font-size: 18px;
 }
 
+.permissionStartDateField, .permissionEndDateField {
+    width: 250px;
+}
+
 .requiredAsteriks {
     color: red;
 }

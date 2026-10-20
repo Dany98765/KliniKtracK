@@ -20,7 +20,7 @@ export function requestPermissionPatientID({ patientID }) {
     }
 }
 
-export function permissionScope({ permissionScope }) {
+export function permissionScopeValidation({ permissionScope }) {
     if (!permissionScope) {
         return {
             msg: "Permission scope field is required!"

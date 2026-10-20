@@ -25,9 +25,9 @@ export default function PermissionScopeField({ state, setState, className = "" }
                         }))
                     }}
                 >
-                    <MenuItem value="Read Only">Read Only</MenuItem>
-                    <MenuItem value="Write Only">Write Only</MenuItem>
-                    <MenuItem value="Read & Write">Read & Write</MenuItem>
+                    <MenuItem value="Read only">Read Only</MenuItem>
+                    <MenuItem value="Write only">Write Only</MenuItem>
+                    <MenuItem value="Read and write">Read & Write</MenuItem>
                 </Select>
             </FormControl>
         </div>

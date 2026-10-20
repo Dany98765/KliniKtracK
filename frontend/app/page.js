@@ -5,7 +5,7 @@ import WhyUsSection from "@/components/pages/home/whyUsSection/page";
 
 export default async function Home() {
   const session = await auth()
-  console.log(session?.user?.id)
+  console.log(session)
   return (
     <div className={styles.page}>
       <HeroSection />

@@ -5,7 +5,7 @@ let userRepo = {
         try {
             let newUser = await db.query("INSERT INTO users (name, email, password, role) VALUES ($1, $2, $3, $4) RETURNING id", [name, email, password, role]);
             return {
-                userId: newUser.rows[0].id
+                userId: newUser.rows[0].id,
             }
         } catch (err) {
             throw { "error source": "/backend/src/repos/userRepo.js, createUser", "error cause": "creating new user", "error message": err.message, "error details": err };
@@ -17,7 +17,9 @@ let userRepo = {
             let results = await db.query("SELECT password FROM users WHERE email = $1", [email]);
             let rows = results.rows;
             let idResults = await db.query("SELECT id FROM users WHERE email = $1", [email]);
+            let roleResults = await db.query("SELECT role FROM users WHERE email = $1", [email]);
             let idRows = idResults.rows;
+            let roleRows = roleResults.rows;
             if (rows.length > 1) {
                 return "multiple users have this email";
             } else if (rows.length < 1) {
@@ -29,7 +31,8 @@ let userRepo = {
                 } else {
                     return {
                         foundPassword: password,
-                        userId: idRows[0].id
+                        userId: idRows[0].id,
+                        userRole: roleRows[0].role
                     };
                 }
             }

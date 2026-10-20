@@ -20,6 +20,7 @@ export default async function PermissionFormPage() {
                         width={700}
                         height={300}
                         className="docsImg"
+                        loading="eager"
                     />
                 </div>
                 <PermissionFormFAQSection

@@ -18,8 +18,8 @@
     color: var(--blue);
 }
 
-.doctorIDField {
-    width: 250px;
+.doctorIDField, .doctorIDFieldForGrantPermissionForm {
+    width: 250px !important;
 }
 
 @media (max-width: 1200px) {
@@ -38,19 +38,9 @@
     }
 }
 
-@media (max-width: 950px) {
-    .doctorIDFieldForGrantPermissionForm {
-        width: 600px;
-    }
-}
-
 @media (max-width: 800px) {
     .doctorIDField {
         width: 250px;
-    }
-
-    .doctorIDFieldForGrantPermissionForm {
-        width: 400px;
     }
 }
 
@@ -64,21 +54,11 @@
     .doctorIDField {
         width: 400px;
     }
-
-    .doctorIDFieldForGrantPermissionForm {
-        width: 300px;
-    }
 }
 
 @media (max-width: 500px) {
     .doctorIDField {
         width: 300px;
-    }
-}
-
-@media (max-width: 450px) {
-    .doctorIDFieldForGrantPermissionForm {
-        width: 200px;
     }
 }
 

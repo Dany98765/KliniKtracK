@@ -3,6 +3,7 @@ import "./styles.css"
 import dynamic from "next/dynamic";
 import Loader from "@/components/loader/page";
 import AddActionOrConditionButtons from "./addActionOrConditionButtons/page";
+import { auth } from "@/auth";
 
 const TimelineComponent = dynamic(
     () => import("@/components/timeline/page"),

@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react";
 import "./styles.css"
 import TextField from '@mui/material/TextField';
 
@@ -21,11 +22,15 @@ export default function EventDoctorIDField({ state, setState, form = "addActionO
                 variant="standard"
                 type="number"
                 className={className}
-                value={state.doctorID ?? ""}
+                value={form == 'addActionOrCondition' || form == 'grantPermission' ? state?.doctorID : state?.patientID}
                 onChange={(e) => {
+                    form == 'addActionOrCondition' || form == 'grantPermission' ?
                     setState((prev) => ({
                         ...prev,
-                        doctorID: e.target.value === "" ? "" : e.target.value 
+                        doctorID: e.target.value,
+                    })) : setState((prev) => ({
+                        ...prev,
+                        patientID: e.target.value
                     }))
                 }}
                 sx={{

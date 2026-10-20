@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { slotProps } from "./dateFieldProps";
 import dayjs from "dayjs";
 
-export default function EventStartAndEndDatesFields({ state, setState, className = "startAndEndDatesFieldsContainer" }) {
+export default function EventStartAndEndDatesFields({ state, setState, startDateField = "startDateField", endDateField = "endDateField", className = "startAndEndDatesFieldsContainer" }) {
     return (
         <div className={className}>
             <div className="startDateFieldContainer">
@@ -15,7 +15,7 @@ export default function EventStartAndEndDatesFields({ state, setState, className
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         label="Select Start date"
-                        className="startDateField"
+                        className={startDateField}
                         slotProps={slotProps}
                         value={dayjs(state.startDate) || state.startDate}
                         disableHighlightToday
@@ -33,7 +33,7 @@ export default function EventStartAndEndDatesFields({ state, setState, className
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         label="Select Start date"
-                        className="endDateField"
+                        className={endDateField}
                         slotProps={slotProps}
                         // value={state.endDate ? dayjs(state.endDate) : dayjs()}
                         value={dayjs(state.endDate) || state.endDate}
