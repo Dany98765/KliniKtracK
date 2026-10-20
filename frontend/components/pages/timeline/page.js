@@ -1,21 +1,17 @@
+"use client"
+
 import { Suspense } from "react";
 import "./styles.css"
 import dynamic from "next/dynamic";
 import Loader from "@/components/loader/page";
 import AddActionOrConditionButtons from "./addActionOrConditionButtons/page";
-import { redirect } from "next/navigation";
-import { ROUTES } from "@/routes";
 
 const TimelineComponent = dynamic(
     () => import("@/components/timeline/page"),
     { ssr: false, suspense: true, loading: () => <Loader /> }
 );
 
-export default async function TimelinePage() {
-    const session = await auth()
-    if (!session?.user) {
-        redirect(ROUTES.SIGNIN);
-    }
+export default function TimelinePage() {
     return (
         <div>
             <div className="timelinePageHeroSection">
