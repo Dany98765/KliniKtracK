@@ -1,16 +1,66 @@
 import UserInfo from "@/components/userInfo/page"
 import "./styles.css"
 import AllPermissionsCard from "@/components/cards/allPermissionsCard/page"
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { ROUTES } from "@/routes";
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+    const session = await auth()
+    if (!session?.user) {
+        redirect(ROUTES.SIGNIN);
+    }
+    async function fetchProfileStats() {
+        try {
+            const response = await fetch(`${process.env.BACKEND_URL}/profile-stats/${session?.user?.id}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                next: {
+                    revalidate: 60
+                }
+            })
+
+            if (response.status == 200) {
+                let profileStatsData = await response.json()
+                return { profileStatsData }
+            } else {
+                let err = await response.text()
+                throw new Error(err)
+            }
+        } catch (err) {
+            return { err }
+        }
+    }
+    let { profileStatsData, err } = await fetchProfileStats()
+    console.log(JSON + "++++++++++")
     return (
         <div className="profilePageContainer">
-            <UserInfo 
-                role="Patient"
-                name="John Doe"
-                email="john.doe52@gmail.com"
+            {profileStatsData.role == 'Doctor' ? (
+                <UserInfo
+                    role={profileStatsData.role}
+                    name={profileStatsData.name}
+                    email={profileStatsData.email}
+                    insightsData={{
+                        totalPermissisons: profileStatsData.total_permissions,
+                        grantedPermissions: profileStatsData.granted_permissions,
+                        abortedPermissions: profileStatsData.aborted_permissions
+                    }}
+                />
+            ) : (
+            <UserInfo
+                role={profileStatsData.role}
+                name={profileStatsData.name}
+                email={profileStatsData.email}
+                insightsData={{
+                    actionsCount: profileStatsData.actions_count,
+                    conditionsCount: profileStatsData.conditions_count,
+                    permissionsCount: profileStatsData.permissions_count
+                }}
             />
+            )}
             <AllPermissionsCard />
-        </div>  
+        </div>
     )
 }
