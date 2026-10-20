@@ -4,14 +4,14 @@ import Image from "next/image"
 import "./styles.css"
 import { useRouter } from "next/navigation"
 import { ROUTES } from "@/routes"
-import { signOut, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import Loader from "../loader/page"
 import ProfileDropdown from "../profileDropdown/page"
 
 export default function Navbar() {
     const router = useRouter()
-    const { data: _, status } = useSession()
-
+    const { data } = useSession()
+    let userRole = data?.user?.role
     return (
         <div className="navbarContainer">
             <div className="logoContainer" onClick={() => router.push(ROUTES.HOME)}>
@@ -31,13 +31,13 @@ export default function Navbar() {
                     <span className="upperCaseK">K</span>
                 </p>
             </div>
-            {status == 'unauthenticated' ?
+            {!data?.user ?
                 (
                     <button className="getStartedButton" onClick={() => router.push(ROUTES.SIGNUP)}>
                         Get Started
                     </button>
-                ) : status == 'authenticated' ? (
-                    <ProfileDropdown />
+                ) : data?.user ? (
+                    <ProfileDropdown userRole={userRole} />
                 ) : (
                     <Loader />
                 )

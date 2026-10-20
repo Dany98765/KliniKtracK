@@ -2,13 +2,20 @@
 
 import EventDoctorIDField from "@/components/fields/doctorID/page"
 import "./styles.css"
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import EventStartAndEndDatesFields from "@/components/fields/actionOrCondition/startAndEndDates/page"
 import PermissionScopeField from "@/components/fields/permissionScope/page"
-import { grantPermissionDoctorID, permissionScope, permissionStartAndEndDates } from "@/utils/validation/permission"
+import { grantPermissionDoctorID, permissionScopeValidation, permissionStartAndEndDates } from "@/utils/validation/permission"
 import { Alert } from "@mui/material"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { ROUTES } from "@/routes"
 
 export default function GrantPermissionForm() {
+    let { data } = useSession()
+    let userId = data?.user?.id
+    const router = useRouter()
+    const [isPending, startTransition] = useTransition()
     const [grantPermissionFormFields, setGrantPermissionFormFields] = useState({
         doctorID: "",
         permissionScope: "",
@@ -21,29 +28,57 @@ export default function GrantPermissionForm() {
         dates: ""
     })
     function grantPermission() {
-        const { doctorID, startDate, endDate, permissionScope } = grantPermissionFormFields
-        let doctorIDValidationResult = grantPermissionDoctorID({ doctorID })
-        let permissionScopeValidationResult = permissionScope({ permissionScope })
-        let startAndEndDatesValidationResult = permissionStartAndEndDates({ startDate, endDate })
-
-        if (!doctorIDValidationResult.msg &&
-            !permissionScopeValidationResult.msg &&
-            !startAndEndDatesValidationResult.msg
-        ) {
-            console.log("PERMISSION GRANTING VALIDATION IS SUCCESSFUL!")
-            setGrantPermissionValidation({
-                doctorID: "",
-                permissionScope: "",
-                dates: ""
-            })
-            // API Endpoint
-        } else {
-            setGrantPermissionValidation({
-                doctorID: doctorIDValidationResult.msg,
-                permissionScope: permissionScopeValidationResult.msg,
-                dates: startAndEndDatesValidationResult.msg
-            })
-        }
+        startTransition(async () => {
+            const { doctorID, startDate, endDate, permissionScope } = grantPermissionFormFields
+            let doctorIDValidationResult = grantPermissionDoctorID({ doctorID })
+            let permissionScopeValidationResult = permissionScopeValidation({ permissionScope })
+            let startAndEndDatesValidationResult = permissionStartAndEndDates({ startDate, endDate })
+            console.log("MMMMMMMMMMIEIHUUUUU" + doctorID)
+            if (!doctorIDValidationResult.msg &&
+                !permissionScopeValidationResult.msg &&
+                !startAndEndDatesValidationResult.msg
+            ) {
+                try {
+                    console.log("!!!!!!!!!!" + doctorID)
+                    setGrantPermissionValidation({
+                        doctorID: "",
+                        permissionScope: "",
+                        dates: ""
+                    })
+                    const response = await fetch(`http://localhost:5000/grant-permission/${userId}`, {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ doctorId: doctorID, scope: permissionScope, startDate, endDate })
+                    })
+                    console.log("STARTED2!")
+                    let data = await response.text()
+                    console.log(data, response.status + "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
+                    if (response.status == 201) {
+                        setGrantPermissionFormFields((prev) => ({
+                            ...prev,
+                            general: "Success!"
+                        }))
+                        router.push(ROUTES.PROFILE)
+                    } else {
+                        setGrantPermissionFormFields((prev) => ({
+                            ...prev,
+                            general: data
+                        }))
+                    }
+                } catch (err) {
+                    throw new Error(err)
+                }
+                // API Endpoint
+            } else {
+                setGrantPermissionValidation({
+                    doctorID: doctorIDValidationResult.msg,
+                    permissionScope: permissionScopeValidationResult.msg,
+                    dates: startAndEndDatesValidationResult.msg
+                })
+            }
+        })
     }
     let { doctorID, permissionScope, dates } = grantPermissionValidation
     let errToShow =
@@ -59,7 +94,7 @@ export default function GrantPermissionForm() {
             <p className="grantPermissisonFormTitle">Grant Permissions to your <br /> <span className="blueExpertTxt">Expert</span> Doctors</p>
             <p className="grantPermissisonFormDesc">Allow the doctors your are following with to view all your clinical history, edit it or even both</p>
             <div className="grantPermissionFormFieldsContainer">
-                 {errToShow &&
+                {errToShow &&
                     (
                         <Alert severity="error" className="errPopup">
                             {errToShow}
@@ -84,7 +119,7 @@ export default function GrantPermissionForm() {
                 />
             </div>
             <button className="grantPermissionButton" onClick={grantPermission}>
-                Grant Permission
+                {isPending ? 'Granting Permission...' : 'Grant Permission'}
             </button>
         </div>
     )

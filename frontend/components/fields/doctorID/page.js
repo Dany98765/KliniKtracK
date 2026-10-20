@@ -5,6 +5,9 @@ import "./styles.css"
 import TextField from '@mui/material/TextField';
 
 export default function EventDoctorIDField({ state, setState, form = "addActionOrCondition", className = "doctorIDField" }) {
+    useEffect(() => {
+        console.log(state.doctorID + "))))))))))))))))))))))))))))))))))))))000---")
+    }, [state])
     return (
         <div className="eventDoctorIDFieldContainer">
             <p className="eventDoctorIDTitle">

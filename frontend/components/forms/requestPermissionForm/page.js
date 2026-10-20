@@ -38,35 +38,37 @@ export default function RequestPermissionForm() {
                 !permissionScopeValidationResult.msg &&
                 !startAndEndDatesValidationResult.msg
             ) {
-                console.log("PERMISSION REQUESTING VALIDATION IS SUCCESSFUL!")
-                setRequestPermissionValidation({
-                    doctorID: "",
-                    permissionScope: "",
-                    dates: ""
-                })
-                console.log("STARTED!")
-            console.log(patientID + "PATIENT ID")
-                const response = await fetch(`http://localhost:5000/request-permission/${userId}`, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ patientId: patientID, scope: permissionScope, startDate, endDate })
-                })
-                console.log("STARTED2!")
-                let data = await response.text()
-                console.log(data, response.status + "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
-                if (response.status == 201) {
-                    setRequestPermissionFormFields((prev) => ({
-                        ...prev,
-                        general: "Success!"
-                    }))
-                    router.push(ROUTES.PROFILE)
-                } else {
-                    setRequestPermissionFormFields((prev) => ({
-                        ...prev,
-                        general: data
-                    }))
+                try {
+                    console.log("PERMISSION REQUESTING VALIDATION IS SUCCESSFUL!")
+                    setRequestPermissionValidation({
+                        doctorID: "",
+                        permissionScope: "",
+                        dates: ""
+                    })
+                    const response = await fetch(`http://localhost:5000/request-permission/${userId}`, {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ patientId: patientID, scope: permissionScope, startDate, endDate })
+                    })
+                    console.log("STARTED2!")
+                    let data = await response.text()
+                    console.log(data, response.status + "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK")
+                    if (response.status == 201) {
+                        setRequestPermissionFormFields((prev) => ({
+                            ...prev,
+                            general: "Success!"
+                        }))
+                        router.push(ROUTES.PROFILE)
+                    } else {
+                        setRequestPermissionFormFields((prev) => ({
+                            ...prev,
+                            general: data
+                        }))
+                    }
+                } catch (err) {
+                    throw new Error(err)
                 }
             } else {
                 setRequestPermissionValidation({

@@ -7,8 +7,9 @@ import { signOut } from 'next-auth/react';
 import SecurityIcon from "@mui/icons-material/Security"
 import { redirect } from 'next/navigation';
 import { ROUTES } from '@/routes';
+import { auth } from '@/auth';
 
-export default function ProfileDropdown() {
+export default function ProfileDropdown({ userRole }) {
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -55,7 +56,7 @@ export default function ProfileDropdown() {
                     <ListItemIcon>
                         <SecurityIcon fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText>Grant Permission</ListItemText>
+                    <ListItemText>{userRole == 'Doctor' ? 'Request Permission' : 'Grant Permission'}</ListItemText>
                 </MenuItem>
                 <MenuItem onClick={logout}>
                     <ListItemIcon>
