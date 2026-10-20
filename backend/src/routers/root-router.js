@@ -13,5 +13,6 @@ router.get("/profile-stats{/:id}", rootController.fetchProfileStats);
 router.post("/grant-permission{/:id}", rootController.grantPermission);
 router.post("/request-permission{/:id}", rootController.requestPermission);
 router.patch("/decide-permission{/:id}", rootController.decidePermission);
+router.get("/permissions{/:id}", rootController.fetchPermissions);
 
 export default router;

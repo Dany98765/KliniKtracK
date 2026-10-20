@@ -249,3 +249,14 @@ export async function decidePermission(req, res){
         return res.sendStatus(200);
     }
 }
+
+export async function fetchPermissions(req, res){
+    let { id } = req.params;
+    let userId = Number(id);
+    if(!Number.isInteger(userId)){
+        return res.status(400).send("Integer user id must be passed in as a route parameter");
+    }else{
+        let permissions = await userRepo.fetchPermissions(userId);
+        return res.status(200).json({permissions: permissions});
+    }
+}
