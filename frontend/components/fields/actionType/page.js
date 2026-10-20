@@ -25,13 +25,13 @@ export default function ActionTypeField({ state, setState }) {
                         </div>
 
                     </div>
-                    <button className="chooseSurgicalOperationActionTypeButton" onClick={() => {
+                    <button className="chooseSurgicalOperationActionTypeButton" style={{ backgroundColor: state.actionType == 'Surgical operation' ? '#A411D9780' : '#A411D97' }} onClick={() => {
                         setState((prev) => ({
                             ...prev,
                             actionType: "Surgical operation"
                         }))
                     }}>
-                        Choose Type →
+                        {state.actionType == 'Surgical operation' ? '✔ Type Chosen' : 'Choose Type →'}
                     </button>
                 </div>
                 <div className="tabletActionTypeSelectionContainer">
@@ -51,13 +51,13 @@ export default function ActionTypeField({ state, setState }) {
                         </div>
 
                     </div>
-                    <button className="chooseTabletActionTypeButton" onClick={() => {
+                    <button className="chooseTabletActionTypeButton" style={{ backgroundColor: state.actionType == 'Tablet' ? '#23BAE780' : '#23BAE7' }} onClick={() => {
                         setState((prev) => ({
                             ...prev,
                             actionType: "Tablet"
                         }))
                     }}>
-                        Choose Type →
+                        {state.actionType == 'Tablet' ? '✔ Type Chosen' : 'Choose Type →'}
                     </button>
                 </div>
                 <div className="geneticActionTypeSelectionContainer">
@@ -77,13 +77,13 @@ export default function ActionTypeField({ state, setState }) {
                         </div>
 
                     </div>
-                    <button className="chooseGeneticActionTypeButton" onClick={() => {
+                    <button className="chooseGeneticActionTypeButton" style={{ backgroundColor: state.actionType == 'Genetic' ? '#CCCCCC80' : '#CCCCCC' }} onClick={() => {
                         setState((prev) => ({
                             ...prev,
                             actionType: "Genetic"
                         }))
                     }}>
-                        Choose Type →
+                        {state.actionType == 'Genetic' ? '✔ Type Chosen' : 'Choose Type →'}
                     </button>
                 </div>
             </div>

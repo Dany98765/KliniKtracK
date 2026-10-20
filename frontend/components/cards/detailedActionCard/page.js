@@ -3,12 +3,12 @@ import ActionAuxiliaryData from "./actionAuxiliaryData/page";
 import ActionHeaderData from "./actionHeaderData/page";
 import AssocConditions from "./assocConditions/page";
 
-export default function DetailedActionCard({ userId, DBID, title, desc, subType, date, start, doctor, duration, setShowCard, revealAssocTable, caused, solved }) {
+export default function DetailedActionCard({ userId, DBID, title, desc, subType, date, start, doctor, duration, setShowCard, revealAssocTable}) {
     return (
         <div className="detailedActionCardContainer">
             <ActionHeaderData title={title} subType={subType} setShowCard={setShowCard} />
             {revealAssocTable == 'true' ? (
-                <AssocConditions userId={userId} DBID={DBID} caused={caused} solved={solved} />
+                <AssocConditions userId={userId} DBID={DBID} />
             ) : (
                 <div>
                     <p className="actionDesc">{desc}</p>

@@ -75,9 +75,6 @@ export default function TimelineComponent() {
               doctor={selectedItem.doctor}
               setShowCard={setShowCard}
               revealAssocTable={revealAssocTable}
-              caused={selectedItem.caused}
-              solved={selectedItem.solved}
-            // doctor ID
             />
           </div>
         ) : (
@@ -93,9 +90,6 @@ export default function TimelineComponent() {
             tags={selectedItem.symptoms}
             setShowCard={setShowCard}
             revealAssocTable={revealAssocTable}
-            caused={selectedItem.caused}
-            wasSolved={selectedItem.solved}
-          // doctor ID
           />
         )
       )}

@@ -60,7 +60,6 @@ export default function AddActionForm() {
                 !actionDoctorNameValidationResult.msg &&
                 !actionTypeValidationResult.msg
             ) {
-                console.log("SUCCESSFUL VALIDATION!")
                 setActionFormFieldsValidation({
                     name: "",
                     description: "",
@@ -78,8 +77,6 @@ export default function AddActionForm() {
                     })
 
                     const data = await response.text()
-
-                    console.log(data + "DATA")
 
                     if (response.status == 201) {
                         setActionFormFieldsValidation((prev) => ({
@@ -103,7 +100,6 @@ export default function AddActionForm() {
                 }
                 // API Endpoint
             } else {
-                console.log("UNSUCCESSFUL VALIDATION!")
                 setActionFormFieldsValidation({
                     name: actionNameValidationResult.msg,
                     description: actionDescriptionValidationResult.msg,
@@ -111,7 +107,6 @@ export default function AddActionForm() {
                     doctorName: actionDoctorNameValidationResult.msg,
                     actionType: actionTypeValidationResult.msg
                 })
-                console.log(addActionFormFields)
             }
         })
     }
@@ -124,7 +119,6 @@ export default function AddActionForm() {
                 })
                 if (response.status === 200) {
                     const fetchAllConditionsData = await response.json();
-                    console.log(fetchAllConditionsData.condition)
                     // if (Array.isArray(fetchAllConditionsData.conditions)) {
                     //     fetchAllConditionsData.conditions.map(({ name, id }) =>
                     //         setAssocConditions(
@@ -145,14 +139,12 @@ export default function AddActionForm() {
                     }
                 } else {
                     const err = await response.text()
-                    console.log(err + ")))))))))))))))))))))))))))))))")
                     throw new Error(`Failed to fetch conditions: ${err}`)
                 }
             }
             fetchAssocConditions()
         }
     }, [userId])
-    console.log(JSON.stringify(assocConditions) + ":;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;")
     let { name, description, dates, doctorName, actionType } = actionFormFieldsValidation
     let errToShow =
         name ||

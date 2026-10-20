@@ -3,7 +3,7 @@
 import "./styles.css"
 import { useEffect, useState } from "react";
 
-export default function AssocActions({ userId, DBID, caused, wasSolved }) {
+export default function AssocActions({ userId, DBID }) {
     const [solvedConditions, setSolvedConditions] = useState([])
     const [causedConditions, setCausedConditions] = useState([])
     useEffect(() => {
@@ -20,24 +20,19 @@ export default function AssocActions({ userId, DBID, caused, wasSolved }) {
                 })
                 if (response.status === 200) {
                     const allActions = await response.json();
-
                     const solved = [];
                     const caused = [];
-
                     for (const action of allActions?.actions ?? []) {
                         const item = {
-                            id: action.action,
+                            id: action.action_id,
                             name: action.name
                         };
-                        console.log(JSON.stringify(action) + "MMMMMMMMMMMMMMMMMMMMMMMMMMM")
-
                         if (action.role_of_action === "Solved") {
                             solved.push(item);
                         } else {
                             caused.push(item);
                         }
                     }
-
                     setSolvedConditions(solved);
                     setCausedConditions(caused);
                 } else {
