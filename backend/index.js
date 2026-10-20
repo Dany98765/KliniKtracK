@@ -3,4 +3,11 @@ import db from "./src/pool.js";
 
 db.connect({connectionString: String(process.env.DATABASE_URL)});
 
+db.connect({
+    connectionString: process.env.DATABASE_URL
+});
+
+console.log("Pool initialized:", Boolean(db.pool));
+console.log("Database URL exists:", Boolean(process.env.DATABASE_URL));
+
 app.listen(process.env.PORT, () => {console.log("listening on port " + process.env.PORT)});
