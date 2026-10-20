@@ -88,7 +88,7 @@ export async function fetchActions(req, res) {
     let { id } = req.params;
     let userId = Number(id);
     if (!Number.isInteger(userId)) {
-        return res.status(400).json({ msg: "Integer user id must be passed in as a route parameter" });
+        return res.status(400).send("Integer user id must be passed in as a route parameter" );
     } else {
         let actions = await userRepo.fetchUserActions(userId);
         return res.status(200).json({ actions: actions });
@@ -97,7 +97,6 @@ export async function fetchActions(req, res) {
 
 export async function createAction(req, res) {
     let { name, description, startDate, endDate, type, doctor, doctorId, causedConditions, solvedConditions } = req.body;
-    console.log(startDate, endDate)
     let { id } = req.params;
     let userId = Number(id);
     if (!Number.isInteger(userId)) {
@@ -136,7 +135,6 @@ export async function createCondition(req, res) {
     let { name, description, type, symptoms, startDate, endDate, causedWhichActions, sideEffectForWhichActions } = req.body;
     let { id } = req.params;
     let userId = Number(id);
-    console.log(startDate, endDate + "LLLLLLLLLLLLLLLLLLLLLL")
     if (!Number.isInteger(userId)) {
         return res.status(400).send("Integer user id must be passed in as a route parameter");
     } else if (!(name && description && type && symptoms && startDate && endDate)) {
@@ -236,5 +234,29 @@ export async function requestPermission(req, res) {
     } else {
         await userRepo.createPermission(patientId, doctorId, scope, 'Pending', startDate, endDate);
         return res.sendStatus(201);
+    }
+}
+
+export async function decidePermission(req, res){
+    let { id } = req.params;
+    let userId = Number(id);
+    let { permissionId, decision } = req.body;
+    if(!(permissionId && decision)){
+        let missingArray = findMissingFields([[permissionId, "permissionId"], [decision, "decision"]]);
+        return res.status(400).send("Missing fields are required for login: " + JSON.stringify(missingArray));
+    }else{
+        await userRepo.decidePermission(permissionId, decision);
+        return res.sendStatus(200);
+    }
+}
+
+export async function fetchPermissions(req, res){
+    let { id } = req.params;
+    let userId = Number(id);
+    if(!Number.isInteger(userId)){
+        return res.status(400).send("Integer user id must be passed in as a route parameter");
+    }else{
+        let permissions = await userRepo.fetchPermissions(userId);
+        return res.status(200).json({permissions: permissions});
     }
 }

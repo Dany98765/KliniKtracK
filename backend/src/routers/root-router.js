@@ -10,7 +10,9 @@ router.route("/conditions{/:id}").get(rootController.fetchConditions).post(rootC
 router.get("/actions-to-conditions{/:id}{/:actionId}", rootController.fetchConditionsForAction);
 router.get("/conditions-to-actions{/:id}{/:conditionId}", rootController.fetchActionsForCondition);
 router.get("/profile-stats{/:id}", rootController.fetchProfileStats);
-router.post("/grantPermission{/:id}", rootController.grantPermission);
-router.post("/requestPermission{/:id}", rootController.requestPermission);
+router.post("/grant-permission{/:id}", rootController.grantPermission);
+router.post("/request-permission{/:id}", rootController.requestPermission);
+router.patch("/decide-permission{/:id}", rootController.decidePermission);
+router.get("/permissions{/:id}", rootController.fetchPermissions);
 
 export default router;

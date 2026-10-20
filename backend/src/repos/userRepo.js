@@ -156,6 +156,24 @@ let userRepo = {
         }catch(err){
             throw { "error source": "/backend/src/repos/userRepo.js, createPermission", "error cause": "creating permission", "error message": err.message, "error details": err };
         }
+    }, 
+
+    async decidePermission(permissionId, decision){
+        try{
+            await db.query("UPDATE permissions SET current_status = $1 WHERE id = $2", [decision, permissionId]);
+        }catch(err){
+            throw { "error source": "/backend/src/repos/userRepo.js, decidePermission", "error cause": "deciding permission", "error message": err.message, "error details": err };
+        }
+    }, 
+
+    async fetchPermissions(user_id){
+        try{
+            let permissionsData = await db.query("SELECT id, patient_name, patient_id, doctor_name, doctor_id, scope, current_status, start_date, end_date FROM permissions WHERE patient_id = $1 OR doctor_id = $1", [user_id]);
+            let permissions = permissionsData.rows;
+            return permissions;
+        }catch(err){
+            throw { "error source": "/backend/src/repos/userRepo.js, fetchPermissions", "error cause": "fetchin permissions", "error message": err.message, "error details": err };
+        }
     }
 }
 
