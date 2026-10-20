@@ -4,10 +4,14 @@ import Image from "next/image"
 import PermissionFormFAQSection from "@/components/permissionFormFAQSection/page"
 import { auth } from "@/auth"
 import RequestPermissionForm from "@/components/forms/requestPermissionForm/page"
+import { redirect } from "next/navigation"
+import { ROUTES } from "@/routes"
 
 export default async function PermissionFormPage() {
     const session = await auth()
-    console.log(JSON.stringify(session) + "SESSION!")
+    if (!session?.user) {
+        redirect(ROUTES.SIGNIN);
+    }
     return (
         <div className="permissionFormPage">
             {session?.user?.role == 'Patient' && <GrantPermissionForm />}

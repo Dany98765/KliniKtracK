@@ -1,7 +1,14 @@
 import AddActionForm from "@/components/forms/addActionForm/page"
 import "./styles.css"
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
+import { ROUTES } from "@/routes"
 
-export default function AddActionPage() {
+export default async function AddActionPage() {
+    const session = await auth()
+    if (!session?.user) {
+        redirect(ROUTES.SIGNIN);
+    }
     return (
         <div className="addActionPageContainer">
             <div className="addActionPageHeroSectionContainer">

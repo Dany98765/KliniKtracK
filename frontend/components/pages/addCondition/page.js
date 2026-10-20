@@ -1,7 +1,14 @@
 import AddConditionForm from "@/components/forms/addConditionForm/page"
 import "./styles.css"
+import { redirect } from "next/navigation";
+import { ROUTES } from "@/routes";
+import { auth } from "@/auth";
 
-export default function AddConditionPage() {
+export default async function AddConditionPage() {
+    const session = await auth()
+    if (!session?.user) {
+        redirect(ROUTES.SIGNIN);
+    }
     return (
         <div className="addConditionPageContainer">
             <div className="addConditionPageHeroSectionContainer">
