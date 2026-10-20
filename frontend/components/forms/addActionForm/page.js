@@ -16,12 +16,15 @@ import { causedConditions, solvedConditions } from "@/tooltip-msg"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { ROUTES } from "@/routes"
+import { fetchAllUserPermissions } from "@/utils/actions/fetchAllUserPermissions"
 
 export default function AddActionForm() {
     const { data } = useSession()
     let userId = data?.user?.id
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
+    const [allUserPermissions, setAllUserPermissions] = useState([])
+    const [userToFetchdata, setUserToFetchData] = useState(userId)
     const [addActionFormFields, setAddActionFormFields] = useState({
         name: "",
         description: "",
@@ -42,7 +45,15 @@ export default function AddActionForm() {
         actionType: "",
         general: ""
     })
-
+    useEffect(() => {
+        if (userId) {
+            async function fetchAllUserPermissionsLocalFn() {
+                const { data } = await fetchAllUserPermissions({ userId, page: "Action" })
+                setAllUserPermissions(data)
+            }
+            fetchAllUserPermissionsLocalFn();
+        }
+    }, [userId]);
     const [assocConditions, setAssocConditions] = useState([])
     function contributeAction() {
         startTransition(async () => {
@@ -68,7 +79,7 @@ export default function AddActionForm() {
                     actionType: ""
                 })
                 try {
-                    const response = await fetch(`http://localhost:5000/actions/${userId}`, {
+                    const response = await fetch(`http://localhost:5000/actions/${userToFetchdata}`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -113,7 +124,7 @@ export default function AddActionForm() {
     useEffect(() => {
         if (userId) {
             async function fetchAssocConditions() {
-                const response = await fetch(`http://localhost:5000/conditions/${userId}`, {
+                const response = await fetch(`http://localhost:5000/conditions/${userToFetchdata}`, {
                     method: "GET",
                     next: { revalidate: 60 }
                 })
@@ -134,7 +145,7 @@ export default function AddActionForm() {
             }
             fetchAssocConditions()
         }
-    }, [userId])
+    }, [userToFetchdata])
     let { name, description, dates, doctorName, actionType } = actionFormFieldsValidation
     let errToShow =
         name ||
@@ -156,6 +167,16 @@ export default function AddActionForm() {
             }
             <div className="splittedFieldTypesContainer">
                 <div className="addActionInputFieldsContainer">
+                    {allUserPermissions.length > 0 ? (
+                        <select onChange={(e) => setUserToFetchData(e.target.value)}>
+                            <option value={userId}>You</option>
+                            {allUserPermissions.map((userPermission) => (
+                                <option key={userPermission.id} value={userPermission.patient_id}>
+                                    {userPermission.patient_name}
+                                </option>
+                            ))}
+                        </select>
+                    ) : null}
                     <EventNameField
                         state={addActionFormFields}
                         setState={setAddActionFormFields}

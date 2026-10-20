@@ -15,6 +15,7 @@ import { Alert } from "@mui/material"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { ROUTES } from "@/routes"
+import { fetchAllUserPermissions } from "@/utils/actions/fetchAllUserPermissions"
 
 export default function AddConditionForm() {
     const { data } = useSession()
@@ -22,6 +23,8 @@ export default function AddConditionForm() {
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
     const [assocActions, setAssocActions] = useState([])
+    const [allUserPermissions, setAllUserPermissions] = useState([])
+    const [userToFetchdata, setUserToFetchData] = useState(userId)
     const [addConditionFormFields, setAddConditionFormFields] = useState({
         name: "",
         description: "",
@@ -40,7 +43,15 @@ export default function AddConditionForm() {
         dates: "",
         general: ""
     })
-
+    useEffect(() => {
+        if (userId) {
+            async function fetchAllUserPermissionsLocalFn() {
+                const { data } = await fetchAllUserPermissions({ userId, page: "Action" })
+                setAllUserPermissions(data)
+            }
+            fetchAllUserPermissionsLocalFn();
+        }
+    }, [userId]);
     function contributeCondition() {
         startTransition(async () => {
             let { name, description, type, symptoms, causedConditions, solvedConditions, startDate, endDate } = addConditionFormFields
@@ -67,7 +78,7 @@ export default function AddConditionForm() {
                 })
                 console.log(startDate, endDate)
                 try {
-                    const response = await fetch(`http://localhost:5000/conditions/${userId}`, {
+                    const response = await fetch(`http://localhost:5000/conditions/${userToFetchdata}`, {
                         method: "POST",
                         headers: {
                             'Content-Type': 'application/json'
@@ -115,17 +126,12 @@ export default function AddConditionForm() {
     useEffect(() => {
         if (userId) {
             async function fetchAssocActions() {
-                const response = await fetch(`http://localhost:5000/actions/${userId}`, {
+                const response = await fetch(`http://localhost:5000/actions/${userToFetchdata}`, {
                     method: "GET",
                     next: { revalidate: 60 }
                 })
                 if (response.status === 200) {
                     const fetchAllActionsData = await response.json();
-                    // if (Array.isArray(fetchAllActionsData.actions)) {
-                    //     fetchAllActionsData.actions.map(({ name, id }) =>
-                    //         setAssocActions(prev => [...prev, { id, name }])
-                    //     );
-                    // }
                     if (Array.isArray(fetchAllActionsData.actions)) {
                         setAssocActions(
                             fetchAllActionsData.actions.map(({ name, id }) => ({
@@ -142,7 +148,7 @@ export default function AddConditionForm() {
             }
             fetchAssocActions()
         }
-    }, [userId])
+    }, [userToFetchdata])
     console.log(JSON.stringify(assocActions) + "-----------------------")
 
     let { name, description, dates, type, symptoms, general } = conditionFormFieldsValidation

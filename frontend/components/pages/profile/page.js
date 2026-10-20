@@ -59,7 +59,6 @@ export default async function ProfilePage() {
         }
     }
     let { allPermissionsData } = await fetchAllPermissions()
-    console.log(JSON.stringify(allPermissionsData))
     return (
         <div className="profilePageContainer">
             {profileStatsData.role == 'Doctor' ? (

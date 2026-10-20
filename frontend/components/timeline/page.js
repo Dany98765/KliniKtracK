@@ -11,18 +11,30 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { links, scales } from "./timeline-config";
 import { useSession } from "next-auth/react";
 import { fetchAllActionsAndConditions } from "@/utils/actions/actionsAndConditions.action";
+import { fetchAllUserPermissions } from "@/utils/actions/fetchAllUserPermissions";
 
 export default function TimelineComponent() {
   const { data } = useSession()
   let userId = data?.user?.id
   const [allActionsAndConditions, setAllActionsAndConditions] = useState([]);
+  const [allUserPermissions, setAllUserPermissions] = useState([])
+  const [userToFetchdata, setUserToFetchData] = useState(userId)
   useEffect(() => {
     if (userId) {
       async function localUseEffectFn() {
-        const { initialTasks, allConditions } = await fetchAllActionsAndConditions({ userId });
+        const { initialTasks, allConditions } = await fetchAllActionsAndConditions({ userId: userToFetchdata });
         setAllActionsAndConditions([...initialTasks, ...allConditions]);
       }
       localUseEffectFn();
+    }
+  }, [userToFetchdata]);
+  useEffect(() => {
+    if (userId) {
+      async function fetchAllUserPermissionsLocalFn() {
+        const { data } = await fetchAllUserPermissions({ userId, page: "Timeline" })
+        setAllUserPermissions(data)
+      }
+      fetchAllUserPermissionsLocalFn();
     }
   }, [userId]);
   let searchParams = useSearchParams();
@@ -60,6 +72,16 @@ export default function TimelineComponent() {
   }, []);
   return (
     <div className="timeline">
+      {allUserPermissions.length > 0 ? (
+        <select onChange={(e) => setUserToFetchData(e.target.value)}>
+          <option value={userId}>You</option>
+          {allUserPermissions.map((userPermission) => (
+            <option key={userPermission.id} value={userPermission.patient_id}>
+              {userPermission.patient_name}
+            </option>
+          ))}
+        </select>
+      ) : null}
       {showCard.isShowing && selectedItem && (
         showCard.type === "Action" ? (
           <div className="detailedActionCard">
